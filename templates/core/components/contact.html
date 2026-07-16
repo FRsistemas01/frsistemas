@@ -1,0 +1,90 @@
+<section class="contact hidden" id="contacto">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>CONTACTO</span>
+
+            <h2>¿Listo para comenzar tu proyecto?</h2>
+
+            <p>
+                Contanos tu idea y te responderemos lo antes posible.
+            </p>
+
+        </div>
+
+        <div class="contact-box">
+
+            <div class="contact-info">
+
+                <h3>Hablemos</h3>
+
+                <p>
+                    Creamos páginas web, sistemas personalizados y APIs para llevar tu negocio al siguiente nivel.
+                </p>
+
+                <div class="contact-item">
+                    📧 frsistemas01@gmail.com
+                </div>
+
+                <div class="contact-item">
+                    📱 +54 9 11 5482-2753
+                </div>
+
+                <div class="contact-item">
+                    📍 Argentina/Buenos Aires
+                </div>
+
+            </div>
+
+            <form class="contact-form" method="post" action="{% url 'home' %}">
+                {% csrf_token %}
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="form-alert form-alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <input type="text" name="nombre" placeholder="Nombre completo" required>
+
+                <input type="text" name="empresa" placeholder="Empresa (opcional)">
+
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+
+                <input type="tel" name="whatsapp" placeholder="WhatsApp" required>
+
+                <select name="servicio" required>
+                    <option value="" disabled selected>¿Qué servicio necesitás?</option>
+                    <option value="pagina_web">Página web</option>
+                    <option value="sistema_web">Sistema web</option>
+                    <option value="api">API / Integración</option>
+                    <option value="automatizacion">Automatización</option>
+                    <option value="agente_ia">Agente de IA</option>
+                    <option value="otro">Otro / No estoy seguro</option>
+                </select>
+
+                <select name="presupuesto">
+                    <option value="" selected>Presupuesto estimado (opcional)</option>
+                    <option value="menos_300000">Menos de $300.000</option>
+                    <option value="300000_800000">$300.000 – $800.000</option>
+                    <option value="800000_1500000">$800.000 – $1.500.000</option>
+                    <option value="mas_1500000">Más de $1.500.000</option>
+                </select>
+
+                <textarea name="mensaje" rows="6" placeholder="Contanos sobre tu proyecto" required></textarea>
+
+                <button type="submit" class="btn-primary">
+                    Enviar mensaje
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>

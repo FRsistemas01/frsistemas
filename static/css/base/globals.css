@@ -1,0 +1,126 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:#050816;
+
+    color:white;
+
+    overflow-x:hidden;
+
+    position:relative;
+
+}
+
+/* Glow superior */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:700px;
+
+    height:700px;
+
+    top:-280px;
+
+    right:-250px;
+
+    background:#2563eb;
+
+    filter:blur(100px);
+
+    opacity:.15;
+
+    pointer-events:none;
+
+    z-index:-2;
+
+}
+
+/* Glow inferior */
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:600px;
+
+    height:600px;
+
+    bottom:-250px;
+
+    left:-250px;
+
+    background:#0ea5e9;
+
+    filter:blur(170px);
+
+    opacity:.12;
+
+    pointer-events:none;
+
+    z-index:-2;
+
+}
+
+/* Grilla sutil */
+
+body{
+
+    background-image:
+
+    linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),
+
+    linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+
+    background-size:60px 60px;
+
+}
+
+.container{
+
+    width:min(1200px,92%);
+
+    margin:auto;
+
+}
+
+section{
+
+    position:relative;
+
+    z-index:2;
+
+}
+.hidden{
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:all .8s ease;
+
+}
+
+.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}

@@ -1,0 +1,69 @@
+.technologies{
+
+    padding:140px 0;
+
+}
+
+.tech-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:22px;
+
+    margin-top:70px;
+
+}
+
+.tech-card{
+
+    padding:28px;
+
+    text-align:center;
+
+    font-weight:700;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.35s;
+
+    cursor:default;
+
+}
+
+.tech-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#3B82F6;
+
+    box-shadow:0 20px 40px rgba(37,99,235,.15);
+
+    background:rgba(37,99,235,.08);
+
+}
+
+@media(max-width:1000px){
+
+    .tech-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .tech-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

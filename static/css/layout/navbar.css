@@ -1,0 +1,196 @@
+/*==========================
+        NAVBAR
+===========================*/
+
+.navbar{
+
+    position:fixed;
+
+    top:20px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(1200px,94%);
+
+    height:78px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    border-radius:22px;
+
+    background:rgba(8,13,30,.45);
+
+    backdrop-filter:blur(22px);
+
+    -webkit-backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+    z-index:1000;
+
+    transition:.35s;
+
+}
+
+.navbar:hover{
+
+    border-color:rgba(59,130,246,.25);
+
+}
+
+.logo{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:white;
+
+    text-decoration:none;
+
+    letter-spacing:-1px;
+
+}
+
+.logo span{
+
+    color:#60A5FA;
+
+}
+
+.nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:35px;
+
+    list-style:none;
+
+}
+
+.nav-links a{
+
+    color:#cbd5e1;
+
+    text-decoration:none;
+
+    font-weight:500;
+
+    transition:.3s;
+
+    position:relative;
+
+}
+
+.nav-links a:hover{
+
+    color:white;
+
+}
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:#3B82F6;
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+
+}
+
+.nav-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:170px;
+
+    height:48px;
+
+    border-radius:14px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:700;
+
+    background:linear-gradient(135deg,#2563eb,#60A5FA);
+
+    transition:.35s;
+
+}
+
+.nav-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 35px rgba(37,99,235,.35);
+
+}
+
+.menu-toggle{
+
+    display:none;
+
+    cursor:pointer;
+
+    font-size:30px;
+
+    color:white;
+
+}
+
+@media(max-width:900px){
+
+    .nav-links{
+
+        display:none;
+
+    }
+
+    .nav-btn{
+
+        display:none;
+
+    }
+
+    .menu-toggle{
+
+        display:block;
+
+    }
+
+}

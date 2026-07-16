@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FR.Sistemas</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS BASE -->
+    <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base/typography.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base/globals.css' %}">
+
+    <!-- LAYOUT -->
+
+    <link rel="stylesheet" href="{% static 'css/layout/navbar.css' %}">
+
+    <!-- SECTIONS -->
+    <link rel="stylesheet" href="{% static 'css/sections/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sections/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sections/testimonials.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sections/process.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sections/technologies.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sections/hero.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sections/services.css' %}">
+</head>
+
+<body>
+
+    {% block content %}
+    {% endblock %}
+
+<script src="{% static 'js/main.js' %}"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

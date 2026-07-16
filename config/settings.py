@@ -11,9 +11,16 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Carga las variables definidas en el archivo .env (en la raíz del proyecto,
+# junto a manage.py) para no tener credenciales escritas en el código.
+load_dotenv(BASE_DIR / ".env")
 
 
 # Quick-start development settings - unsuitable for production
@@ -123,3 +130,32 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+
+# Email (notificación de nuevos leads del formulario de contacto)
+# https://docs.djangoproject.com/en/6.0/topics/email/
+
+# Mientras no configures EMAIL_HOST_USER/PASSWORD, los emails se imprimen
+# en la terminal en vez de enviarse de verdad (útil para probar sin romper nada).
+if os.environ.get("EMAIL_HOST_USER"):
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER or "frsistemas01@gmail.com"
+
+# A dónde te llega el aviso de "nuevo lead". Por defecto, a vos mismo.
+NOTIFY_EMAIL = os.environ.get("NOTIFY_EMAIL", "frsistemas01@gmail.com")
+
+# WhatsApp (notificación de nuevos leads vía CallMeBot)
+# https://www.callmebot.com/blog/free-api-whatsapp-messages/
+WHATSAPP_PHONE = os.environ.get("WHATSAPP_PHONE", "")
+WHATSAPP_APIKEY = os.environ.get("WHATSAPP_APIKEY", "")
+
+# n8n (automatización de leads: Google Sheets, CRM, clasificación, emails)
+N8N_WEBHOOK_URL = os.environ.get("N8N_WEBHOOK_URL", "")
