@@ -65,7 +65,6 @@
 }
 
 .contact-form input,
-.contact-form select,
 .contact-form textarea{
 
     background:rgba(255,255,255,.04);
@@ -79,24 +78,6 @@
     color:white;
 
     font-size:16px;
-
-}
-
-.contact-form select{
-
-    appearance:none;
-
-    -webkit-appearance:none;
-
-    cursor:pointer;
-
-}
-
-.contact-form select option{
-
-    background:#0B1220;
-
-    color:white;
 
 }
 
