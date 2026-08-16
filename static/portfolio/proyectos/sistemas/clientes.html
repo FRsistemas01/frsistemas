@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Clientes (CRM) - Demo | FRsistemas</title>
+<link rel="stylesheet" href="../../assets/style.css?v=16">
+<link rel="stylesheet" href="../../assets/site-extra.css?v=16">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%230a0a0a%27/%3E%3Ctext x=%2750%27 y=%2769%27 font-size=%2758%27 font-family=%27Arial,sans-serif%27 font-weight=%27800%27 fill=%27%23d6ff3f%27 text-anchor=%27middle%27%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body class="app-mode">
+
+<div class="app-frame">
+<aside class="app-sidebar">
+  <div class="app-logo"><span class="dot"></span><div>Clientes<br><small>FRsistemas</small></div></div>
+  <nav class="app-sidebar-nav">
+    <button class="app-view-tab active" data-view="negocio"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span> Base de clientes</button>
+  </nav>
+  <div class="app-sidebar-section">Otros módulos</div>
+  <nav class="app-sidebar-nav">
+    <a class="app-view-tab" href="turnos.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span> Turnero</a>
+    <a class="app-view-tab" href="tickets.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span> Mesa de ayuda</a>
+    <a class="app-view-tab" href="deposito.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg></span> Depósito</a>
+    <a class="app-view-tab" href="kiosco.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span> Kiosco POS</a>
+    <a class="app-view-tab" href="pedidos.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1"></rect></svg></span> Pedidos</a>
+  </nav>
+  <div class="app-sidebar-footer">
+    <a href="../../index.html" class="back-pill" data-cursor="">← <span>Portfolio</span></a>
+  </div>
+</aside>
+<div class="app-main">
+<header class="app-topbar">
+  <div class="app-search"><input type="text" placeholder="Buscar cliente..." id="topSearch"></div>
+  <div class="app-topbar-right">
+    <div class="app-notif-wrap"><button class="app-icon-btn" id="notifBtn" aria-label="Notificaciones">🔔<span class="app-notif-dot" id="notifDot"></span></button><div class="app-notif-panel" id="notifPanel"><div class="app-notif-panel-head"><h5>Notificaciones</h5><span>2 nuevas</span></div><div class="app-notif-item"><span class="dot"></span><div class="txt"><strong>Cliente VIP alcanzado</strong><p>Sabrina Ortiz superó $500.000 en compras.</p><time>Hace 12 min</time></div></div><div class="app-notif-item"><span class="dot"></span><div class="txt"><strong>Cliente inactivo</strong><p>Nahuel Rosso no compra hace 60 días.</p><time>Hace 1 h</time></div></div><div class="app-notif-item read"><span class="dot"></span><div class="txt"><strong>Nuevo registro</strong><p>Ignacio Bravo se sumó como cliente nuevo.</p><time>Hace 3 h</time></div></div></div></div>
+    <div class="app-user"><div class="app-avatar">A</div><div><div class="app-user-name">Admin</div><div class="app-user-role">Clientes</div></div></div>
+  </div>
+</header>
+
+<div class="app-shell">
+
+  <div class="app-demo-note">
+    <strong>Esto es una demo funcional.</strong> Así se vería una base de clientes (CRM) hecha a medida — historial de compras, notas internas y segmentación en un solo lugar. <a href="mailto:fr.sistemas01@gmail.com">Pedime uno para el tuyo ↗</a>
+  </div>
+
+  <div class="app-view active" id="viewNegocio">
+
+    <div class="app-stats">
+      <div class="app-stat"><span class="n" id="statTotal">0</span><span class="l">Clientes totales</span></div>
+      <div class="app-stat"><span class="n" id="statVip">0</span><span class="l">Clientes VIP</span></div>
+      <div class="app-stat"><span class="n" id="statValor">$0</span><span class="l">Valor histórico total</span></div>
+    </div>
+
+    <div class="app-filter-pills" id="tagFilters" style="margin-bottom:20px;">
+      <button class="app-filter-pill active" data-tag="todos">Todos</button>
+      <button class="app-filter-pill" data-tag="vip">VIP</button>
+      <button class="app-filter-pill" data-tag="nuevo">Nuevos</button>
+      <button class="app-filter-pill" data-tag="activo">Activos</button>
+      <button class="app-filter-pill" data-tag="inactivo">Inactivos</button>
+    </div>
+
+    <div class="crm-layout">
+      <div class="crm-list" id="crmList"></div>
+      <div class="crm-detail" id="crmDetail"></div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+(function(){
+  var STORAGE_KEY_NOTES = 'demo_crm_notas_v1';
+  var TAG_LABEL = { vip:'VIP', nuevo:'Nuevo', activo:'Activo', inactivo:'Inactivo' };
+
+  var CLIENTES = [
+    { id:1, nombre:'Marina López', email:'marina.lopez@example.com', telefono:'11 4455 2210', tag:'vip', totalGastado:284500, compras:8, desde:'2023',
+      historial:[
+        { t:'Compra', d:'Pedido #301 — Empanadas y pizza', v:9800, f:'2026-08-12' },
+        { t:'Turno', d:'Corte de cabello reservado', v:0, f:'2026-08-10' },
+        { t:'Compra', d:'Pedido #276 — Ropa de temporada', v:45000, f:'2026-07-28' }
+      ] },
+    { id:2, nombre:'Julián Peretti', email:'julian.peretti@example.com', telefono:'11 5588 3341', tag:'activo', totalGastado:132400, compras:5, desde:'2024',
+      historial:[
+        { t:'Ticket', d:'Consulta por facturación — resuelto', v:0, f:'2026-08-11' },
+        { t:'Compra', d:'Pedido #300 — Milanesa napolitana', v:7200, f:'2026-08-11' }
+      ] },
+    { id:3, nombre:'Ayelén Duarte', email:'ayelen.duarte@example.com', telefono:'11 3322 7789', tag:'activo', totalGastado:98700, compras:6, desde:'2024',
+      historial:[
+        { t:'Turno', d:'Manicura reservada', v:0, f:'2026-08-15' },
+        { t:'Compra', d:'Pedido #299 — Empanadas', v:5100, f:'2026-08-11' }
+      ] },
+    { id:4, nombre:'Bruno Ianni', email:'bruno.ianni@example.com', telefono:'11 6677 4412', tag:'nuevo', totalGastado:19600, compras:1, desde:'2026',
+      historial:[
+        { t:'Compra', d:'Pedido #298 — Hamburguesa completa', v:6400, f:'2026-08-10' }
+      ] },
+    { id:5, nombre:'Sabrina Ortiz', email:'sabrina.ortiz@example.com', telefono:'11 2244 9981', tag:'vip', totalGastado:356200, compras:12, desde:'2022',
+      historial:[
+        { t:'Compra', d:'Pedido #297 — Ensalada César', v:5800, f:'2026-08-09' },
+        { t:'Ticket', d:'Producto llegó dañado — resuelto', v:0, f:'2026-08-08' },
+        { t:'Compra', d:'Compra en tienda — accesorios', v:42000, f:'2026-07-30' }
+      ] },
+    { id:6, nombre:'Nahuel Rosso', email:'nahuel.rosso@example.com', telefono:'11 7799 1102', tag:'inactivo', totalGastado:41200, compras:2, desde:'2023',
+      historial:[
+        { t:'Compra', d:'Pedido #296 — Pizza muzzarella', v:8600, f:'2026-03-14' }
+      ] },
+    { id:7, nombre:'Carla Méndez', email:'carla.mendez@example.com', telefono:'11 8890 2231', tag:'activo', totalGastado:76300, compras:4, desde:'2024',
+      historial:[
+        { t:'Turno', d:'Consulta general', v:0, f:'2026-08-05' }
+      ] },
+    { id:8, nombre:'Ignacio Bravo', email:'ignacio.bravo@example.com', telefono:'11 3345 6620', tag:'nuevo', totalGastado:8900, compras:1, desde:'2026',
+      historial:[
+        { t:'Compra', d:'Primera compra — kiosco', v:8900, f:'2026-08-13' }
+      ] }
+  ];
+
+  var notas = {};
+  try { notas = JSON.parse(localStorage.getItem(STORAGE_KEY_NOTES) || 'null') || {}; } catch(e) { notas = {}; }
+  function saveNotas(){ try { localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(notas)); } catch(e){} }
+
+  function fmt(n){ return '$' + n.toLocaleString('es-AR'); }
+  function initials(name){ return name.split(' ').map(function(w){ return w[0]; }).slice(0,2).join('').toUpperCase(); }
+
+  var tagFilter = 'todos';
+  var searchTerm = '';
+  var activeId = CLIENTES[0].id;
+
+  function renderList(){
+    var filtered = CLIENTES.filter(function(c){
+      return (tagFilter === 'todos' || c.tag === tagFilter) &&
+        (!searchTerm || c.nombre.toLowerCase().indexOf(searchTerm) !== -1 || c.email.toLowerCase().indexOf(searchTerm) !== -1);
+    });
+    document.getElementById('statTotal').textContent = CLIENTES.length;
+    document.getElementById('statVip').textContent = CLIENTES.filter(function(c){ return c.tag === 'vip'; }).length;
+    document.getElementById('statValor').textContent = fmt(CLIENTES.reduce(function(s,c){ return s + c.totalGastado; }, 0));
+
+    var list = document.getElementById('crmList');
+    if (!filtered.length){
+      list.innerHTML = '<div class="kanban-empty" style="padding:30px;">Ningún cliente coincide con la búsqueda.</div>';
+      return;
+    }
+    list.innerHTML = filtered.map(function(c){
+      return '<div class="crm-list-row' + (c.id === activeId ? ' active' : '') + '" data-id="' + c.id + '">' +
+        '<div class="avatar">' + initials(c.nombre) + '</div>' +
+        '<div class="info"><div class="name">' + c.nombre + '</div><div class="sub">' + c.email + '</div></div>' +
+        '<span class="crm-tag crm-tag-' + c.tag + '">' + TAG_LABEL[c.tag] + '</span>' +
+      '</div>';
+    }).join('');
+    Array.prototype.forEach.call(list.querySelectorAll('.crm-list-row'), function(row){
+      row.addEventListener('click', function(){
+        activeId = parseInt(row.getAttribute('data-id'), 10);
+        renderList();
+        renderDetail();
+      });
+    });
+  }
+
+  function renderDetail(){
+    var c = CLIENTES.find(function(x){ return x.id === activeId; });
+    var detail = document.getElementById('crmDetail');
+    if (!c){ detail.innerHTML = '<div class="kanban-empty">Elegí un cliente de la lista.</div>'; return; }
+
+    var historyHtml = c.historial.map(function(h){
+      return '<div class="crm-history-row"><div><strong>' + h.t + '</strong> — ' + h.d + '<div class="t">' + h.f + '</div></div><div>' + (h.v ? fmt(h.v) : '—') + '</div></div>';
+    }).join('');
+
+    detail.innerHTML =
+      '<div class="crm-detail-head">' +
+        '<div class="avatar">' + initials(c.nombre) + '</div>' +
+        '<div><h3>' + c.nombre + '</h3><p>' + c.email + ' · ' + c.telefono + '</p></div>' +
+        '<span class="crm-tag crm-tag-' + c.tag + '" style="margin-left:auto;">' + TAG_LABEL[c.tag] + '</span>' +
+      '</div>' +
+      '<div class="crm-detail-grid">' +
+        '<div class="item"><div class="l">Cliente desde</div><div class="v">' + c.desde + '</div></div>' +
+        '<div class="item"><div class="l">Compras totales</div><div class="v">' + c.compras + '</div></div>' +
+        '<div class="item"><div class="l">Valor histórico</div><div class="v">' + fmt(c.totalGastado) + '</div></div>' +
+      '</div>' +
+      '<div class="crm-section-title">Historial reciente</div>' +
+      '<div class="crm-history">' + (historyHtml || '<div class="kanban-empty">Sin actividad registrada.</div>') + '</div>' +
+      '<div class="crm-section-title">Notas internas <span class="save-indicator" id="noteSaveInd">Guardado ✓</span></div>' +
+      '<div class="crm-notes"><textarea id="crmNoteInput" placeholder="Agregá una nota sobre este cliente...">' + (notas[c.id] || '') + '</textarea></div>';
+
+    var noteTimer = null;
+    document.getElementById('crmNoteInput').addEventListener('input', function(){
+      notas[c.id] = this.value;
+      saveNotas();
+      var ind = document.getElementById('noteSaveInd');
+      ind.classList.remove('show');
+      void ind.offsetWidth;
+      ind.classList.add('show');
+      clearTimeout(noteTimer);
+      noteTimer = setTimeout(function(){ ind.classList.remove('show'); }, 1600);
+    });
+  }
+
+  document.getElementById('tagFilters').addEventListener('click', function(e){
+    var btn = e.target.closest('.app-filter-pill');
+    if (!btn) return;
+    document.querySelectorAll('#tagFilters .app-filter-pill').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    tagFilter = btn.getAttribute('data-tag');
+    renderList();
+  });
+
+  document.getElementById('topSearch').addEventListener('input', function(){
+    searchTerm = this.value.trim().toLowerCase();
+    renderList();
+  });
+
+  renderList();
+  renderDetail();
+})();
+
+  /* ---------- panel de notificaciones ---------- */
+  (function(){
+    var notifBtn = document.getElementById('notifBtn');
+    var notifPanel = document.getElementById('notifPanel');
+    var notifDot = document.getElementById('notifDot');
+    if (!notifBtn || !notifPanel) return;
+    notifBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      notifPanel.classList.toggle('open');
+      if (notifPanel.classList.contains('open') && notifDot) notifDot.classList.add('hidden');
+    });
+    document.addEventListener('click', function(e){
+      if (!notifPanel.contains(e.target) && e.target !== notifBtn) notifPanel.classList.remove('open');
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Turnos - Demo | FRsistemas</title>
+<link rel="stylesheet" href="../../assets/style.css?v=16">
+<link rel="stylesheet" href="../../assets/site-extra.css?v=16">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%230a0a0a%27/%3E%3Ctext x=%2750%27 y=%2769%27 font-size=%2758%27 font-family=%27Arial,sans-serif%27 font-weight=%27800%27 fill=%27%23d6ff3f%27 text-anchor=%27middle%27%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body class="app-mode">
+
+
+<div class="app-frame">
+<aside class="app-sidebar">
+  <div class="app-logo"><span class="dot"></span><div>Turnero<br><small>FRsistemas</small></div></div>
+  <nav class="app-sidebar-nav">
+    <button class="app-view-tab active" data-view="negocio"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span> Panel de turnos</button>
+    <button class="app-view-tab" data-view="cliente"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span> Reservar (cliente)</button>
+  </nav>
+  <div class="app-sidebar-section">Otros módulos</div>
+  <nav class="app-sidebar-nav">
+    <a class="app-view-tab" href="clientes.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span> Clientes</a>
+    <a class="app-view-tab" href="tickets.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span> Mesa de ayuda</a>
+    <a class="app-view-tab" href="deposito.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg></span> Depósito</a>
+    <a class="app-view-tab" href="kiosco.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span> Kiosco POS</a>
+    <a class="app-view-tab" href="pedidos.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1"></rect></svg></span> Pedidos</a>
+  </nav>
+  <div class="app-sidebar-footer">
+    <a href="../../index.html" class="back-pill" data-cursor="">← <span>Portfolio</span></a>
+  </div>
+</aside>
+<div class="app-main">
+<header class="app-topbar">
+  <div class="app-search"><input type="text" placeholder="Buscar cliente o turno..." id="topSearch"></div>
+  <div class="app-topbar-right">
+    <div class="app-notif-wrap"><button class="app-icon-btn" id="notifBtn" aria-label="Notificaciones">🔔<span class="app-notif-dot" id="notifDot"></span></button><div class="app-notif-panel" id="notifPanel"><div class="app-notif-panel-head"><h5>Notificaciones</h5><span>2 nuevas</span></div><div class="app-notif-item"><span class="dot"></span><div class="txt"><strong>Turno confirmado</strong><p>Marina López confirmó su turno de las 09:30.</p><time>Hace 5 min</time></div></div><div class="app-notif-item"><span class="dot"></span><div class="txt"><strong>Cupo liberado</strong><p>Se liberó un horario a las 16:00 para hoy.</p><time>Hace 22 min</time></div></div><div class="app-notif-item read"><span class="dot"></span><div class="txt"><strong>Recordatorio</strong><p>3 turnos siguen pendientes de confirmar esta semana.</p><time>Hace 1 h</time></div></div></div></div>
+    <div class="app-user"><div class="app-avatar">A</div><div><div class="app-user-name">Admin</div><div class="app-user-role">Turnero</div></div></div>
+  </div>
+</header>
+
+<div class="app-shell">
+
+  <div class="app-demo-note">
+    <strong>Esto es una demo funcional.</strong> Así se vería un sistema de turnos hecho a medida para tu negocio — con vista de administración y vista pública para tus clientes. <a href="mailto:fr.sistemas01@gmail.com">Pedime uno para el tuyo ↗</a>
+  </div>
+
+  <!-- ============ VISTA NEGOCIO ============ -->
+  <div class="app-view active" id="viewNegocio">
+
+    <div class="app-stats">
+      <div class="app-stat"><span class="n" id="statHoy">0</span><span class="l">Turnos hoy</span></div>
+      <div class="app-stat"><span class="n" id="statSemana">0</span><span class="l">Turnos esta semana</span></div>
+      <div class="app-stat"><span class="n" id="statOcupacion">0%</span><span class="l">Ocupación del día</span></div>
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-head"><h4>Turnos por día — próximos 7 días</h4><span id="chartTotal">0 turnos</span></div>
+      <div class="bar-chart-bars" id="weekChart"></div>
+    </div>
+
+    <div class="app-toolbar">
+      <div class="app-toolbar-left">
+        <input type="date" id="filterDate">
+        <div class="app-filter-pills" id="statusFilters">
+          <button class="app-filter-pill active" data-status="todos">Todos</button>
+          <button class="app-filter-pill" data-status="confirmado">Confirmados</button>
+          <button class="app-filter-pill" data-status="pendiente">Pendientes</button>
+          <button class="app-filter-pill" data-status="cancelado">Cancelados</button>
+        </div>
+      </div>
+      <button class="app-btn-primary" id="btnNuevoTurno">+ Nuevo turno</button>
+    </div>
+
+    <div class="app-table-wrap">
+      <table class="app-table">
+        <thead>
+          <tr><th>Hora</th><th>Cliente</th><th>Servicio</th><th>Teléfono</th><th>Estado</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="turnosBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ VISTA CLIENTE ============ -->
+  <div class="app-view" id="viewCliente">
+    <div class="client-widget" id="clientWidgetForm">
+      <div class="client-widget-head">
+        <h2>Reservá tu turno</h2>
+        <p>Elegí servicio, día y horario. Confirmamos al instante.</p>
+      </div>
+
+      <label style="display:block;font-size:0.76rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Servicio</label>
+      <select id="cServicio" style="width:100%;padding:11px 14px;background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:0.9rem;margin-bottom:20px;">
+        <option>Corte de cabello</option>
+        <option>Coloración</option>
+        <option>Manicura</option>
+        <option>Depilación</option>
+        <option>Consulta general</option>
+      </select>
+
+      <label style="display:block;font-size:0.76rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Día</label>
+      <input type="date" id="cFecha" style="width:100%;padding:11px 14px;background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:0.9rem;margin-bottom:20px;">
+
+      <label style="display:block;font-size:0.76rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Horario disponible</label>
+      <div class="slot-grid" id="slotGrid"></div>
+
+      <label style="display:block;font-size:0.76rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:0.05em;margin:20px 0 6px;">Tu nombre</label>
+      <input type="text" id="cNombre" placeholder="Nombre y apellido" style="width:100%;padding:11px 14px;background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:0.9rem;margin-bottom:14px;">
+
+      <label style="display:block;font-size:0.76rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Teléfono</label>
+      <input type="tel" id="cTelefono" placeholder="11 5482 2753" style="width:100%;padding:11px 14px;background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:0.9rem;margin-bottom:24px;">
+
+      <div class="form-error" id="formError">Completá tu nombre, teléfono y elegí un horario disponible.</div>
+
+      <button class="app-btn-primary" id="btnConfirmarTurno" style="width:100%;padding:14px;font-size:0.88rem;">Confirmar turno</button>
+    </div>
+
+    <div class="client-success" id="clientSuccess" style="display:none;">
+      <div class="icon">✓</div>
+      <h3>¡Turno reservado!</h3>
+      <p id="clientSuccessDetail"></p>
+      <button class="app-mini-btn" id="btnOtroTurno" style="margin-top:24px;">Reservar otro turno</button>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- Modal nuevo turno (vista negocio) -->
+<div class="app-modal-backdrop" id="modalBackdrop"></div>
+<div class="app-modal" id="modalNuevoTurno" role="dialog" aria-modal="true">
+  <button class="app-modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+  <h3>Nuevo turno</h3>
+  <form id="formNuevoTurno">
+    <label>Cliente</label>
+    <input type="text" id="mCliente" required>
+    <label>Servicio</label>
+    <select id="mServicio">
+      <option>Corte de cabello</option>
+      <option>Coloración</option>
+      <option>Manicura</option>
+      <option>Depilación</option>
+      <option>Consulta general</option>
+    </select>
+    <label>Teléfono</label>
+    <input type="tel" id="mTelefono" required>
+    <label>Fecha</label>
+    <input type="date" id="mFecha" required>
+    <label>Hora</label>
+    <input type="time" id="mHora" required>
+    <div class="app-modal-actions">
+      <button type="submit" class="app-btn-primary" style="flex:1;">Guardar turno</button>
+    </div>
+  </form>
+</div>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'demo_turnos_v1';
+  var SLOTS = ['09:00','09:30','10:00','10:30','11:00','11:30','14:00','14:30','15:00','15:30','16:00','16:30'];
+
+  function todayISO(offset){
+    var d = new Date();
+    d.setDate(d.getDate() + (offset || 0));
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+
+  function seed(){
+    return [
+      { id:'t1', cliente:'Marina López', servicio:'Corte de cabello', telefono:'11 4455 2210', fecha:todayISO(0), hora:'09:30', estado:'confirmado' },
+      { id:'t2', cliente:'Julián Peretti', servicio:'Coloración', telefono:'11 5588 3341', fecha:todayISO(0), hora:'11:00', estado:'confirmado' },
+      { id:'t3', cliente:'Ayelén Duarte', servicio:'Manicura', telefono:'11 3322 7789', fecha:todayISO(0), hora:'14:30', estado:'pendiente' },
+      { id:'t4', cliente:'Bruno Ianni', servicio:'Consulta general', telefono:'11 6677 4412', fecha:todayISO(0), hora:'16:00', estado:'cancelado' },
+      { id:'t5', cliente:'Sabrina Ortiz', servicio:'Depilación', telefono:'11 2244 9981', fecha:todayISO(1), hora:'10:00', estado:'confirmado' },
+      { id:'t6', cliente:'Nahuel Rosso', servicio:'Corte de cabello', telefono:'11 7799 1102', fecha:todayISO(2), hora:'15:00', estado:'pendiente' }
+    ];
+  }
+
+  var turnos = [];
+  try { turnos = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || seed(); } catch(e) { turnos = seed(); }
+
+  function save(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(turnos)); } catch(e){} }
+
+  var statusFilter = 'todos';
+  var filterDateEl = document.getElementById('filterDate');
+  filterDateEl.value = todayISO(0);
+
+  var searchTerm = '';
+
+  function renderChart(){
+    var days = [];
+    for (var i=0;i<7;i++) days.push(todayISO(i));
+    var counts = days.map(function(d){ return turnos.filter(function(t){ return t.fecha === d && t.estado !== 'cancelado'; }).length; });
+    var max = Math.max.apply(null, counts.concat([1]));
+    var total = counts.reduce(function(s,c){ return s+c; }, 0);
+    document.getElementById('chartTotal').textContent = total + ' turnos';
+    var dayNames = ['Hoy','Mañana'];
+    document.getElementById('weekChart').innerHTML = days.map(function(d, i){
+      var h = Math.max(6, Math.round((counts[i] / max) * 100));
+      var label = i < 2 ? dayNames[i] : new Date(d + 'T00:00:00').toLocaleDateString('es-AR', { weekday:'short' });
+      return '<div class="bar-chart-col"><div class="bar-chart-fill" style="height:' + h + '%;"></div><span class="lbl">' + label + '</span></div>';
+    }).join('');
+  }
+
+  function render(){
+    var day = filterDateEl.value;
+    var dayTurnos = turnos.filter(function(t){ return t.fecha === day; });
+
+    document.getElementById('statHoy').textContent = dayTurnos.length;
+    var weekEnd = todayISO(6);
+    document.getElementById('statSemana').textContent = turnos.filter(function(t){ return t.fecha >= todayISO(0) && t.fecha <= weekEnd; }).length;
+    var confirmedToday = dayTurnos.filter(function(t){ return t.estado !== 'cancelado'; }).length;
+    var pct = SLOTS.length ? Math.round((confirmedToday / SLOTS.length) * 100) : 0;
+    document.getElementById('statOcupacion').textContent = Math.min(pct, 100) + '%';
+    renderChart();
+
+    var filtered = statusFilter === 'todos' ? dayTurnos : dayTurnos.filter(function(t){ return t.estado === statusFilter; });
+    if (searchTerm) filtered = filtered.filter(function(t){ return t.cliente.toLowerCase().indexOf(searchTerm) !== -1; });
+    filtered.sort(function(a,b){ return a.hora.localeCompare(b.hora); });
+
+    var tbody = document.getElementById('turnosBody');
+    if (!filtered.length){
+      tbody.innerHTML = '<tr class="app-row-empty"><td colspan="6">No hay turnos para este filtro.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = filtered.map(function(t){
+      var actions = '';
+      if (t.estado !== 'confirmado') actions += '<button class="app-mini-btn" data-confirm="'+t.id+'">Confirmar</button>';
+      if (t.estado !== 'cancelado') actions += '<button class="app-mini-btn danger" data-cancel="'+t.id+'">Cancelar</button>';
+      return '<tr>' +
+        '<td>' + t.hora + '</td>' +
+        '<td>' + t.cliente + '</td>' +
+        '<td>' + t.servicio + '</td>' +
+        '<td>' + t.telefono + '</td>' +
+        '<td><span class="badge-status badge-' + t.estado + '">' + t.estado.charAt(0).toUpperCase() + t.estado.slice(1) + '</span></td>' +
+        '<td><div class="app-row-actions">' + actions + '</div></td>' +
+      '</tr>';
+    }).join('');
+
+    Array.prototype.forEach.call(tbody.querySelectorAll('[data-confirm]'), function(b){
+      b.addEventListener('click', function(){ setEstado(b.getAttribute('data-confirm'), 'confirmado'); });
+    });
+    Array.prototype.forEach.call(tbody.querySelectorAll('[data-cancel]'), function(b){
+      b.addEventListener('click', function(){ setEstado(b.getAttribute('data-cancel'), 'cancelado'); });
+    });
+  }
+
+  function setEstado(id, estado){
+    var t = turnos.find(function(x){ return x.id === id; });
+    if (t) t.estado = estado;
+    save(); render();
+  }
+
+  filterDateEl.addEventListener('change', render);
+  document.getElementById('topSearch').addEventListener('input', function(){
+    searchTerm = this.value.trim().toLowerCase();
+    render();
+  });
+  document.getElementById('statusFilters').addEventListener('click', function(e){
+    var btn = e.target.closest('.app-filter-pill');
+    if (!btn) return;
+    document.querySelectorAll('#statusFilters .app-filter-pill').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    statusFilter = btn.getAttribute('data-status');
+    render();
+  });
+
+  /* ---------- vista negocio: modal nuevo turno ---------- */
+  var modal = document.getElementById('modalNuevoTurno');
+  var modalBackdrop = document.getElementById('modalBackdrop');
+  function openModal(){
+    document.getElementById('mFecha').value = filterDateEl.value;
+    modal.classList.add('open'); modalBackdrop.classList.add('open');
+  }
+  function closeModal(){ modal.classList.remove('open'); modalBackdrop.classList.remove('open'); }
+  document.getElementById('btnNuevoTurno').addEventListener('click', openModal);
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', closeModal);
+  document.getElementById('formNuevoTurno').addEventListener('submit', function(e){
+    e.preventDefault();
+    turnos.push({
+      id: 't' + Date.now(),
+      cliente: document.getElementById('mCliente').value,
+      servicio: document.getElementById('mServicio').value,
+      telefono: document.getElementById('mTelefono').value,
+      fecha: document.getElementById('mFecha').value,
+      hora: document.getElementById('mHora').value,
+      estado: 'confirmado'
+    });
+    save();
+    filterDateEl.value = document.getElementById('mFecha').value;
+    render();
+    closeModal();
+    e.target.reset();
+  });
+
+  /* ---------- vista cliente ---------- */
+  var cFecha = document.getElementById('cFecha');
+  cFecha.value = todayISO(0);
+  var selectedSlot = null;
+
+  function renderSlots(){
+    var day = cFecha.value;
+    var takenSlots = turnos.filter(function(t){ return t.fecha === day && t.estado !== 'cancelado'; }).map(function(t){ return t.hora; });
+    var grid = document.getElementById('slotGrid');
+    grid.innerHTML = SLOTS.map(function(s){
+      var taken = takenSlots.indexOf(s) !== -1;
+      return '<button type="button" class="slot-btn" data-slot="' + s + '"' + (taken ? ' disabled' : '') + '>' + s + '</button>';
+    }).join('');
+    selectedSlot = null;
+    Array.prototype.forEach.call(grid.querySelectorAll('.slot-btn:not([disabled])'), function(b){
+      b.addEventListener('click', function(){
+        grid.querySelectorAll('.slot-btn').forEach(function(x){ x.classList.remove('selected'); });
+        b.classList.add('selected');
+        selectedSlot = b.getAttribute('data-slot');
+      });
+    });
+  }
+  cFecha.addEventListener('change', renderSlots);
+  renderSlots();
+
+  document.getElementById('btnConfirmarTurno').addEventListener('click', function(){
+    var nombre = document.getElementById('cNombre').value.trim();
+    var telefono = document.getElementById('cTelefono').value.trim();
+    var nombreEl = document.getElementById('cNombre');
+    var telEl = document.getElementById('cTelefono');
+    var errEl = document.getElementById('formError');
+    nombreEl.classList.toggle('field-error', !nombre);
+    telEl.classList.toggle('field-error', !telefono);
+    if (!nombre || !telefono || !selectedSlot){
+      errEl.classList.add('show');
+      errEl.classList.remove('shake'); void errEl.offsetWidth; errEl.classList.add('shake');
+      return;
+    }
+    errEl.classList.remove('show');
+    turnos.push({
+      id: 't' + Date.now(),
+      cliente: nombre,
+      servicio: document.getElementById('cServicio').value,
+      telefono: telefono,
+      fecha: cFecha.value,
+      hora: selectedSlot,
+      estado: 'pendiente'
+    });
+    save();
+    document.getElementById('clientWidgetForm').style.display = 'none';
+    document.getElementById('clientSuccess').style.display = 'block';
+    document.getElementById('clientSuccessDetail').textContent =
+      document.getElementById('cServicio').value + ' el ' + cFecha.value + ' a las ' + selectedSlot + '. Te esperamos, ' + nombre + '.';
+    filterDateEl.value = cFecha.value;
+    render();
+  });
+
+  document.getElementById('btnOtroTurno').addEventListener('click', function(){
+    document.getElementById('clientSuccess').style.display = 'none';
+    document.getElementById('clientWidgetForm').style.display = 'block';
+    document.getElementById('cNombre').value = '';
+    document.getElementById('cTelefono').value = '';
+    document.getElementById('formError').classList.remove('show');
+    renderSlots();
+  });
+  ['cNombre','cTelefono'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){ this.classList.remove('field-error'); });
+  });
+
+  /* ---------- toggle vista negocio / cliente ---------- */
+  document.querySelectorAll('.app-view-tab[data-view]').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.app-view-tab[data-view]').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      var view = tab.getAttribute('data-view');
+      document.getElementById('viewNegocio').classList.toggle('active', view === 'negocio');
+      document.getElementById('viewCliente').classList.toggle('active', view === 'cliente');
+      if (view === 'cliente') renderSlots();
+    });
+  });
+
+  render();
+})();
+
+  /* ---------- panel de notificaciones ---------- */
+  (function(){
+    var notifBtn = document.getElementById('notifBtn');
+    var notifPanel = document.getElementById('notifPanel');
+    var notifDot = document.getElementById('notifDot');
+    if (!notifBtn || !notifPanel) return;
+    notifBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      notifPanel.classList.toggle('open');
+      if (notifPanel.classList.contains('open') && notifDot) notifDot.classList.add('hidden');
+    });
+    document.addEventListener('click', function(e){
+      if (!notifPanel.contains(e.target) && e.target !== notifBtn) notifPanel.classList.remove('open');
+    });
+  })();
+</script>
+</body>
+</html>

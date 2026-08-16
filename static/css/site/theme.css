@@ -1,0 +1,246 @@
+/* ==========================================================
+   FR.SISTEMAS — identidad propia de la web principal.
+   Se carga DESPUÉS del sistema base (portfolio/style.css +
+   site-extra.css) y pisa paleta + tipografía + algunos
+   componentes puntuales para que esta web NO se vea como el
+   portfolio conceptual: otro acento, otra fuente, otro layout
+   de hero (panel de "sistema en vivo" en vez de solo texto).
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#0a0e16;
+  --bg-soft:#0f1520;
+  --ink:#eef2f7;
+  --ink-dim:#7c8aa0;
+  --line:rgba(238,242,247,0.1);
+  --accent:#3ecfff;
+  --accent-2:#7c5cff;
+  --radius:10px;
+}
+
+body{font-family:'Inter',sans-serif;}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.015em;}
+
+/* en el portfolio esta clase mete una itálica serif (Fraunces);
+   acá la reemplazamos por un acento de color en la misma
+   tipografía de titulares, sin cambiar de familia tipográfica */
+.serif-italic{font-family:'Space Grotesk',sans-serif;font-style:normal;font-weight:700;color:var(--accent);}
+
+/* etiquetas / datos técnicos en monoespaciada — refuerza el
+   costado "sistemas" de la marca en vez del tono editorial */
+.eyebrow,
+.nav-links a,
+.marquee-track span,
+.m-price,
+.work-meta div span,
+.sec-num,
+.stats-row .stat > span,
+.case-meta-bar div span{
+  font-family:'IBM Plex Mono',monospace;
+}
+.eyebrow::before{background:var(--accent);}
+.marquee-track span em{color:var(--accent);}
+
+.nav-logo{font-family:'Space Grotesk',sans-serif;}
+
+.cta-link{border-bottom-color:var(--accent);}
+.work-title .badge{background:var(--accent);color:var(--bg);}
+
+/* ---------- hero: layout partido con panel de sistema ---------- */
+.hero-split-layout{
+  display:grid;
+  grid-template-columns:1.25fr 1fr;
+  gap:64px;
+  align-items:center;
+  width:100%;
+}
+@media (max-width:960px){
+  .hero-split-layout{grid-template-columns:1fr;}
+}
+
+/* el hero de base.css está pensado para ancho completo; acá el
+   título comparte columna con el panel, así que necesita una
+   escala más chica para no quedar en 5 líneas */
+.hero-split-layout h1{font-size:clamp(2.4rem,4.6vw,4.4rem);}
+
+.hero-panel{
+  position:relative;
+  background:linear-gradient(165deg, rgba(62,207,255,0.08), rgba(124,92,255,0.04));
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:28px;
+  backdrop-filter:blur(6px);
+  box-shadow:0 40px 80px -40px rgba(62,207,255,0.25);
+}
+.hero-panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid var(--line);
+}
+.hero-panel-head strong{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;}
+.hero-panel-head span.sub{display:block;font-size:0.72rem;color:var(--ink-dim);margin-top:2px;}
+.status-dot{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:#6ee08a;
+  text-transform:uppercase;letter-spacing:0.06em;
+}
+.status-dot i{
+  width:7px;height:7px;border-radius:50%;background:#6ee08a;display:block;
+  box-shadow:0 0 0 0 rgba(110,224,138,0.6);
+  animation:status-pulse 2s ease-out infinite;
+}
+@keyframes status-pulse{
+  0%{box-shadow:0 0 0 0 rgba(110,224,138,0.55);}
+  70%{box-shadow:0 0 0 8px rgba(110,224,138,0);}
+  100%{box-shadow:0 0 0 0 rgba(110,224,138,0);}
+}
+
+.hero-panel-metrics{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;
+}
+.hero-panel-metrics > div{
+  border:1px solid var(--line);border-radius:calc(var(--radius) - 2px);
+  padding:16px;
+}
+.hero-panel-metrics strong{
+  display:flex;align-items:baseline;gap:3px;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--accent);
+}
+.hero-panel-metrics .metric-num{font-size:2.5rem;line-height:1;}
+.hero-panel-metrics .metric-unit{font-size:1.2rem;font-weight:600;}
+.hero-panel-metrics span{font-size:0.72rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:0.05em;}
+
+/* barra de progreso real bajo cada métrica: arranca en 0 y crece
+   hasta el valor cuando termina el preloader */
+.metric-bar{height:4px;border-radius:99px;background:var(--line);margin-top:14px;overflow:hidden;}
+.metric-bar span{
+  display:block;height:100%;border-radius:99px;background:var(--accent);
+  width:0%;
+  animation:bar-grow 1.4s cubic-bezier(.16,.84,.44,1) 1.6s forwards;
+}
+.metric-bar.accent-mint span{background:#6ee08a;}
+@keyframes bar-grow{ to{ width:var(--fill); } }
+@media (prefers-reduced-motion: reduce){
+  .metric-bar span{animation:none;width:var(--fill);}
+}
+
+.hero-panel-services{display:flex;flex-direction:column;gap:2px;}
+.hero-panel-services div{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 2px;border-top:1px solid var(--line);
+  font-size:0.86rem;
+}
+.hero-panel-services div:first-child{border-top:none;}
+.hero-panel-services div > span{display:flex;align-items:center;gap:9px;}
+.hero-panel-services .svc-dot{
+  width:6px;height:6px;border-radius:50%;background:#6ee08a;flex-shrink:0;
+  box-shadow:0 0 0 0 rgba(110,224,138,0.55);
+  animation:status-pulse 2.6s ease-out infinite;
+}
+.hero-panel-services em{
+  font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;
+  color:#6ee08a;text-transform:uppercase;letter-spacing:0.04em;
+}
+
+/* mini feed de log estilo terminal — líneas que se van cruzando en loop,
+   100% CSS (sin JS), para que se sienta "vivo" con contenido real en vez
+   de un efecto puramente decorativo */
+.hero-panel-log{
+  position:relative;
+  height:18px;
+  margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--ink-dim);
+}
+.hero-panel-log .log-line{
+  position:absolute;left:0;top:0;right:0;
+  display:flex;align-items:center;gap:8px;
+  opacity:0;
+  animation:log-cycle 12s cubic-bezier(.4,0,.2,1) infinite;
+}
+.hero-panel-log .log-line::before{
+  content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none;
+}
+.hero-panel-log .log-line:nth-child(1){animation-delay:0s;}
+.hero-panel-log .log-line:nth-child(2){animation-delay:3s;}
+.hero-panel-log .log-line:nth-child(3){animation-delay:6s;}
+.hero-panel-log .log-line:nth-child(4){animation-delay:9s;}
+@keyframes log-cycle{
+  0%{opacity:0;transform:translateY(5px);}
+  3%{opacity:1;transform:translateY(0);}
+  21%{opacity:1;transform:translateY(0);}
+  25%,100%{opacity:0;transform:translateY(-5px);}
+}
+.hero-panel-log .caret{
+  display:inline-block;width:6px;height:12px;background:var(--accent);
+  margin-left:2px;animation:caret-blink 1s step-end infinite;
+}
+@keyframes caret-blink{ 50%{opacity:0;} }
+@media (prefers-reduced-motion: reduce){
+  .hero-panel-log .log-line{animation:none;opacity:0;}
+  .hero-panel-log .log-line:first-child{opacity:1;}
+  .hero-panel-log .caret{animation:none;}
+}
+
+/* ---------- contacto: panel de datos + formulario, mismo lenguaje que el hero ---------- */
+.contact-split{
+  display:grid;grid-template-columns:0.85fr 1.15fr;gap:28px;align-items:start;
+  margin-top:56px;
+}
+@media (max-width:900px){ .contact-split{grid-template-columns:1fr;} }
+
+.hero-panel-services a{
+  font-family:'IBM Plex Mono',monospace;font-size:0.82rem;color:var(--accent);
+  text-decoration:none;transition:opacity 0.2s ease;
+}
+.hero-panel-services a:hover{opacity:0.75;}
+
+.hero-panel.book-form{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+}
+.hero-panel.book-form input,
+.hero-panel.book-form select,
+.hero-panel.book-form textarea{
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:12px 14px;
+  color:var(--ink);
+}
+.hero-panel.book-form input:focus,
+.hero-panel.book-form select:focus,
+.hero-panel.book-form textarea:focus{border-color:var(--accent);}
+
+/* el <select> nativo delega color/fondo al SO en muchos navegadores —
+   por eso el texto solo se veía al pasar el mouse (hover disparaba el
+   estilo nativo). Sacarlo del render nativo con appearance:none y una
+   flecha propia lo deja siempre legible, sin depender del hover. */
+.hero-panel.book-form select{
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  color:var(--ink);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%237c8aa0' stroke-width='1.6'%3E%3Cpath d='M5 8l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  background-size:14px;
+  padding-right:38px;
+}
+.hero-panel.book-form select:invalid,
+.hero-panel.book-form select option[value=""]{color:var(--ink-dim);}
+.hero-panel.book-form select option{
+  background:var(--bg-soft);
+  color:var(--ink);
+}
+.hero-panel.book-form button{
+  background:var(--accent);color:var(--bg);border-radius:8px;font-family:'Space Grotesk',sans-serif;
+}
+.hero-panel.book-form button:hover{background:var(--ink);}
+
+/* ---------- fondo ambiente del hero: red de nodos en canvas ---------- */
+.hero{position:relative;overflow:hidden;}
+.hero-net{position:absolute;inset:0;z-index:-1;opacity:0.55;}
+.hero::after{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(ellipse 60% 50% at 12% 20%, rgba(62,207,255,0.10), transparent 60%),
+             radial-gradient(ellipse 50% 40% at 90% 80%, rgba(124,92,255,0.08), transparent 60%);
+  pointer-events:none;
+}

@@ -1,90 +1,60 @@
-<section class="contact hidden" id="contacto">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <span>CONTACTO</span>
-
-            <h2>¿Listo para comenzar tu proyecto?</h2>
-
-            <p>
-                Contanos tu idea y te responderemos lo antes posible.
-            </p>
-
-        </div>
-
-        <div class="contact-box">
-
-            <div class="contact-info">
-
-                <h3>Hablemos</h3>
-
-                <p>
-                    Creamos páginas web, sistemas personalizados y APIs para llevar tu negocio al siguiente nivel.
-                </p>
-
-                <div class="contact-item">
-                    📧 frsistemas01@gmail.com
-                </div>
-
-                <div class="contact-item">
-                    📱 +54 9 11 5482-2753
-                </div>
-
-                <div class="contact-item">
-                    📍 Argentina/Buenos Aires
-                </div>
-
-            </div>
-
-            <form class="contact-form" method="post" action="{% url 'home' %}">
-                {% csrf_token %}
-
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="form-alert form-alert-{{ message.tags }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-
-                <input type="text" name="nombre" placeholder="Nombre completo" required>
-
-                <input type="text" name="empresa" placeholder="Empresa (opcional)">
-
-                <input type="email" name="email" placeholder="Correo electrónico" required>
-
-                <input type="tel" name="whatsapp" placeholder="WhatsApp" required>
-
-                <select name="servicio" required>
-                    <option value="" disabled selected>¿Qué servicio necesitás?</option>
-                    <option value="pagina_web">Página web</option>
-                    <option value="sistema_web">Sistema web</option>
-                    <option value="api">API / Integración</option>
-                    <option value="automatizacion">Automatización</option>
-                    <option value="agente_ia">Agente de IA</option>
-                    <option value="otro">Otro / No estoy seguro</option>
-                </select>
-
-                <select name="presupuesto">
-                    <option value="" selected>Presupuesto estimado (opcional)</option>
-                    <option value="menos_300000">Menos de $300.000</option>
-                    <option value="300000_800000">$300.000 – $800.000</option>
-                    <option value="800000_1500000">$800.000 – $1.500.000</option>
-                    <option value="mas_1500000">Más de $1.500.000</option>
-                </select>
-
-                <textarea name="mensaje" rows="6" placeholder="Contanos sobre tu proyecto" required></textarea>
-
-                <button type="submit" class="btn-primary">
-                    Enviar mensaje
-                </button>
-
-            </form>
-
-        </div>
-
+<section id="contacto" style="padding:96px 0;border-top:1px solid var(--line);">
+  <div class="wrap">
+    <div class="block-head">
+      <span class="eyebrow fade-in">Contacto</span>
+      <h2 class="reveal-line"><span>¿Tenés un proyecto <em class="serif-italic">en mente?</em></span></h2>
+      <p class="fade-up" style="color:var(--ink-dim);margin-top:16px;max-width:48ch;">Contanos tu idea y te respondemos a la brevedad — sin formularios eternos, sin vueltas.</p>
     </div>
 
+    {% if messages %}
+      <div class="fade-up" style="margin-bottom:32px;max-width:640px;">
+        {% for message in messages %}
+          <div class="form-alert form-alert-{{ message.tags }}" style="padding:14px 18px;border:1px solid var(--line);border-radius:8px;font-size:0.9rem;color:var(--ink-dim);">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="contact-split">
+      <div class="hero-panel fade-up">
+        <div class="hero-panel-head">
+          <div>
+            <strong>Contacto directo</strong>
+            <span class="sub">Buenos Aires, Argentina</span>
+          </div>
+          <span class="status-dot"><i></i>Disponible</span>
+        </div>
+        <div class="hero-panel-services">
+          <div><span>Email</span><a href="mailto:fr.sistemas01@gmail.com" data-cursor="Escribir">fr.sistemas01@gmail.com</a></div>
+          <div><span>Teléfono</span><a href="tel:1154822753">11 5482-2753</a></div>
+          <div><span>WhatsApp</span><a href="https://wa.me/541154822753" target="_blank" rel="noopener" data-cursor="Abrir">Escribir ↗</a></div>
+          <div><span>Tiempo de respuesta</span><em>Menos de 24 hs</em></div>
+        </div>
+      </div>
+
+      <form class="hero-panel book-form fade-up" method="post" action="{% url 'home' %}">
+        {% csrf_token %}
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input type="text" name="empresa" placeholder="Empresa (opcional)">
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <input type="text" name="whatsapp" placeholder="WhatsApp (opcional)">
+        <select name="servicio">
+          <option value="" selected>¿Qué servicio necesitás? (opcional)</option>
+          <option value="pagina_web">Página web</option>
+          <option value="sistema_web">Sistema web</option>
+          <option value="api">API / Integración</option>
+          <option value="automatizacion">Automatización</option>
+          <option value="agente_ia">Agente de IA</option>
+          <option value="otro">Otro / No estoy seguro</option>
+        </select>
+        <select name="presupuesto">
+          <option value="" selected>Presupuesto estimado (opcional)</option>
+          <option value="menos_200_usd">Menos de USD 200</option>
+          <option value="200_500_usd">USD 200 – 500</option>
+          <option value="500_1000_usd">USD 500 – 1.000</option>
+        </select>
+        <textarea name="mensaje" rows="5" placeholder="Contanos sobre tu proyecto" class="full" required></textarea>
+        <button type="submit" class="full" data-cursor="Enviar">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
 </section>

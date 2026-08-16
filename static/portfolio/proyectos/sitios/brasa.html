@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRASA — Parrilla de fuego vivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700;900&family=Archivo:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#161210;
+  --bg2:#1e1815;
+  --paper:#f2e9db;
+  --ink:#161210;
+  --ember:#e0472c;
+  --ember-dim:#a8391f;
+  --smoke:#c9beae;
+  --line:rgba(242,233,219,.14);
+  --line-dark:rgba(22,18,16,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--paper);
+  font-family:'Archivo',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--ember);color:var(--paper);}
+::-webkit-scrollbar{width:11px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--ember-dim);border:2px solid var(--bg);border-radius:0;}
+* {scrollbar-color: var(--ember-dim) var(--bg); scrollbar-width:thin;}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;}
+img{display:block;max-width:100%;}
+.tabular{font-variant-numeric:tabular-nums;}
+h1,h2,h3,h4{font-family:'Bitter',serif;font-weight:700;line-height:1.05;letter-spacing:-.01em;}
+.eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ember);}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px;}
+@media(max-width:720px){.wrap{padding:0 22px;}}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 40px;
+  background:linear-gradient(to bottom, rgba(22,18,16,.9), transparent);
+  transition:background .3s, padding .3s, backdrop-filter .3s;
+}
+.nav.solid{background:rgba(22,18,16,.94);backdrop-filter:blur(10px);padding:14px 40px;border-bottom:1px solid var(--line);}
+@media(max-width:720px){.nav{padding:18px 22px;}.nav.solid{padding:12px 22px;}}
+.nav-logo{font-family:'Bitter',serif;font-weight:900;font-size:1.4rem;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;}
+.nav-logo .dot{width:8px;height:8px;background:var(--ember);border-radius:50%;display:inline-block;}
+.nav-links{display:flex;gap:36px;font-size:.88rem;font-weight:500;}
+.nav-links a{opacity:.78;transition:opacity .2s;position:relative;}
+.nav-links a:hover{opacity:1;}
+.nav-cta{font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.04em;border:1px solid var(--paper);padding:9px 18px;transition:background .2s,color .2s;}
+.nav-cta:hover{background:var(--paper);color:var(--ink);}
+@media(max-width:900px){.nav-links{display:none;}}
+
+/* HERO */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:flex-end;
+  padding:0 0 90px;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=2000&q=80') center 38%/cover;
+  filter:saturate(1.08) contrast(1.05);
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(to top, rgba(22,18,16,.98) 0%, rgba(22,18,16,.55) 38%, rgba(22,18,16,.35) 65%, rgba(22,18,16,.55) 100%);
+}
+.hero-inner{position:relative;z-index:2;width:100%;}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+.hero h1{
+  font-size:clamp(3.4rem, 8.6vw, 7.4rem);
+  color:var(--paper);
+  max-width:14ch;
+}
+.hero h1 em{font-style:italic;color:var(--ember);font-weight:400;}
+.hero-side{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--smoke);text-align:right;max-width:220px;line-height:1.7;}
+@media(max-width:720px){
+  .hero-top{flex-direction:column;align-items:flex-start;gap:22px;}
+  .hero-side{text-align:left;}
+}
+.hero-meta{
+  display:flex;gap:0;margin-top:46px;border-top:1px solid var(--line);
+}
+.hero-meta div{flex:1;padding:18px 24px 0 0;border-right:1px solid var(--line);}
+.hero-meta div:last-child{border-right:none;}
+.hero-meta .n{font-family:'DM Mono',monospace;font-size:1.5rem;color:var(--ember);}
+.hero-meta .l{font-size:.78rem;color:var(--smoke);margin-top:4px;}
+@media(max-width:720px){.hero-meta{flex-wrap:wrap;}.hero-meta div{flex:1 1 50%;margin-bottom:18px;}}
+
+/* MARQUEE */
+.marquee-strip{
+  background:var(--ember);color:var(--ink);
+  padding:14px 0;overflow:hidden;white-space:nowrap;
+}
+.marquee-strip .track{display:inline-block;animation:mq 26s linear infinite;font-family:'Bitter',serif;font-weight:900;font-size:1.15rem;letter-spacing:.02em;}
+.marquee-strip .track span{margin:0 28px;}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTION GENERAL */
+section{padding:130px 0;}
+@media(max-width:720px){section{padding:80px 0;}}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:64px;}
+.sec-head h2{font-size:clamp(2.2rem,4.4vw,3.4rem);}
+.sec-head p{max-width:340px;color:var(--smoke);font-size:.96rem;}
+@media(max-width:720px){.sec-head{flex-direction:column;align-items:flex-start;gap:18px;}}
+
+/* FUEGO / INTRO EDITORIAL */
+.fuego{background:var(--bg2);}
+.fuego-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center;}
+@media(max-width:900px){.fuego-grid{grid-template-columns:1fr;gap:48px;}}
+.fuego-text p{font-size:1.15rem;color:var(--smoke);max-width:46ch;margin-top:22px;}
+.fuego-text p:first-of-type{color:var(--paper);font-size:1.35rem;font-family:'Bitter',serif;}
+.fuego-img{position:relative;}
+.fuego-img img{width:100%;height:520px;object-fit:cover;filter:saturate(1.05) contrast(1.04);}
+.fuego-img .tag{
+  position:absolute;bottom:-1px;left:-1px;background:var(--ember);color:var(--ink);
+  padding:10px 18px;font-family:'DM Mono',monospace;font-size:.76rem;letter-spacing:.06em;
+}
+
+/* MENU */
+.menu-cats{display:flex;gap:14px;margin-bottom:56px;flex-wrap:wrap;}
+.menu-cat{
+  font-family:'DM Mono',monospace;font-size:.8rem;letter-spacing:.05em;
+  padding:9px 18px;border:1px solid var(--line);color:var(--smoke);cursor:default;
+}
+.menu-cat.active{border-color:var(--ember);color:var(--ember);}
+.menu-col{display:grid;grid-template-columns:1fr 1fr;gap:0 90px;}
+@media(max-width:900px){.menu-col{grid-template-columns:1fr;}}
+.menu-group{margin-bottom:50px;}
+.menu-group h3{font-size:1.3rem;color:var(--ember);margin-bottom:6px;font-style:italic;font-weight:400;}
+.menu-group .sub{font-size:.82rem;color:var(--smoke);margin-bottom:22px;}
+.menu-row{
+  display:flex;justify-content:space-between;gap:20px;padding:16px 0;
+  border-bottom:1px solid var(--line);
+}
+.menu-row:first-of-type{border-top:1px solid var(--line);}
+.menu-row .name{font-weight:600;font-size:1.02rem;}
+.menu-row .desc{font-size:.84rem;color:var(--smoke);margin-top:4px;max-width:34ch;}
+.menu-row .price{font-family:'DM Mono',monospace;font-size:1rem;color:var(--paper);white-space:nowrap;align-self:flex-start;}
+
+/* CORTE DEL DIA */
+.corte{background:var(--paper);color:var(--ink);}
+.corte-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:0;align-items:stretch;}
+@media(max-width:900px){.corte-grid{grid-template-columns:1fr;}}
+.corte-img{position:relative;min-height:440px;}
+.corte-img img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;filter:saturate(1.1) contrast(1.05);}
+.corte-body{padding:60px 0 60px 80px;display:flex;flex-direction:column;justify-content:center;}
+@media(max-width:900px){.corte-body{padding:48px 0 0;}}
+.corte-body .eyebrow{color:var(--ember-dim);}
+.corte-body h2{font-size:clamp(2.4rem,5vw,3.6rem);margin:14px 0 20px;}
+.corte-body p{color:#4a4038;max-width:44ch;font-size:1.05rem;margin-bottom:30px;}
+.corte-stats{display:flex;gap:44px;margin-bottom:34px;}
+.corte-stats div .n{font-family:'DM Mono',monospace;font-size:1.6rem;color:var(--ember-dim);}
+.corte-stats div .l{font-size:.78rem;color:#6b5f52;margin-top:2px;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--ink);color:var(--paper);
+  padding:16px 30px;font-family:'DM Mono',monospace;font-size:.85rem;letter-spacing:.05em;
+  width:fit-content;transition:background .2s,transform .2s;
+}
+.btn:hover{background:var(--ember-dim);transform:translateX(3px);}
+.btn.light{background:var(--paper);color:var(--ink);}
+.btn.light:hover{background:var(--ember);color:var(--ink);}
+
+/* GALERIA / AMBIENTE */
+.ambiente-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:20px;}
+@media(max-width:900px){.ambiente-grid{grid-template-columns:1fr;}}
+.amb-main{position:relative;height:560px;overflow:hidden;}
+.amb-main img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.03);}
+.amb-side{display:flex;flex-direction:column;gap:20px;}
+.amb-side .cell{position:relative;flex:1;min-height:170px;overflow:hidden;}
+.amb-side .cell img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.03);}
+.amb-cap{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(to top, rgba(22,18,16,.85), transparent);font-family:'DM Mono',monospace;font-size:.76rem;color:var(--paper);letter-spacing:.04em;}
+
+/* VINOS */
+.vinos{background:var(--bg2);}
+.vinos-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center;}
+@media(max-width:900px){.vinos-grid{grid-template-columns:1fr;gap:40px;}}
+.vinos-img{height:480px;overflow:hidden;position:relative;}
+.vinos-img img{width:100%;height:100%;object-fit:cover;filter:saturate(1.1) contrast(1.02);}
+.vino-list{display:flex;flex-direction:column;}
+.vino-row{display:flex;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--line);gap:20px;}
+.vino-row:first-child{border-top:1px solid var(--line);}
+.vino-row .name{font-weight:600;}
+.vino-row .origin{font-size:.8rem;color:var(--smoke);margin-top:3px;}
+.vino-row .price{font-family:'DM Mono',monospace;color:var(--ember);white-space:nowrap;}
+
+/* RESENAS */
+.resenas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+@media(max-width:900px){.resenas-grid{grid-template-columns:1fr;}}
+.resena{background:var(--bg);padding:40px 34px;}
+.resena .stars{color:var(--ember);font-size:.9rem;letter-spacing:.12em;margin-bottom:20px;}
+.resena p{font-size:1.02rem;color:var(--paper);margin-bottom:26px;font-family:'Bitter',serif;font-style:italic;line-height:1.5;}
+.resena .who{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--smoke);}
+
+/* RESERVA CTA */
+.reserva{
+  background:var(--ember);color:var(--ink);
+  padding:120px 0;text-align:center;position:relative;overflow:hidden;
+}
+.reserva h2{font-size:clamp(2.6rem,7vw,5.4rem);margin-bottom:26px;}
+.reserva p{font-size:1.1rem;max-width:44ch;margin:0 auto 40px;opacity:.85;}
+.reserva-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.reserva .btn{background:var(--ink);color:var(--paper);}
+.reserva .btn:hover{background:#000;}
+.reserva .btn.outline{background:transparent;border:1.5px solid var(--ink);}
+.reserva .btn.outline:hover{background:var(--ink);color:var(--paper);}
+
+/* FOOTER */
+footer{padding:80px 0 40px;}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:70px;}
+@media(max-width:800px){.foot-top{grid-template-columns:1fr 1fr;}}
+.foot-top .logo{font-family:'Bitter',serif;font-weight:900;font-size:1.7rem;margin-bottom:14px;}
+.foot-top p{color:var(--smoke);font-size:.9rem;max-width:32ch;}
+.foot-col h4{font-family:'DM Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);margin-bottom:18px;}
+.foot-col a,.foot-col div{display:block;color:var(--smoke);font-size:.9rem;margin-bottom:10px;}
+.foot-col a:hover{color:var(--paper);}
+.foot-bottom{display:flex;justify-content:space-between;padding-top:30px;border-top:1px solid var(--line);font-size:.8rem;color:var(--smoke);flex-wrap:wrap;gap:12px;}
+
+/* REVEAL */
+.reveal-hidden{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-shown{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-logo"><span class="dot"></span>BRASA</div>
+  <div class="nav-links">
+    <a href="#menu">Carta</a>
+    <a href="#corte">Corte del día</a>
+    <a href="#ambiente">El lugar</a>
+    <a href="#vinos">Vinos</a>
+  </div>
+  <a class="nav-cta" href="#reserva">Reservar mesa</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner wrap">
+    <div class="hero-top">
+      <h1>Fuego de leña,<br><em>sin apuro.</em></h1>
+      <div class="hero-side">Parrilla de cortes argentinos<br>y brasas de quebracho —<br>Palermo, Buenos Aires</div>
+    </div>
+    <div class="hero-meta">
+      <div><div class="n tabular">1998</div><div class="l">Desde</div></div>
+      <div><div class="n tabular">4h</div><div class="l">Cocción a fuego lento</div></div>
+      <div><div class="n tabular">12</div><div class="l">Cortes en carta</div></div>
+      <div><div class="n tabular">100%</div><div class="l">Leña, sin gas</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee-strip">
+  <div class="track">
+    <span>BIFE DE CHORIZO</span><span>·</span><span>ASADO DE TIRA</span><span>·</span><span>ENTRAÑA</span><span>·</span><span>VACÍO</span><span>·</span><span>MOLLEJAS</span><span>·</span><span>CHORIZO CRIOLLO</span><span>·</span>
+    <span>BIFE DE CHORIZO</span><span>·</span><span>ASADO DE TIRA</span><span>·</span><span>ENTRAÑA</span><span>·</span><span>VACÍO</span><span>·</span><span>MOLLEJAS</span><span>·</span><span>CHORIZO CRIOLLO</span><span>·</span>
+  </div>
+</div>
+
+<section class="fuego">
+  <div class="wrap fuego-grid">
+    <div class="fuego-text reveal-hidden">
+      <span class="eyebrow">Nuestro método</span>
+      <p>La brasa manda, no el reloj.</p>
+      <p>Prendemos el fuego a las siete de la mañana. Para cuando abrimos, ya es puro rescoldo de quebracho blanco — sin llama, sin humo negro, sólo el calor parejo que necesita un buen corte para tomarse su tiempo. No apuramos nada acá adentro.</p>
+      <p>El parrillero decide el punto mirando la carne, no un cronómetro. Así se cocinó siempre en esta casa, y así se sigue haciendo.</p>
+    </div>
+    <div class="fuego-img reveal-hidden">
+      <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=900&q=80" alt="Costillar a la parrilla sobre tabla de madera">
+      <div class="tag">Costillar · 4hs de brasa</div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="sec-head reveal-hidden">
+      <h2>La carta</h2>
+      <p>Cortes de novillo criado a pasto, achuras de casa y guarniciones que no compiten — acompañan.</p>
+    </div>
+    <div class="menu-cats reveal-hidden">
+      <span class="menu-cat active">Parrilla</span>
+      <span class="menu-cat">Achuras</span>
+      <span class="menu-cat">Entradas</span>
+      <span class="menu-cat">Guarniciones</span>
+    </div>
+    <div class="menu-col reveal-hidden">
+      <div>
+        <div class="menu-group">
+          <h3>Cortes de tira</h3>
+          <div class="sub">A las brasas, punto a elección</div>
+          <div class="menu-row">
+            <div><div class="name">Bife de chorizo</div><div class="desc">400g, novillo criado a pasto, 45 días de estacionamiento</div></div>
+            <div class="price tabular">$14.200</div>
+          </div>
+          <div class="menu-row">
+            <div><div class="name">Asado de tira</div><div class="desc">Corte transversal, hueso incluido, para compartir</div></div>
+            <div class="price tabular">$11.800</div>
+          </div>
+          <div class="menu-row">
+            <div><div class="name">Vacío</div><div class="desc">450g, marcado a la parrilla con sal parrillera</div></div>
+            <div class="price tabular">$12.900</div>
+          </div>
+        </div>
+        <div class="menu-group">
+          <h3>Cortes finos</h3>
+          <div class="sub">Rápidos al fuego vivo</div>
+          <div class="menu-row">
+            <div><div class="name">Entraña</div><div class="desc">380g, el corte de la casa — se agota temprano</div></div>
+            <div class="price tabular">$15.600</div>
+          </div>
+          <div class="menu-row">
+            <div><div class="name">Ojo de bife</div><div class="desc">350g, veteado, cocción media recomendada</div></div>
+            <div class="price tabular">$16.400</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="menu-group">
+          <h3>Achuras</h3>
+          <div class="sub">Para arrancar, en el centro de la mesa</div>
+          <div class="menu-row">
+            <div><div class="name">Mollejas de cogote</div><div class="desc">Doradas de afuera, tiernas por dentro</div></div>
+            <div class="price tabular">$9.400</div>
+          </div>
+          <div class="menu-row">
+            <div><div class="name">Chorizo y morcilla</div><div class="desc">De elaboración propia, pan casero</div></div>
+            <div class="price tabular">$6.200</div>
+          </div>
+          <div class="menu-row">
+            <div><div class="name">Provoleta</div><div class="desc">Orégano y aceite de oliva, bien dorada</div></div>
+            <div class="price tabular">$7.800</div>
+          </div>
+        </div>
+        <div class="menu-group">
+          <h3>Para compartir</h3>
+          <div class="sub">Parrillada completa, 2 a 3 personas</div>
+          <div class="menu-row">
+            <div><div class="name">Parrillada BRASA</div><div class="desc">Bife, vacío, chorizo, morcilla, mollejas y provoleta</div></div>
+            <div class="price tabular">$38.500</div>
+          </div>
+          <div class="menu-row">
+            <div><div class="name">Guarniciones</div><div class="desc">Ensalada criolla, papas rústicas, puré ahumado</div></div>
+            <div class="price tabular">$3.400</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="corte" id="corte">
+  <div class="corte-grid">
+    <div class="corte-img reveal-hidden">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Costillar y guarniciones recién salidos de la parrilla">
+    </div>
+    <div class="corte-body wrap reveal-hidden" style="padding-left:80px;">
+      <span class="eyebrow">Corte del día</span>
+      <h2>Costillar ahumado, 4 horas de brasa lenta</h2>
+      <p>Todos los jueves y viernes. Cerdo criado en Lobos, ahumado con quebracho y servido con papas rústicas y ensalada de repollo. Se prepara en tandas limitadas — cuando se termina, se termina.</p>
+      <div class="corte-stats">
+        <div><div class="n tabular">4h</div><div class="l">Tiempo de brasa</div></div>
+        <div><div class="n tabular">$13.900</div><div class="l">Precio por persona</div></div>
+        <div><div class="n tabular">Jue–Vie</div><div class="l">Días disponibles</div></div>
+      </div>
+      <a class="btn" href="#reserva">Reservar para el jueves →</a>
+    </div>
+  </div>
+</section>
+
+<section id="ambiente">
+  <div class="wrap">
+    <div class="sec-head reveal-hidden">
+      <h2>El salón</h2>
+      <p>Ladrillo visto, mesas de quebracho reciclado y la parrilla a la vista desde cualquier lugar.</p>
+    </div>
+    <div class="ambiente-grid reveal-hidden">
+      <div class="amb-main">
+        <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=1100&q=80" alt="Salón del restaurante con mesas de madera">
+        <div class="amb-cap">Salón principal · 60 cubiertos</div>
+      </div>
+      <div class="amb-side">
+        <div class="cell">
+          <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=600&q=80" alt="Plato de cerdo a la parrilla con guarnición">
+          <div class="amb-cap">Cocina abierta</div>
+        </div>
+        <div class="cell">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" alt="Selección de cortes a la parrilla con acompañamientos">
+          <div class="amb-cap">Tabla para compartir</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="vinos" id="vinos">
+  <div class="wrap vinos-grid">
+    <div class="vinos-img reveal-hidden">
+      <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=80" alt="Trago servido en vaso bajo sobre barra de madera">
+    </div>
+    <div class="reveal-hidden">
+      <span class="eyebrow">Carta de vinos</span>
+      <h2 style="font-size:clamp(2.2rem,4.4vw,3.2rem);margin:14px 0 30px;">Malbecs de altura y algo de barra</h2>
+      <div class="vino-list">
+        <div class="vino-row"><div><div class="name">Malbec Reserva</div><div class="origin">Valle de Uco, Mendoza</div></div><div class="price tabular">$8.400</div></div>
+        <div class="vino-row"><div><div class="name">Cabernet Franc</div><div class="origin">Gualtallary, 1200 msnm</div></div><div class="price tabular">$9.900</div></div>
+        <div class="vino-row"><div><div class="name">Old Fashioned de casa</div><div class="origin">Bourbon, naranja ahumada</div></div><div class="price tabular">$6.800</div></div>
+        <div class="vino-row"><div><div class="name">Torrontés</div><div class="origin">Cafayate, Salta</div></div><div class="price tabular">$7.200</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal-hidden"><h2>Quienes ya vinieron</h2></div>
+    <div class="resenas-grid reveal-hidden">
+      <div class="resena">
+        <div class="stars">★★★★★</div>
+        <p>"El costillar del jueves justifica el viaje solo. Cuatro horas de brasa se notan en cada bocado."</p>
+        <div class="who">Martina R. — Palermo</div>
+      </div>
+      <div class="resena">
+        <div class="stars">★★★★★</div>
+        <p>"Pedimos la parrillada completa para tres y sobró comida. Las mollejas, aparte."</p>
+        <div class="who">Ignacio F. — Belgrano</div>
+      </div>
+      <div class="resena">
+        <div class="stars">★★★★★</div>
+        <p>"Se nota el fuego de leña de verdad, no es un decorado. La entraña, perfecta."</p>
+        <div class="who">Sol A. — Recoleta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reserva" id="reserva">
+  <div class="wrap reveal-hidden">
+    <h2>Reservá tu<br>mesa junto al fuego</h2>
+    <p>Abrimos de martes a domingo, desde las 20hs. Recomendamos reservar con anticipación para el corte del día.</p>
+    <div class="reserva-actions">
+      <a class="btn" href="tel:+541145678900">Llamar al 11 4567-8900</a>
+      <a class="btn outline" href="mailto:reservas@brasa.com.ar">reservas@brasa.com.ar</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="logo">BRASA</div>
+        <p>Parrilla de fuego vivo en el corazón de Palermo. Cortes argentinos, brasas de quebracho, sin apuro.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Visitanos</h4>
+        <div>Av. Costa Rica 4820</div>
+        <div>Palermo, CABA</div>
+        <div>Mar–Dom, 20 a 00hs</div>
+      </div>
+      <div class="foot-col">
+        <h4>Contacto</h4>
+        <a href="tel:+541145678900">11 4567-8900</a>
+        <a href="mailto:reservas@brasa.com.ar">reservas@brasa.com.ar</a>
+      </div>
+      <div class="foot-col">
+        <h4>Seguinos</h4>
+        <a href="#">Instagram</a>
+        <a href="#">WhatsApp</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 BRASA — Todos los derechos reservados</div>
+      <div>Sitio conceptual — FR.Sistemas</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', window.scrollY > 40);
+});
+
+const revealEls = document.querySelectorAll('.reveal-hidden');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('reveal-shown');
+      io.unobserve(e.target);
+    }
+  });
+}, {threshold:0.12});
+revealEls.forEach(el => io.observe(el));
+setTimeout(() => revealEls.forEach(el => el.classList.add('reveal-shown')), 3000);
+</script>
+
+</body>
+</html>

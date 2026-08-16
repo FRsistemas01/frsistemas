@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRsistemas — Webs, Automatizaciones y Sistemas a Medida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#05060a;
+    --bg-soft:#0a0c14;
+    --card:#0f121c;
+    --border:rgba(255,255,255,0.08);
+    --text:#eef0f6;
+    --text-dim:#9aa0b4;
+    --blue:#3b82f6;
+    --blue-glow:#5b9bff;
+    --violet:#7c3aed;
+    --violet-glow:#a855f7;
+    --grad: linear-gradient(135deg, var(--blue) 0%, var(--violet) 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  ::selection{background:var(--violet);color:#fff;}
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--grad);border-radius:10px;}
+
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.02em;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:0.75rem;
+    color:var(--blue-glow);
+    font-weight:600;
+    margin-bottom:16px;
+    display:inline-block;
+  }
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  a{color:inherit;text-decoration:none;}
+  section{position:relative;padding:140px 0;}
+
+  /* background decoration */
+  .bg-glow{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(59,130,246,0.14), transparent 40%),
+      radial-gradient(circle at 85% 30%, rgba(124,58,237,0.14), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(59,130,246,0.08), transparent 45%);
+  }
+  .grid-lines{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(ellipse at center, black 0%, transparent 70%);
+  }
+
+  /* NAV */
+  nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    padding:20px 0;
+    transition:background 0.3s, backdrop-filter 0.3s, padding 0.3s, border-color 0.3s;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{
+    background:rgba(5,6,10,0.75);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.25rem;letter-spacing:-0.01em;}
+  .logo span{color:var(--blue-glow);}
+  .nav-links{display:flex;gap:36px;list-style:none;}
+  .nav-links a{font-size:0.92rem;font-weight:500;color:var(--text-dim);transition:color 0.2s;position:relative;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    padding:10px 22px;
+    border-radius:999px;
+    background:var(--grad);
+    font-weight:600;
+    font-size:0.88rem;
+    color:#fff !important;
+    transition:transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,0.4);}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .nav-toggle span{width:24px;height:2px;background:var(--text);}
+  .mobile-menu{
+    display:none;
+    position:fixed;top:64px;left:0;right:0;bottom:0;
+    background:rgba(5,6,10,0.98);
+    z-index:99;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:32px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-size:1.4rem;font-weight:600;font-family:'Space Grotesk',sans-serif;}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:120px;
+    position:relative;
+  }
+  .hero-inner{display:grid;grid-template-columns:1fr;gap:40px;text-align:center;place-items:center;}
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.2rem);
+    line-height:1.05;
+    max-width:900px;
+  }
+  .hero p.sub{
+    font-size:clamp(1.05rem, 2vw, 1.35rem);
+    color:var(--text-dim);
+    max-width:620px;
+  }
+  .hero-ctas{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
+  .btn-primary{
+    padding:16px 34px;
+    border-radius:999px;
+    background:var(--grad);
+    font-weight:600;
+    font-size:1rem;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform 0.25s, box-shadow 0.25s;
+    box-shadow:0 0 0 rgba(124,58,237,0);
+  }
+  .btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 30px rgba(124,58,237,0.45);}
+  .btn-ghost{
+    padding:16px 34px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    font-weight:600;
+    font-size:1rem;
+    transition:border-color 0.25s, background 0.25s;
+  }
+  .btn-ghost:hover{border-color:var(--blue-glow);background:rgba(59,130,246,0.08);}
+
+  .hero-orbits{
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .orbit{
+    position:absolute;
+    border-radius:50%;
+    border:1px solid var(--border);
+  }
+  .orbit-1{width:600px;height:600px;top:-100px;right:-200px;}
+  .orbit-2{width:400px;height:400px;bottom:-150px;left:-100px;}
+  .dot-field{position:absolute;inset:0;}
+  .float-dot{
+    position:absolute;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--blue-glow);
+    opacity:0.5;
+    box-shadow:0 0 12px var(--blue-glow);
+  }
+  .scroll-hint{
+    position:absolute;
+    bottom:36px;left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    color:var(--text-dim);
+    font-size:0.75rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    animation:bob 2.4s ease-in-out infinite;
+  }
+  .scroll-hint .line{width:1px;height:36px;background:linear-gradient(var(--blue-glow), transparent);}
+  @keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity 0.8s cubic-bezier(.16,.84,.44,1), transform 0.8s cubic-bezier(.16,.84,.44,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-scale{opacity:0;transform:scale(0.92);transition:opacity 0.7s ease, transform 0.7s cubic-bezier(.16,.84,.44,1);}
+  .reveal-scale.visible{opacity:1;transform:scale(1);}
+  .stagger > *{opacity:0;transform:translateY(28px);transition:opacity 0.6s ease, transform 0.6s cubic-bezier(.16,.84,.44,1);}
+  .stagger.visible > *{opacity:1;transform:translateY(0);}
+  .stagger.visible > *:nth-child(1){transition-delay:0.05s;}
+  .stagger.visible > *:nth-child(2){transition-delay:0.15s;}
+  .stagger.visible > *:nth-child(3){transition-delay:0.25s;}
+  .stagger.visible > *:nth-child(4){transition-delay:0.35s;}
+
+  /* SECTION HEADER */
+  .sec-head{max-width:640px;margin:0 auto 64px;text-align:center;}
+  .sec-head h2{font-size:clamp(2rem, 4vw, 3rem);margin-bottom:16px;}
+  .sec-head p{color:var(--text-dim);font-size:1.05rem;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  .about-visual{
+    position:relative;
+    aspect-ratio:1/1;
+    border-radius:24px;
+    background:var(--card);
+    border:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .about-visual::before{
+    content:'';
+    position:absolute;
+    width:200%;height:200%;
+    background:conic-gradient(from 0deg, var(--blue), var(--violet), var(--blue));
+    opacity:0.15;
+    animation:spin 12s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .about-visual .core{
+    position:relative;
+    z-index:1;
+    width:70%;height:70%;
+    border-radius:20px;
+    background:var(--bg-soft);
+    border:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:2rem;
+  }
+  .about-text p{color:var(--text-dim);margin-bottom:20px;font-size:1.05rem;}
+  .about-text h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin-bottom:24px;}
+
+  /* SERVICIOS */
+  .services-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:28px;}
+  .service-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:40px 32px;
+    transition:transform 0.35s cubic-bezier(.16,.84,.44,1), border-color 0.35s, box-shadow 0.35s;
+    position:relative;
+    overflow:hidden;
+  }
+  .service-card::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:var(--grad);
+    opacity:0;
+    z-index:-1;
+    transition:opacity 0.35s;
+  }
+  .service-card:hover{
+    transform:translateY(-10px);
+    border-color:rgba(255,255,255,0.18);
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  }
+  .service-icon{
+    width:56px;height:56px;
+    border-radius:14px;
+    background:var(--grad);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:24px;
+    font-size:1.5rem;
+  }
+  .service-card h3{font-size:1.3rem;margin-bottom:14px;}
+  .service-card p{color:var(--text-dim);font-size:0.98rem;margin-bottom:24px;}
+  .service-price{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+  }
+  .service-price .tag{
+    font-size:0.78rem;
+    padding:5px 14px;
+    border-radius:999px;
+    background:rgba(59,130,246,0.12);
+    color:var(--blue-glow);
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    letter-spacing:0.02em;
+  }
+
+  /* PROCESO / parallax */
+  .process{background:var(--bg-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .process-parallax{
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;
+    z-index:-1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .process-parallax span{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:14vw;
+    font-weight:700;
+    color:rgba(255,255,255,0.025);
+    white-space:nowrap;
+  }
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .step{padding:28px 22px;border-radius:18px;border:1px solid var(--border);background:rgba(255,255,255,0.02);}
+  .step .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:2.2rem;
+    font-weight:700;
+    background:var(--grad);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    margin-bottom:12px;
+  }
+  .step h4{font-size:1.05rem;margin-bottom:8px;}
+  .step p{color:var(--text-dim);font-size:0.92rem;}
+
+  /* CONTACT */
+  .contact-box{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:64px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .contact-box::before{
+    content:'';
+    position:absolute;
+    width:400px;height:400px;
+    background:var(--grad);
+    filter:blur(120px);
+    opacity:0.18;
+    top:-100px;right:-100px;
+  }
+  .contact-info h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:20px;}
+  .contact-info p{color:var(--text-dim);margin-bottom:32px;}
+  .contact-list{list-style:none;display:flex;flex-direction:column;gap:18px;}
+  .contact-list li{display:flex;align-items:center;gap:14px;font-weight:500;}
+  .contact-list .ic{
+    width:40px;height:40px;
+    border-radius:12px;
+    background:rgba(59,130,246,0.12);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--blue-glow);
+    flex-shrink:0;
+  }
+  .contact-list a:hover{color:var(--blue-glow);}
+
+  form{display:flex;flex-direction:column;gap:16px;}
+  form input, form textarea{
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px 16px;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:0.95rem;
+    resize:none;
+    transition:border-color 0.25s, background 0.25s;
+  }
+  form input:focus, form textarea:focus{outline:none;border-color:var(--blue-glow);background:rgba(255,255,255,0.05);}
+  form button{
+    margin-top:8px;
+    padding:15px 28px;
+    border:none;
+    border-radius:12px;
+    background:var(--grad);
+    color:#fff;
+    font-weight:600;
+    font-size:1rem;
+    cursor:pointer;
+    transition:transform 0.25s, box-shadow 0.25s;
+  }
+  form button:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(124,58,237,0.4);}
+
+  footer{
+    padding:40px 0;
+    text-align:center;
+    color:var(--text-dim);
+    font-size:0.88rem;
+    border-top:1px solid var(--border);
+  }
+  footer a{font-weight:600;color:var(--text);}
+
+  @media (max-width:900px){
+    .nav-links,.nav-cta{display:none;}
+    .nav-toggle{display:flex;}
+    .about-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .contact-box{grid-template-columns:1fr;padding:36px 24px;}
+    section{padding:90px 0;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="grid-lines"></div>
+
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo">FR<span>sistemas</span></a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="nav-cta">Hablemos de tu proyecto</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#sobre">Nosotros</a>
+  <a href="#servicios">Servicios</a>
+  <a href="#proceso">Proceso</a>
+  <a href="#contacto">Contacto</a>
+</div>
+
+<header class="hero" id="top">
+  <div class="hero-orbits">
+    <div class="orbit orbit-1"></div>
+    <div class="orbit orbit-2"></div>
+    <div class="dot-field" id="dotField"></div>
+  </div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow reveal visible">Desarrollo web · Automatizaciones · Sistemas a medida</span>
+    <h1 class="reveal visible">No te ayudamos a crecer.<br><span class="grad-text">Te ayudamos a ser mejor.</span></h1>
+    <p class="sub reveal visible">Creamos páginas web, automatizaciones (como chatbots) y sistemas a medida —turnos, tickets y más— para negocios, emprendimientos y locales que quieren dar el salto.</p>
+    <div class="hero-ctas reveal visible">
+      <a href="#contacto" class="btn-primary">Hablemos de tu proyecto →</a>
+      <a href="#servicios" class="btn-ghost">Ver servicios</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="line"></div></div>
+</header>
+
+<section id="sobre">
+  <div class="wrap about-grid">
+    <div class="about-visual reveal-scale">
+      <div class="core">FR</div>
+    </div>
+    <div class="about-text reveal">
+      <span class="eyebrow">Quiénes somos</span>
+      <h2>Un desarrollo pensado <span class="grad-text">a tu medida</span>, no a la de una plantilla.</h2>
+      <p>FRsistemas nace para acompañar a negocios, emprendimientos y locales que necesitan presencia digital real y herramientas que les hagan la vida más fácil: desde una web profesional hasta un sistema propio de turnos o tickets.</p>
+      <p>Cada proyecto empieza con una conversación. No vendemos paquetes cerrados: escuchamos tu idea, entendemos tu negocio y construimos la solución que realmente necesitás.</p>
+      <a href="#contacto" class="btn-ghost">Conversemos →</a>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Servicios</span>
+      <h2>Lo que hacemos por vos</h2>
+      <p>Tres áreas, un mismo objetivo: que tu negocio funcione mejor.</p>
+    </div>
+    <div class="services-grid stagger">
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <h3>Páginas Web</h3>
+        <p>Sitios web profesionales para cualquier negocio: locales, emprendimientos, profesionales independientes. Diseño moderno, responsive y pensado para convertir visitas en clientes.</p>
+        <div class="service-price"><span class="tag">A medida</span><span>Consultar</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3>Automatizaciones</h3>
+        <p>Chatbots y automatizaciones integradas en tu propia web para responder consultas, agilizar procesos y ahorrarte tiempo todos los días.</p>
+        <div class="service-price"><span class="tag">A medida</span><span>Consultar</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>Sistemas a Medida</h3>
+        <p>Sistemas propios adaptados a tu operación: turnos, tickets y otras herramientas de gestión diseñadas específicamente para cómo trabaja tu negocio.</p>
+        <div class="service-price"><span class="tag">A medida</span><span>Consultar</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proceso" class="process">
+  <div class="process-parallax" id="parallaxText"><span>FRSISTEMAS</span></div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Cómo trabajamos</span>
+      <h2>De la idea al sistema funcionando</h2>
+      <p>Un proceso simple, pensado para que tu proyecto avance sin fricciones.</p>
+    </div>
+    <div class="steps stagger">
+      <div class="step">
+        <div class="num">01</div>
+        <h4>Conversamos</h4>
+        <p>Nos contás tu idea, tu negocio y qué necesitás resolver.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h4>Proponemos</h4>
+        <p>Definimos juntos el alcance y el enfoque más adecuado.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h4>Desarrollamos</h4>
+        <p>Construimos tu web, automatización o sistema a medida.</p>
+      </div>
+      <div class="step">
+        <div class="num">04</div>
+        <h4>Acompañamos</h4>
+        <p>Entregamos, ajustamos y te acompañamos en lo que necesites.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap">
+    <div class="contact-box reveal">
+      <div class="contact-info">
+        <span class="eyebrow">Contacto</span>
+        <h2>Contanos tu idea</h2>
+        <p>Escribinos y coordinamos una charla para ver cómo podemos ayudarte.</p>
+        <ul class="contact-list">
+          <li><span class="ic">📞</span><a href="tel:1154822753">1154822753</a></li>
+          <li><span class="ic">✉️</span><a href="mailto:fr.sistemas01@gmail.com">fr.sistemas01@gmail.com</a></li>
+          <li><span class="ic">💬</span><a href="https://wa.me/541154822753" target="_blank" rel="noopener">WhatsApp: 1154822753</a></li>
+          <li><span class="ic">@</span><span>fr.sistemas</span></li>
+        </ul>
+      </div>
+      <form onsubmit="event.preventDefault(); window.location.href='mailto:fr.sistemas01@gmail.com?subject=Consulta desde la web&body=' + encodeURIComponent(this.mensaje.value + ' - Contacto: ' + this.contacto.value);">
+        <input type="text" name="nombre" placeholder="Tu nombre" required>
+        <input type="text" name="contacto" placeholder="Tu email o teléfono" required>
+        <textarea name="mensaje" rows="4" placeholder="Contanos tu idea..." required></textarea>
+        <button type="submit">Enviar consulta</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="year"></span> <a href="#top">FRsistemas</a>. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .reveal-scale, .stagger').forEach(el => observer.observe(el));
+
+  // Floating dots in hero
+  const dotField = document.getElementById('dotField');
+  const dotCount = window.innerWidth < 768 ? 8 : 18;
+  for (let i = 0; i < dotCount; i++) {
+    const d = document.createElement('div');
+    d.className = 'float-dot';
+    d.style.left = Math.random() * 100 + '%';
+    d.style.top = Math.random() * 100 + '%';
+    d.style.animation = `floaty ${6 + Math.random() * 6}s ease-in-out infinite`;
+    d.style.animationDelay = (Math.random() * 4) + 's';
+    dotField.appendChild(d);
+  }
+  const styleTag = document.createElement('style');
+  styleTag.textContent = `@keyframes floaty {0%,100%{transform:translateY(0);}50%{transform:translateY(-24px);}}`;
+  document.head.appendChild(styleTag);
+
+  // Parallax background text + orbits
+  let ticking = false;
+  function onScroll() {
+    const y = window.scrollY;
+    const parallaxText = document.getElementById('parallaxText');
+    if (parallaxText) parallaxText.style.transform = `translateY(${y * 0.06}px)`;
+    document.querySelectorAll('.orbit').forEach((o, i) => {
+      o.style.transform = `translateY(${y * (0.04 + i * 0.02)}px) rotate(${y * 0.02}deg)`;
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Kiosco - Demo | FRsistemas</title>
+<link rel="stylesheet" href="../../assets/style.css?v=16">
+<link rel="stylesheet" href="../../assets/site-extra.css?v=16">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%230a0a0a%27/%3E%3Ctext x=%2750%27 y=%2769%27 font-size=%2758%27 font-family=%27Arial,sans-serif%27 font-weight=%27800%27 fill=%27%23d6ff3f%27 text-anchor=%27middle%27%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body class="app-mode">
+
+<div class="app-frame">
+<aside class="app-sidebar">
+  <div class="app-logo"><span class="dot"></span><div>Kiosco POS<br><small>FRsistemas</small></div></div>
+  <nav class="app-sidebar-nav">
+    <button class="app-view-tab active" data-view="caja"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span> Caja</button>
+    <button class="app-view-tab" data-view="historial"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span> Historial</button>
+  </nav>
+  <div class="app-sidebar-section">Otros módulos</div>
+  <nav class="app-sidebar-nav">
+    <a class="app-view-tab" href="clientes.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span> Clientes</a>
+    <a class="app-view-tab" href="turnos.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span> Turnero</a>
+    <a class="app-view-tab" href="tickets.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span> Mesa de ayuda</a>
+    <a class="app-view-tab" href="deposito.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg></span> Depósito</a>
+    <a class="app-view-tab" href="pedidos.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1"></rect></svg></span> Pedidos</a>
+  </nav>
+  <div class="app-sidebar-footer">
+    <a href="../../index.html" class="back-pill" data-cursor="">← <span>Portfolio</span></a>
+  </div>
+</aside>
+<div class="app-main">
+<header class="app-topbar">
+  <div class="app-search"><input type="text" placeholder="Buscar producto..." id="topSearch"></div>
+  <div class="app-topbar-right">
+    <div class="app-notif-wrap"><button class="app-icon-btn" id="notifBtn" aria-label="Notificaciones">🔔<span class="app-notif-dot" id="notifDot"></span></button><div class="app-notif-panel" id="notifPanel"><div class="app-notif-panel-head"><h5>Notificaciones</h5><span>2 nuevas</span></div><div class="app-notif-item"><span class="dot"></span><div class="txt"><strong>Venta registrada</strong><p>Cobro de $2.800 con tarjeta.</p><time>Hace 2 min</time></div></div><div class="app-notif-item"><span class="dot"></span><div class="txt"><strong>Stock bajo</strong><p>Quedan pocas unidades de Chicles.</p><time>Hace 30 min</time></div></div><div class="app-notif-item read"><span class="dot"></span><div class="txt"><strong>Cierre de caja</strong><p>Recordatorio: cerrá caja antes de las 22 h.</p><time>Hace 1 h</time></div></div></div></div>
+    <div class="app-user"><div class="app-avatar">A</div><div><div class="app-user-name">Admin</div><div class="app-user-role">Kiosco</div></div></div>
+  </div>
+</header>
+
+<div class="app-shell">
+
+  <div class="app-demo-note">
+    <strong>Esto es una demo funcional.</strong> Así se vería un punto de venta hecho a medida para tu kiosco o local — cobrá, llevá el total del día y el historial de ventas. <a href="mailto:fr.sistemas01@gmail.com">Pedime uno para el tuyo ↗</a>
+  </div>
+
+  <!-- ============ VISTA CAJA ============ -->
+  <div class="app-view active" id="viewCaja">
+
+    <div class="app-stats">
+      <div class="app-stat"><span class="n" id="statTotalHoy">$0</span><span class="l">Ventas de hoy</span></div>
+      <div class="app-stat"><span class="n" id="statTicketsHoy">0</span><span class="l">Tickets de hoy</span></div>
+      <div class="app-stat"><span class="n" id="statTicketProm">$0</span><span class="l">Ticket promedio</span></div>
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-head"><h4>Ventas por método de pago (hoy)</h4><span id="chartTotal">$0</span></div>
+      <div class="bar-chart-bars" id="payChart"></div>
+    </div>
+
+    <div class="pos-layout">
+      <div>
+        <div class="pos-cat-tabs" id="posCategorias">
+          <button class="app-filter-pill active" data-cat="todos">Todos</button>
+          <button class="app-filter-pill" data-cat="bebidas">Bebidas</button>
+          <button class="app-filter-pill" data-cat="snacks">Snacks</button>
+          <button class="app-filter-pill" data-cat="golosinas">Golosinas</button>
+          <button class="app-filter-pill" data-cat="almacen">Almacén</button>
+        </div>
+        <div class="pos-product-grid" id="posGrid"></div>
+      </div>
+
+      <div class="pos-cart">
+        <h4>Ticket actual</h4>
+        <div class="pos-cart-items" id="posCartItems"></div>
+        <div class="pos-cart-total"><span>Total</span><span class="n" id="posCartTotal">$0</span></div>
+        <div class="pos-pay-methods" id="posPayMethods">
+          <button class="selected" data-pay="efectivo">Efectivo</button>
+          <button data-pay="tarjeta">Tarjeta</button>
+          <button data-pay="transferencia">Transf.</button>
+        </div>
+        <button class="app-btn-primary" id="btnCobrar" style="width:100%;padding:13px;font-size:0.86rem;">Cobrar</button>
+        <button class="app-mini-btn" id="btnCerrarCaja" style="width:100%;margin-top:10px;">Cerrar caja del día</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ VISTA HISTORIAL ============ -->
+  <div class="app-view" id="viewHistorial">
+    <div class="block-head" style="margin-bottom:24px;"><h2 style="font-size:1.6rem;font-family:'Bricolage Grotesque',sans-serif;">Ventas registradas</h2></div>
+    <div class="app-table-wrap">
+      <table class="app-table">
+        <thead><tr><th>Hora</th><th>Productos</th><th>Método de pago</th><th>Total</th></tr></thead>
+        <tbody id="historialBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<div class="app-modal-backdrop" id="cierreBackdrop"></div>
+<div class="app-modal" id="cierreModal" role="dialog" aria-modal="true">
+  <button class="app-modal-close" id="cierreClose" aria-label="Cerrar">✕</button>
+  <div id="cierreBody">
+    <h3>Cierre de caja</h3>
+    <div class="floor-card" style="background:var(--bg);padding:0;border:none;">
+      <div class="meta-row" style="border-top:none;"><span>Ventas totales</span><span id="cierreTotal">$0</span></div>
+      <div class="meta-row"><span>Tickets emitidos</span><span id="cierreTickets">0</span></div>
+      <div class="meta-row"><span>Efectivo</span><span id="cierreEfectivo">$0</span></div>
+      <div class="meta-row"><span>Tarjeta</span><span id="cierreTarjeta">$0</span></div>
+      <div class="meta-row"><span>Transferencia</span><span id="cierreTransferencia">$0</span></div>
+    </div>
+    <div class="app-modal-actions">
+      <button type="button" class="app-btn-primary" id="btnConfirmarCierre" style="flex:1;">Confirmar cierre</button>
+    </div>
+  </div>
+  <div id="cierreDone" style="display:none;text-align:center;padding:20px 0;">
+    <div class="client-success" style="border:none;padding:10px 0;">
+      <div class="icon">✓</div>
+      <h3>Caja cerrada</h3>
+      <p>El resumen del día quedó registrado. Mañana arranca un turno nuevo.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var STORAGE_KEY_STOCK = 'demo_kiosco_ventas_v1';
+  var PRODUCTS = [
+    { id:'gaseosa500', name:'Gaseosa 500ml', price:1800, cat:'bebidas', icon:'🥤' },
+    { id:'agua500', name:'Agua mineral 500ml', price:1200, cat:'bebidas', icon:'💧' },
+    { id:'cerveza', name:'Cerveza lata', price:2200, cat:'bebidas', icon:'🍺' },
+    { id:'jugo', name:'Jugo exprimido', price:1600, cat:'bebidas', icon:'🧃' },
+    { id:'papas', name:'Papas fritas', price:2100, cat:'snacks', icon:'🍟' },
+    { id:'alfajor', name:'Alfajor triple', price:1500, cat:'snacks', icon:'🍫' },
+    { id:'sandwich', name:'Sandwich de miga', price:2800, cat:'snacks', icon:'🥪' },
+    { id:'chicles', name:'Chicles', price:600, cat:'golosinas', icon:'🍬' },
+    { id:'caramelos', name:'Caramelos surtidos', price:500, cat:'golosinas', icon:'🍭' },
+    { id:'chocolate', name:'Chocolate barra', price:1900, cat:'golosinas', icon:'🍫' },
+    { id:'pan', name:'Pan lactal', price:2600, cat:'almacen', icon:'🍞' },
+    { id:'huevos', name:'Huevos x6', price:2400, cat:'almacen', icon:'🥚' },
+    { id:'leche', name:'Leche 1L', price:1700, cat:'almacen', icon:'🥛' },
+    { id:'yerba', name:'Yerba 1kg', price:4200, cat:'almacen', icon:'🧉' }
+  ];
+
+  function seedVentas(){
+    var d = new Date();
+    var hoy = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    return [
+      { fecha:hoy, hora:'09:12', items:'Gaseosa 500ml x2, Alfajor triple', total:4800, pago:'efectivo' },
+      { fecha:hoy, hora:'10:05', items:'Yerba 1kg, Leche 1L', total:5900, pago:'tarjeta' },
+      { fecha:hoy, hora:'11:40', items:'Agua mineral 500ml, Chicles', total:1800, pago:'efectivo' },
+      { fecha:hoy, hora:'12:15', items:'Sandwich de miga, Cerveza lata', total:5000, pago:'transferencia' }
+    ];
+  }
+
+  var ventas = [];
+  try { ventas = JSON.parse(localStorage.getItem(STORAGE_KEY_STOCK) || 'null') || seedVentas(); } catch(e) { ventas = seedVentas(); }
+  function saveVentas(){ try { localStorage.setItem(STORAGE_KEY_STOCK, JSON.stringify(ventas)); } catch(e){} }
+  function fmt(n){ return '$' + n.toLocaleString('es-AR'); }
+  function todayISO(){ var d = new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+
+  var cart = [];
+  var catFilter = 'todos';
+  var payMethod = 'efectivo';
+  var searchTerm = '';
+
+  function renderChart(){
+    var hoy = todayISO();
+    var ventasHoy = ventas.filter(function(v){ return v.fecha === hoy; });
+    var byMethod = { efectivo:0, tarjeta:0, transferencia:0 };
+    ventasHoy.forEach(function(v){ byMethod[v.pago] += v.total; });
+    var max = Math.max(byMethod.efectivo, byMethod.tarjeta, byMethod.transferencia, 1);
+    var total = byMethod.efectivo + byMethod.tarjeta + byMethod.transferencia;
+    document.getElementById('chartTotal').textContent = fmt(total);
+    document.getElementById('payChart').innerHTML = [
+      ['efectivo','Efectivo'], ['tarjeta','Tarjeta'], ['transferencia','Transferencia']
+    ].map(function(pair){
+      var h = Math.max(6, Math.round(byMethod[pair[0]] / max * 100));
+      return '<div class="bar-chart-col"><div class="bar-chart-fill" style="height:' + h + '%;"></div><span class="lbl">' + pair[1] + '</span></div>';
+    }).join('');
+  }
+
+  function renderProducts(){
+    var list = catFilter === 'todos' ? PRODUCTS : PRODUCTS.filter(function(p){ return p.cat === catFilter; });
+    if (searchTerm) list = list.filter(function(p){ return p.name.toLowerCase().indexOf(searchTerm) !== -1; });
+    if (!list.length){
+      document.getElementById('posGrid').innerHTML = '<div class="kanban-empty" style="grid-column:1/-1;">Ningún producto coincide con la búsqueda.</div>';
+      return;
+    }
+    document.getElementById('posGrid').innerHTML = list.map(function(p){
+      return '<button class="pos-product-btn" data-id="' + p.id + '">' +
+        '<span class="icon">' + p.icon + '</span>' +
+        '<span class="name">' + p.name + '</span>' +
+        '<span class="price">' + fmt(p.price) + '</span>' +
+      '</button>';
+    }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('.pos-product-btn'), function(btn){
+      btn.addEventListener('click', function(){ addToCart(btn.getAttribute('data-id')); });
+    });
+  }
+
+  function addToCart(id){
+    var p = PRODUCTS.find(function(x){ return x.id === id; });
+    if (!p) return;
+    var line = cart.find(function(x){ return x.id === id; });
+    if (line) line.qty++;
+    else cart.push({ id:p.id, name:p.name, price:p.price, qty:1 });
+    renderCart();
+  }
+  function setQty(id, qty){
+    if (qty <= 0){ cart = cart.filter(function(x){ return x.id !== id; }); }
+    else { var line = cart.find(function(x){ return x.id === id; }); if (line) line.qty = qty; }
+    renderCart();
+  }
+
+  function renderCart(){
+    var wrap = document.getElementById('posCartItems');
+    if (!cart.length){
+      wrap.innerHTML = '<div class="pos-cart-empty">Tocá un producto para agregarlo al ticket.</div>';
+    } else {
+      wrap.innerHTML = cart.map(function(l){
+        return '<div class="pos-cart-line">' +
+          '<span>' + l.name + '</span>' +
+          '<div class="qty-ctrl">' +
+            '<button data-down="' + l.id + '">−</button>' +
+            '<span>' + l.qty + '</span>' +
+            '<button data-up="' + l.id + '">+</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      Array.prototype.forEach.call(wrap.querySelectorAll('[data-up]'), function(b){
+        b.addEventListener('click', function(){
+          var l = cart.find(function(x){ return x.id === b.getAttribute('data-up'); });
+          if (l) setQty(l.id, l.qty + 1);
+        });
+      });
+      Array.prototype.forEach.call(wrap.querySelectorAll('[data-down]'), function(b){
+        b.addEventListener('click', function(){
+          var l = cart.find(function(x){ return x.id === b.getAttribute('data-down'); });
+          if (l) setQty(l.id, l.qty - 1);
+        });
+      });
+    }
+    var total = cart.reduce(function(sum, l){ return sum + l.price * l.qty; }, 0);
+    document.getElementById('posCartTotal').textContent = fmt(total);
+    var cobrarBtn = document.getElementById('btnCobrar');
+    cobrarBtn.disabled = !cart.length;
+    cobrarBtn.style.opacity = cart.length ? '1' : '0.4';
+    cobrarBtn.style.cursor = cart.length ? 'pointer' : 'not-allowed';
+  }
+
+  document.getElementById('topSearch').addEventListener('input', function(){
+    searchTerm = this.value.trim().toLowerCase();
+    renderProducts();
+  });
+
+  document.getElementById('posCategorias').addEventListener('click', function(e){
+    var btn = e.target.closest('.app-filter-pill');
+    if (!btn) return;
+    document.querySelectorAll('#posCategorias .app-filter-pill').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    catFilter = btn.getAttribute('data-cat');
+    renderProducts();
+  });
+
+  document.getElementById('posPayMethods').addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    document.querySelectorAll('#posPayMethods button').forEach(function(b){ b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    payMethod = btn.getAttribute('data-pay');
+  });
+
+  document.getElementById('btnCobrar').addEventListener('click', function(){
+    if (!cart.length) return;
+    var total = cart.reduce(function(sum, l){ return sum + l.price * l.qty; }, 0);
+    var itemsText = cart.map(function(l){ return l.name + (l.qty > 1 ? ' x' + l.qty : ''); }).join(', ');
+    var now = new Date();
+    ventas.push({
+      fecha: todayISO(),
+      hora: String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0'),
+      items: itemsText,
+      total: total,
+      pago: payMethod
+    });
+    saveVentas();
+    cart = [];
+    renderCart();
+    renderStats();
+    renderHistorial();
+    var btn = document.getElementById('btnCobrar');
+    var original = btn.textContent;
+    btn.textContent = 'Cobrado ✓';
+    setTimeout(function(){ btn.textContent = original; }, 1400);
+  });
+
+  function renderStats(){
+    var hoy = todayISO();
+    var ventasHoy = ventas.filter(function(v){ return v.fecha === hoy; });
+    var totalHoy = ventasHoy.reduce(function(sum, v){ return sum + v.total; }, 0);
+    document.getElementById('statTotalHoy').textContent = fmt(totalHoy);
+    document.getElementById('statTicketsHoy').textContent = ventasHoy.length;
+    document.getElementById('statTicketProm').textContent = fmt(ventasHoy.length ? Math.round(totalHoy / ventasHoy.length) : 0);
+    renderChart();
+  }
+
+  var payLabel = { efectivo:'Efectivo', tarjeta:'Tarjeta', transferencia:'Transferencia' };
+  function renderHistorial(){
+    var sorted = ventas.slice().sort(function(a,b){ return (b.fecha+b.hora).localeCompare(a.fecha+a.hora); });
+    var tbody = document.getElementById('historialBody');
+    if (!sorted.length){
+      tbody.innerHTML = '<tr class="app-row-empty"><td colspan="4">Todavía no hay ventas registradas.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = sorted.map(function(v){
+      return '<tr><td>' + v.fecha + ' ' + v.hora + '</td><td>' + v.items + '</td><td>' + payLabel[v.pago] + '</td><td>' + fmt(v.total) + '</td></tr>';
+    }).join('');
+  }
+
+  document.querySelectorAll('.app-view-tab[data-view]').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.app-view-tab[data-view]').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      var view = tab.getAttribute('data-view');
+      document.getElementById('viewCaja').classList.toggle('active', view === 'caja');
+      document.getElementById('viewHistorial').classList.toggle('active', view === 'historial');
+    });
+  });
+
+  /* ---------- cierre de caja ---------- */
+  var cierreModal = document.getElementById('cierreModal');
+  var cierreBackdrop = document.getElementById('cierreBackdrop');
+  function openCierre(){
+    var hoy = todayISO();
+    var ventasHoy = ventas.filter(function(v){ return v.fecha === hoy; });
+    var byMethod = { efectivo:0, tarjeta:0, transferencia:0 };
+    ventasHoy.forEach(function(v){ byMethod[v.pago] += v.total; });
+    var total = byMethod.efectivo + byMethod.tarjeta + byMethod.transferencia;
+    document.getElementById('cierreTotal').textContent = fmt(total);
+    document.getElementById('cierreTickets').textContent = ventasHoy.length;
+    document.getElementById('cierreEfectivo').textContent = fmt(byMethod.efectivo);
+    document.getElementById('cierreTarjeta').textContent = fmt(byMethod.tarjeta);
+    document.getElementById('cierreTransferencia').textContent = fmt(byMethod.transferencia);
+    document.getElementById('cierreBody').style.display = 'block';
+    document.getElementById('cierreDone').style.display = 'none';
+    cierreModal.classList.add('open'); cierreBackdrop.classList.add('open');
+  }
+  function closeCierre(){ cierreModal.classList.remove('open'); cierreBackdrop.classList.remove('open'); }
+  document.getElementById('btnCerrarCaja').addEventListener('click', openCierre);
+  document.getElementById('cierreClose').addEventListener('click', closeCierre);
+  cierreBackdrop.addEventListener('click', closeCierre);
+  document.getElementById('btnConfirmarCierre').addEventListener('click', function(){
+    document.getElementById('cierreBody').style.display = 'none';
+    document.getElementById('cierreDone').style.display = 'block';
+    setTimeout(closeCierre, 1800);
+  });
+
+  renderProducts();
+  renderCart();
+  renderStats();
+  renderHistorial();
+})();
+
+  /* ---------- panel de notificaciones ---------- */
+  (function(){
+    var notifBtn = document.getElementById('notifBtn');
+    var notifPanel = document.getElementById('notifPanel');
+    var notifDot = document.getElementById('notifDot');
+    if (!notifBtn || !notifPanel) return;
+    notifBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      notifPanel.classList.toggle('open');
+      if (notifPanel.classList.contains('open') && notifDot) notifDot.classList.add('hidden');
+    });
+    document.addEventListener('click', function(e){
+      if (!notifPanel.contains(e.target) && e.target !== notifBtn) notifPanel.classList.remove('open');
+    });
+  })();
+</script>
+</body>
+</html>

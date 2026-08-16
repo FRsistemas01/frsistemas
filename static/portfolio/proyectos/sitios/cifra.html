@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIFRA — Streetwear editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0c;
+  --paper:#f4f2ec;
+  --ink:#0b0b0c;
+  --accent:#2452ff;
+  --grey:#6f6d68;
+  --line:rgba(244,242,236,.16);
+  --line-dark:rgba(11,11,12,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--paper);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--accent);color:var(--paper);}
+::-webkit-scrollbar{width:11px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--accent);border:2px solid var(--bg);border-radius:0;}
+*{scrollbar-color:var(--accent) var(--bg);scrollbar-width:thin;}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+img{display:block;max-width:100%;}
+.tabular{font-variant-numeric:tabular-nums;}
+.display{font-family:'Bebas Neue',sans-serif;font-weight:400;line-height:.88;letter-spacing:.005em;text-transform:uppercase;}
+.eyebrow{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+.wrap{max-width:1280px;margin:0 auto;padding:0 44px;}
+@media(max-width:720px){.wrap{padding:0 22px;}}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:26px 44px;
+  transition:background .3s,padding .3s,backdrop-filter .3s;
+}
+.nav.solid{background:rgba(11,11,12,.92);backdrop-filter:blur(10px);padding:16px 44px;border-bottom:1px solid var(--line);}
+@media(max-width:720px){.nav{padding:20px 22px;}.nav.solid{padding:14px 22px;}}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.03em;}
+.nav-links{display:flex;gap:36px;font-size:.86rem;font-weight:500;}
+.nav-links a{opacity:.7;transition:opacity .2s;}
+.nav-links a:hover{opacity:1;}
+.nav-cta{font-family:'Space Mono',monospace;font-size:.76rem;background:var(--accent);color:var(--paper);padding:10px 18px;letter-spacing:.03em;transition:filter .2s;}
+.nav-cta:hover{filter:brightness(1.15);}
+@media(max-width:900px){.nav-links{display:none;}}
+
+/* HERO */
+.hero{
+  position:relative;min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;
+  border-bottom:1px solid var(--line);
+}
+@media(max-width:900px){.hero{grid-template-columns:1fr;min-height:auto;}}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:140px 40px 60px 44px;
+  position:relative;
+}
+.hero-left h1{font-size:clamp(4.4rem,10.6vw,10rem);}
+.hero-left h1 .o{color:var(--accent);}
+.hero-tags{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;}
+.hero-tags span{font-family:'Space Mono',monospace;font-size:.74rem;border:1px solid var(--line);padding:7px 14px;color:var(--grey);}
+.hero-right{position:relative;min-height:400px;}
+.hero-right img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:grayscale(.15) contrast(1.08);}
+.hero-drop-tag{
+  position:absolute;bottom:30px;left:30px;z-index:2;
+  background:var(--accent);color:var(--paper);
+  padding:10px 16px;font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.03em;
+}
+@media(max-width:900px){.hero-right{height:60vh;}.hero-left{padding:120px 22px 40px;}}
+
+/* MARQUEE */
+.marquee-strip{
+  background:var(--paper);color:var(--ink);
+  padding:16px 0;overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--line-dark);
+}
+.marquee-strip .track{display:inline-block;animation:mq 24s linear infinite;font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.03em;}
+.marquee-strip .track span{margin:0 30px;}
+.marquee-strip .track span.acc{color:var(--accent);}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTIONS */
+section{padding:130px 0;}
+@media(max-width:720px){section{padding:76px 0;}}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:60px;}
+.sec-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,6vw,5rem);letter-spacing:.01em;}
+.sec-head p{max-width:320px;color:var(--grey);font-size:.94rem;}
+@media(max-width:720px){.sec-head{flex-direction:column;align-items:flex-start;gap:16px;}}
+
+/* DROP - editorial grid, no card chrome */
+.drop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+@media(max-width:900px){.drop-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.drop-grid{grid-template-columns:1fr;}}
+.drop-item{position:relative;overflow:hidden;background:#151516;aspect-ratio:3/4;}
+.drop-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;filter:grayscale(.1) contrast(1.05);}
+.drop-item:hover img{transform:scale(1.04);}
+.drop-info{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:20px;background:linear-gradient(to top,rgba(11,11,12,.92),transparent);
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+.drop-info .name{font-weight:600;font-size:.98rem;}
+.drop-info .cat{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--grey);margin-top:2px;}
+.drop-info .price{font-family:'Space Mono',monospace;font-size:.92rem;color:var(--accent);white-space:nowrap;}
+
+/* LOOKBOOK EDITORIAL SPLIT */
+.look{background:var(--paper);color:var(--ink);}
+.look-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:0;align-items:stretch;}
+@media(max-width:900px){.look-grid{grid-template-columns:1fr;}}
+.look-img{position:relative;min-height:520px;}
+.look-img img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;filter:grayscale(.2) contrast(1.05);}
+.look-body{padding:60px 0 60px 80px;display:flex;flex-direction:column;justify-content:center;}
+@media(max-width:900px){.look-body{padding:48px 22px 0;}}
+.look-body .eyebrow{color:var(--accent);}
+.look-body h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,5.4vw,4.4rem);margin:12px 0 20px;letter-spacing:.01em;}
+.look-body p{color:#4a4844;max-width:44ch;font-size:1.05rem;margin-bottom:30px;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--ink);color:var(--paper);
+  padding:16px 30px;font-family:'Space Mono',monospace;font-size:.82rem;letter-spacing:.03em;
+  width:fit-content;transition:background .2s,transform .2s;
+}
+.btn:hover{background:var(--accent);transform:translateX(3px);}
+.btn.on-dark{background:var(--paper);color:var(--ink);}
+.btn.on-dark:hover{background:var(--accent);color:var(--paper);}
+
+/* PRODUCT TABLE STYLE LIST */
+.stock{}
+.stock-cats{display:flex;gap:14px;margin-bottom:52px;flex-wrap:wrap;}
+.stock-cat{font-family:'Space Mono',monospace;font-size:.78rem;letter-spacing:.04em;padding:9px 18px;border:1px solid var(--line);color:var(--grey);}
+.stock-cat.active{border-color:var(--accent);color:var(--accent);}
+.stock-row{
+  display:grid;grid-template-columns:90px 1fr auto auto;gap:24px;align-items:center;
+  padding:22px 0;border-bottom:1px solid var(--line);
+}
+.stock-row:first-of-type{border-top:1px solid var(--line);}
+.stock-row .thumb{width:90px;height:110px;object-fit:cover;background:#151516;filter:grayscale(.1) contrast(1.05);}
+.stock-row .name{font-weight:600;font-size:1.05rem;}
+.stock-row .meta{font-family:'Space Mono',monospace;font-size:.76rem;color:var(--grey);margin-top:5px;}
+.stock-row .sizes{font-family:'Space Mono',monospace;font-size:.78rem;color:var(--grey);}
+.stock-row .price{font-family:'Space Mono',monospace;font-size:1.02rem;color:var(--accent);white-space:nowrap;text-align:right;}
+@media(max-width:640px){.stock-row{grid-template-columns:64px 1fr;row-gap:8px;}.stock-row .sizes,.stock-row .price{grid-column:2;text-align:left;}}
+
+/* MATERIALS STRIP */
+.strip{background:var(--accent);color:var(--ink);}
+.strip-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;}
+.strip-grid div{flex:1;min-width:150px;}
+.strip-grid .n{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;}
+.strip-grid .l{font-family:'Space Mono',monospace;font-size:.78rem;margin-top:4px;}
+
+/* REVIEWS */
+.resenas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+@media(max-width:900px){.resenas-grid{grid-template-columns:1fr;}}
+.resena{background:var(--bg);padding:40px 34px;}
+.resena .stars{color:var(--accent);font-size:.9rem;letter-spacing:.14em;margin-bottom:20px;}
+.resena p{font-size:1.02rem;color:var(--paper);margin-bottom:26px;line-height:1.5;}
+.resena .who{font-family:'Space Mono',monospace;font-size:.76rem;color:var(--grey);}
+
+/* CTA */
+.cta{padding:130px 0;text-align:center;}
+.cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.2rem,9vw,7.4rem);}
+.cta h2 .o{color:var(--accent);}
+.cta p{color:var(--grey);max-width:44ch;margin:22px auto 40px;font-size:1.05rem;}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{padding:0 0 40px;border-top:1px solid var(--line);}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:70px 0;}
+@media(max-width:800px){.foot-top{grid-template-columns:1fr 1fr;}}
+.foot-top .logo{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;margin-bottom:14px;}
+.foot-top p{color:var(--grey);font-size:.9rem;max-width:32ch;}
+.foot-col h4{font-family:'Space Mono',monospace;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;}
+.foot-col a,.foot-col div{display:block;color:var(--grey);font-size:.9rem;margin-bottom:10px;}
+.foot-col a:hover{color:var(--paper);}
+.foot-bottom{display:flex;justify-content:space-between;padding-top:26px;font-size:.8rem;color:var(--grey);flex-wrap:wrap;gap:12px;}
+
+/* REVEAL */
+.reveal-hidden{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-shown{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-logo">CIFRA</div>
+  <div class="nav-links">
+    <a href="#drop">Drop</a>
+    <a href="#stock">Catálogo</a>
+    <a href="#lookbook">Lookbook</a>
+  </div>
+  <a class="nav-cta" href="#stock">Ver catálogo</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-left">
+    <h1 class="display">Ropa<br>sin<br><span class="o">relleno.</span></h1>
+    <div class="hero-tags">
+      <span>DROP 004 — INVIERNO</span>
+      <span>EDICIÓN LIMITADA</span>
+      <span>ENVÍO EN 48HS</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1200&q=80" alt="Modelo con campera streetwear negra frente a pared con afiches">
+    <div class="hero-drop-tag">CAMPERA ARGO — $84.900</div>
+  </div>
+</header>
+
+<div class="marquee-strip">
+  <div class="track">
+    <span>DROP 004</span><span class="acc">·</span><span>STOCK LIMITADO</span><span class="acc">·</span><span>HECHO EN ARGENTINA</span><span class="acc">·</span><span>ENVÍOS A TODO EL PAÍS</span><span class="acc">·</span>
+    <span>DROP 004</span><span class="acc">·</span><span>STOCK LIMITADO</span><span class="acc">·</span><span>HECHO EN ARGENTINA</span><span class="acc">·</span><span>ENVÍOS A TODO EL PAÍS</span><span class="acc">·</span>
+  </div>
+</div>
+
+<section id="drop">
+  <div class="wrap">
+    <div class="sec-head reveal-hidden">
+      <h2>El drop</h2>
+      <p>Ocho piezas, producción chica, sin reposición. Lo que se agota, se agota.</p>
+    </div>
+    <div class="drop-grid reveal-hidden">
+      <div class="drop-item">
+        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=700&q=80" alt="Percha de prendas beige y crudo en vidriera">
+        <div class="drop-info"><div><div class="name">Colección cápsula</div><div class="cat">UNISEX</div></div><div class="price tabular">DESDE $32.400</div></div>
+      </div>
+      <div class="drop-item">
+        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80" alt="Interior de tienda de ropa con estanterías">
+        <div class="drop-info"><div><div class="name">Showroom Palermo</div><div class="cat">RETAIL</div></div><div class="price tabular">VISITANOS</div></div>
+      </div>
+      <div class="drop-item">
+        <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=700&q=80" alt="Accesorios y calzado de vestir sobre tela a cuadros">
+        <div class="drop-info"><div><div class="name">Línea formal</div><div class="cat">ACCESORIOS</div></div><div class="price tabular">DESDE $18.900</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="look" id="lookbook">
+  <div class="look-grid">
+    <div class="look-img reveal-hidden">
+      <img src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=900&q=80" alt="Botas, jeans y sweater tendidos sobre cama, estilo flatlay">
+    </div>
+    <div class="look-body reveal-hidden">
+      <span class="eyebrow">Lookbook</span>
+      <h2>Básicos que no se ven básicos</h2>
+      <p>Cada prenda pasa por dos lavados de prueba y control de costura a mano antes de salir al showroom. Elegimos géneros que envejecen bien — nada de fibra que se deforma al tercer uso.</p>
+      <a class="btn" href="#stock">Ver todo el catálogo →</a>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="wrap strip-grid">
+    <div><div class="n tabular">04</div><div class="l">DROPS POR AÑO</div></div>
+    <div><div class="n tabular">120</div><div class="l">UNIDADES POR PIEZA</div></div>
+    <div><div class="n tabular">100%</div><div class="l">ALGODÓN Y LINO</div></div>
+    <div><div class="n tabular">48H</div><div class="l">ENVÍO NACIONAL</div></div>
+  </div>
+</section>
+
+<section id="stock">
+  <div class="wrap">
+    <div class="sec-head reveal-hidden">
+      <h2>Catálogo</h2>
+      <p>Stock real, actualizado por drop. Sin reposición fuera de temporada.</p>
+    </div>
+    <div class="stock-cats reveal-hidden">
+      <span class="stock-cat active">Todo</span>
+      <span class="stock-cat">Abrigo</span>
+      <span class="stock-cat">Remeras</span>
+      <span class="stock-cat">Pantalones</span>
+      <span class="stock-cat">Accesorios</span>
+    </div>
+    <div class="reveal-hidden">
+      <div class="stock-row">
+        <img class="thumb" src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=200&q=70" alt="Campera negra streetwear">
+        <div><div class="name">Campera Argo</div><div class="meta">Nylon ripstop, forro polar</div></div>
+        <div class="sizes">S · M · L · XL</div>
+        <div class="price tabular">$84.900</div>
+      </div>
+      <div class="stock-row">
+        <img class="thumb" src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=200&q=70" alt="Sweater tejido crudo">
+        <div><div class="name">Sweater Cifra</div><div class="meta">Lana merino, cuello redondo</div></div>
+        <div class="sizes">XS · S · M · L</div>
+        <div class="price tabular">$41.200</div>
+      </div>
+      <div class="stock-row">
+        <img class="thumb" src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=200&q=70" alt="Botines de gamuza">
+        <div><div class="name">Botín Suela</div><div class="meta">Gamuza natural, suela de goma</div></div>
+        <div class="sizes">38 · 39 · 40 · 41 · 42</div>
+        <div class="price tabular">$62.500</div>
+      </div>
+      <div class="stock-row">
+        <img class="thumb" src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=200&q=70" alt="Camisa crudo de algodón">
+        <div><div class="name">Camisa Base</div><div class="meta">Algodón egipcio, corte recto</div></div>
+        <div class="sizes">S · M · L · XL</div>
+        <div class="price tabular">$28.400</div>
+      </div>
+      <div class="stock-row">
+        <img class="thumb" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=200&q=70" alt="Perchero minimal con prendas blancas">
+        <div><div class="name">Pack básicos x3</div><div class="meta">Remeras lisas, algodón peinado</div></div>
+        <div class="sizes">XS · S · M · L · XL</div>
+        <div class="price tabular">$19.800</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal-hidden"><h2>Lo dicen ellos</h2></div>
+    <div class="resenas-grid reveal-hidden">
+      <div class="resena">
+        <div class="stars">★★★★★</div>
+        <p>"La campera Argo va a los tres inviernos y sigue como el primer día. Vale cada peso."</p>
+        <div class="who">Bruno T. — Almagro</div>
+      </div>
+      <div class="resena">
+        <div class="stars">★★★★★</div>
+        <p>"Compré el pack de básicos y la calidad de la tela no tiene nada que ver con lo que se consigue en cadenas."</p>
+        <div class="who">Cami D. — Villa Crespo</div>
+      </div>
+      <div class="resena">
+        <div class="stars">★★★★★</div>
+        <p>"Se agotó mi talle en dos días. Ya sé que hay que moverse rápido con los drops de acá."</p>
+        <div class="who">Nico P. — San Telmo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap reveal-hidden">
+    <h2 class="display">Próximo drop<br>en <span class="o">14 días.</span></h2>
+    <p>Sumate a la lista y enterate primero — el stock de cada drop se agota antes de que lo veas en Instagram.</p>
+    <div class="cta-actions">
+      <a class="btn" href="#">Sumarme a la lista</a>
+      <a class="btn on-dark" href="#stock">Ver catálogo actual</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="logo">CIFRA</div>
+        <p>Ropa de producción chica, hecha en Argentina. Sin relleno, sin reposición.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Showroom</h4>
+        <div>Costa Rica 5480</div>
+        <div>Palermo Soho, CABA</div>
+        <div>Lun–Sáb, 11 a 20hs</div>
+      </div>
+      <div class="foot-col">
+        <h4>Contacto</h4>
+        <a href="mailto:hola@cifra.com.ar">hola@cifra.com.ar</a>
+        <a href="tel:+541134567890">11 3456-7890</a>
+      </div>
+      <div class="foot-col">
+        <h4>Seguinos</h4>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 CIFRA — Todos los derechos reservados</div>
+      <div>Sitio conceptual — FR.Sistemas</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', window.scrollY > 40);
+});
+
+const revealEls = document.querySelectorAll('.reveal-hidden');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('reveal-shown');
+      io.unobserve(e.target);
+    }
+  });
+}, {threshold:0.12});
+revealEls.forEach(el => io.observe(el));
+setTimeout(() => revealEls.forEach(el => el.classList.add('reveal-shown')), 3000);
+</script>
+
+</body>
+</html>

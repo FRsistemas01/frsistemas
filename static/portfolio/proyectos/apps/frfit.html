@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRfit — App de nutrición y entrenamiento | Gian Franco Luzza</title>
+<meta name="description" content="FRfit: app de nutrición y entrenamiento con reconocimiento de comida por IA, coach virtual y ayuno intermitente. Backend en Django REST Framework, frontend en Flutter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%230a0a0a%27/%3E%3Ctext x=%2750%27 y=%2769%27 font-size=%2758%27 font-family=%27Arial,sans-serif%27 font-weight=%27800%27 fill=%27%238b5cf6%27 text-anchor=%27middle%27%3EF%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0a0a0a;
+  --bg-soft:#131115;
+  --panel:#17141c;
+  --ink:#f3f2ee;
+  --ink-dim:#8c8a94;
+  --line:rgba(243,242,238,0.1);
+  --accent:#8b5cf6;
+  --accent-soft:#211c2e;
+  --gold:#e8b45a;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Inter',sans-serif;font-weight:400;
+  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:var(--accent);color:#fff;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+::-webkit-scrollbar{width:11px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--accent);border:2px solid var(--bg);border-radius:99px;}
+html{scrollbar-color:var(--accent) var(--bg);scrollbar-width:thin;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px;}
+@media (max-width:720px){.wrap{padding:0 22px;}}
+h1,h2,h3,h4{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;letter-spacing:-0.02em;line-height:1.05;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+.tabular{font-variant-numeric:tabular-nums;}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);}
+
+.reveal{opacity:1;}
+.reveal.reveal-hidden{opacity:0;transform:translateY(26px);transition:opacity 800ms var(--ease),transform 800ms var(--ease);}
+.reveal.reveal-shown{opacity:1;transform:translateY(0);}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
+.nav-back{display:flex;align-items:center;gap:10px;font-size:0.86rem;font-weight:600;color:var(--ink-dim);transition:color 0.2s ease;}
+.nav-back:hover{color:var(--ink);}
+.nav-logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:-0.01em;display:flex;align-items:center;gap:8px;}
+.nav-logo .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);}
+.nav-status{font-family:'IBM Plex Mono',monospace;font-size:0.74rem;color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft);padding:6px 14px;border-radius:999px;}
+
+/* ---------- hero ---------- */
+.hero{padding:90px 0 60px;position:relative;overflow:hidden;}
+.hero::before{
+  content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:900px;height:600px;background:radial-gradient(ellipse at center, rgba(139,92,246,0.18), transparent 65%);
+  pointer-events:none;z-index:0;
+}
+.hero-inner{position:relative;z-index:1;}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:26px;}
+.hero-eyebrow .pill{font-family:'IBM Plex Mono',monospace;font-size:0.76rem;color:var(--ink-dim);border:1px solid var(--line);padding:6px 14px;border-radius:999px;}
+.hero h1{font-size:clamp(3rem,7.4vw,5.6rem);max-width:14ch;}
+.hero .sub{font-size:1.2rem;color:var(--ink-dim);max-width:52ch;margin-top:26px;}
+.hero-cta{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 28px;border-radius:99px;font-weight:600;font-size:0.94rem;
+  transition:transform 0.2s ease,background 0.2s ease,border-color 0.2s ease;
+}
+.btn-fill{background:var(--accent);color:#fff;}
+.btn-fill:hover{background:#7c4de0;transform:translateY(-2px);}
+.btn-ghost{border:1px solid var(--line);color:var(--ink);}
+.btn-ghost:hover{border-color:var(--ink);}
+
+.hero-meta{display:flex;gap:0;margin-top:64px;border-top:1px solid var(--line);flex-wrap:wrap;}
+.hero-meta div{flex:1;min-width:140px;padding:22px 24px 0 0;border-right:1px solid var(--line);}
+.hero-meta div:last-child{border-right:none;}
+.hero-meta .n{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.6rem;}
+.hero-meta .l{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--ink-dim);text-transform:uppercase;margin-top:6px;}
+
+/* ---------- hero phone showcase ---------- */
+.hero-showcase{display:flex;gap:24px;justify-content:center;margin-top:70px;position:relative;z-index:1;}
+.hero-phone{width:230px;border-radius:28px;border:1px solid var(--line);overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,0.7);transition:transform 0.4s var(--ease);}
+.hero-phone.lift{transform:translateY(-28px);}
+.hero-phone img{width:100%;display:block;}
+@media (max-width:820px){
+  .hero-showcase{flex-wrap:wrap;}
+  .hero-phone{width:44%;}
+  .hero-phone.lift{transform:none;}
+}
+
+/* ---------- section shell ---------- */
+section{padding:120px 0;position:relative;}
+.section-border{border-top:1px solid var(--line);}
+.section-head{margin-bottom:64px;max-width:64ch;}
+.section-head h2{font-size:clamp(2.2rem,4.6vw,3.4rem);}
+.section-head p{color:var(--ink-dim);font-size:1.06rem;margin-top:18px;}
+
+/* ---------- feature split ---------- */
+.feature{display:grid;grid-template-columns:0.9fr 1.1fr;gap:70px;align-items:center;margin-bottom:150px;}
+.feature:last-child{margin-bottom:0;}
+.feature.reverse{grid-template-columns:1.1fr 0.9fr;}
+.feature.reverse .feature-media{order:2;}
+.feature-media{position:relative;display:flex;justify-content:center;}
+.feature-media .phone{width:240px;border-radius:26px;border:1px solid var(--line);overflow:hidden;box-shadow:0 30px 70px -25px rgba(0,0,0,0.65);}
+.feature-media .phone img{width:100%;display:block;}
+.feature-media .phone.small{width:180px;position:absolute;bottom:-30px;left:calc(50% + 90px);box-shadow:0 24px 50px -20px rgba(0,0,0,0.7);}
+.feature-num{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:16px;}
+.feature-body h3{font-size:clamp(1.7rem,3.2vw,2.4rem);margin-bottom:18px;}
+.feature-body p{color:var(--ink-dim);font-size:1.04rem;max-width:46ch;}
+.feature-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+.feature-tags span{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--ink-dim);border:1px solid var(--line);padding:7px 14px;border-radius:999px;}
+@media (max-width:900px){
+  .feature,.feature.reverse{grid-template-columns:1fr;gap:40px;}
+  .feature.reverse .feature-media{order:0;}
+  .feature-media{flex-direction:column;gap:20px;}
+  .feature-media .phone.small{position:static;width:180px;margin-top:0;}
+}
+
+/* ---------- grid gallery (extra features) ---------- */
+.extra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.extra-card{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--panel);}
+.extra-card img{width:100%;aspect-ratio:9/16;object-fit:cover;object-position:top center;}
+.extra-card-body{padding:22px 24px 26px;}
+.extra-card-body h4{font-size:1.15rem;margin-bottom:8px;}
+.extra-card-body p{color:var(--ink-dim);font-size:0.9rem;}
+@media (max-width:900px){.extra-grid{grid-template-columns:1fr;}}
+
+/* ---------- stack ---------- */
+.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);border:1px solid var(--line);}
+.stack-item{background:var(--bg);padding:34px 28px;}
+.stack-item .k{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;display:block;}
+.stack-item .v{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.15rem;}
+@media (max-width:900px){.stack-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.stack-grid{grid-template-columns:1fr;}}
+
+/* ---------- cta ---------- */
+.cta{text-align:center;padding:150px 0;}
+.cta h2{font-size:clamp(2.4rem,6vw,4.6rem);max-width:18ch;margin:0 auto;}
+.cta p{color:var(--ink-dim);max-width:48ch;margin:22px auto 0;font-size:1.05rem;}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:38px;}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:48px 0;}
+.footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:0.85rem;color:var(--ink-dim);}
+.footer-inner a{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="../../index.html#apps" class="nav-back">← <span>Volver al portfolio</span></a>
+    <div class="nav-logo"><span class="dot"></span>FRfit</div>
+    <span class="nav-status">App funcional</span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-eyebrow">
+      <span class="pill mono">Django REST Framework · Flutter</span>
+    </div>
+    <h1>Nutrición y entrenamiento, sin planillas.</h1>
+    <p class="sub">FRfit es la app que uso todos los días para registrar comidas, entrenar con criterio y no perder de vista el objetivo — con un coach de nutrición por IA que responde en el momento, no un plan genérico que nadie sigue.</p>
+    <div class="hero-cta">
+      <a href="#registro" class="btn btn-fill">Ver cómo funciona ↓</a>
+      <a href="../../index.html#contact" class="btn btn-ghost">Hablemos de tu proyecto</a>
+    </div>
+    <div class="hero-meta reveal" data-reveal>
+      <div><div class="n tabular">2025</div><div class="l">En desarrollo desde</div></div>
+      <div><div class="n">DRF + Flutter</div><div class="l">Backend y frontend propios</div></div>
+      <div><div class="n">Gemini</div><div class="l">Coach por IA</div></div>
+      <div><div class="n tabular">100%</div><div class="l">Uso diario real</div></div>
+    </div>
+  </div>
+
+  <div class="wrap hero-showcase reveal" data-reveal>
+    <div class="hero-phone"><img src="../../assets/frfit/coach.jpg" alt="FRfit — chat con el coach de nutrición por IA"></div>
+    <div class="hero-phone lift"><img src="../../assets/frfit/hoy.jpg" alt="FRfit — pantalla principal con calorías restantes"></div>
+    <div class="hero-phone"><img src="../../assets/frfit/progreso.jpg" alt="FRfit — progreso de peso y logros"></div>
+  </div>
+</header>
+
+<section class="section-border" id="registro">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">El problema que resuelve</span>
+      <h2 style="margin-top:16px;">Registrar sin fricción, para que se vuelva costumbre</h2>
+      <p>La mayoría de las apps de nutrición se abandonan a la semana porque cargar cada comida a mano es tedioso. FRfit apuesta a sacarle esa fricción de encima al usuario en cada pantalla clave.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-media">
+        <div class="phone"><img src="../../assets/frfit/diario.jpg" alt="FRfit — diario de comidas organizado por día"></div>
+        <div class="phone small"><img src="../../assets/frfit/hoy.jpg" alt="FRfit — anillo de calorías restantes del día"></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-num mono">01 / Registro</div>
+        <h3>Diario de comidas con reconocimiento por foto</h3>
+        <p>Sacás una foto del plato y la IA identifica los alimentos, calcula calorías, proteínas, carbohidratos y grasas — sin buscar cada ingrediente a mano en una base de datos. El diario organiza todo por día y por tipo de comida (desayuno, almuerzo, merienda, cena).</p>
+        <div class="feature-tags">
+          <span>Reconocimiento de imagen con IA</span>
+          <span>Cálculo automático de macros</span>
+          <span>Diario por día</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature reverse">
+      <div class="feature-media">
+        <div class="phone"><img src="../../assets/frfit/coach.jpg" alt="FRfit — chat con el coach de nutrición por IA"></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-num mono">02 / Coach IA</div>
+        <h3>Un coach que responde en el momento, no un PDF genérico</h3>
+        <p>Le preguntás qué cenar con lo que tenés en la heladera, le pedís un plan de comidas para el día, o le consultás cómo vas con tu objetivo semanal — y responde en el momento, con contexto real de lo que ya registraste. Corre sobre la API de Gemini, con límite diario de mensajes en el plan gratuito.</p>
+        <div class="feature-tags">
+          <span>Google Gemini API</span>
+          <span>Contexto del historial real</span>
+          <span>Sugerencias accionables</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-media">
+        <div class="phone"><img src="../../assets/frfit/progreso.jpg" alt="FRfit — progreso de peso, racha y logros"></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-num mono">03 / Progreso</div>
+        <h3>Rachas y logros que dan ganas de no cortar la cadena</h3>
+        <p>La pantalla de progreso muestra cuánto falta para el objetivo de peso, la racha de días consecutivos registrando, el promedio de calorías diarias y un calendario de los últimos 30 días — con logros desbloqueables como "una semana seguida" o "primer -1kg" para sostener el hábito en el tiempo.</p>
+        <div class="feature-tags">
+          <span>Objetivo de peso</span>
+          <span>Rachas y logros</span>
+          <span>Calendario de 30 días</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-border">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Más allá de las calorías</span>
+      <h2 style="margin-top:16px;">Ayuno, pasos y micronutrientes en el mismo lugar</h2>
+      <p>Contar calorías es solo una parte. FRfit suma las herramientas que un usuario que entrena en serio también necesita, sin mandarlo a instalar tres apps distintas.</p>
+    </div>
+    <div class="extra-grid reveal" data-reveal>
+      <div class="extra-card">
+        <img src="../../assets/frfit/ayuno.jpg" alt="FRfit — pantalla de ayuno intermitente 16:8">
+        <div class="extra-card-body">
+          <h4>Ayuno intermitente</h4>
+          <p>Ventanas configurables (16:8 y otras), con historial de ayunos completados.</p>
+        </div>
+      </div>
+      <div class="extra-card">
+        <img src="../../assets/frfit/pasos.jpg" alt="FRfit — contador de pasos con objetivo diario">
+        <div class="extra-card-body">
+          <h4>Pasos y kcal activas</h4>
+          <p>Objetivo diario configurable, con anillo de progreso y calorías activas quemadas.</p>
+        </div>
+      </div>
+      <div class="extra-card">
+        <img src="../../assets/frfit/micronutrientes.jpg" alt="FRfit — seguimiento de fibra, hierro, calcio y vitaminas">
+        <div class="extra-card-body">
+          <h4>Micronutrientes</h4>
+          <p>Fibra, hierro, calcio, vitamina C y D, sodio — se completan solos con cada comida registrada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-border">
+  <div class="wrap">
+    <div class="feature reverse" style="margin-bottom:0;">
+      <div class="feature-media">
+        <div class="phone"><img src="../../assets/frfit/recetas.jpg" alt="FRfit — generación de recetas con IA"></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-num mono">04 / Recetas</div>
+        <h3>Recetas generadas a medida de lo que tenés</h3>
+        <p>"Algo alto en proteína con pollo y batata" — la IA arma la receta completa con ingredientes, cantidades y macros, y queda guardada para volver a usarla cuando quieras.</p>
+        <div class="feature-tags">
+          <span>Generación con IA</span>
+          <span>Macros calculados</span>
+          <span>Recetario guardado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-border">
+  <div class="wrap">
+    <div class="feature" style="margin-bottom:0;">
+      <div class="feature-media">
+        <div class="phone"><img src="../../assets/frfit/premium.jpg" alt="FRfit — plan Premium con Mercado Pago"></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-num mono">05 / Monetización</div>
+        <h3>Un plan gratuito real, con Premium para quien quiere más</h3>
+        <p>El plan gratuito ya es útil de verdad (no una trampa para forzar el pago): mensajes limitados al coach, fotos con IA limitadas por día, historial reciente. Premium destraba chat ilimitado, fotos sin límite, planes de comida armados por un profesional y gráficos completos — con cobro recurrente vía Mercado Pago Checkout Pro.</p>
+        <div class="feature-tags">
+          <span>Mercado Pago Checkout Pro</span>
+          <span>Suscripción mensual y anual</span>
+          <span>Webhooks de pago verificados</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-border">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Stack técnico</span>
+      <h2 style="margin-top:16px;">Backend propio, frontend nativo</h2>
+    </div>
+    <div class="stack-grid reveal" data-reveal>
+      <div class="stack-item"><span class="k">Backend</span><div class="v">Django REST Framework</div></div>
+      <div class="stack-item"><span class="k">Frontend</span><div class="v">Flutter (iOS / Android)</div></div>
+      <div class="stack-item"><span class="k">IA</span><div class="v">Google Gemini API</div></div>
+      <div class="stack-item"><span class="k">Pagos</span><div class="v">Mercado Pago Checkout Pro</div></div>
+      <div class="stack-item"><span class="k">Base de datos</span><div class="v">PostgreSQL</div></div>
+      <div class="stack-item"><span class="k">Auth</span><div class="v">Sesión + Google Sign-In</div></div>
+      <div class="stack-item"><span class="k">Deploy</span><div class="v">Render</div></div>
+      <div class="stack-item"><span class="k">Diseño</span><div class="v">Un solo acento sobre negro</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta section-border">
+  <div class="wrap">
+    <h2>¿Necesitás una app hecha así de punta a punta?</h2>
+    <p>Diseño, desarrollo y despliego el backend y la app completa — de la idea a algo que la gente usa todos los días.</p>
+    <div class="cta-actions">
+      <a href="../../index.html#contact" class="btn btn-fill">Hablemos de tu proyecto ↗</a>
+      <a href="../../index.html#apps" class="btn btn-ghost">Volver al portfolio</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>FRfit — desarrollado por Gian Franco Luzza</span>
+    <a href="../../index.html">Volver al portfolio</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var revealEls = document.querySelectorAll('[data-reveal]');
+  if (!('IntersectionObserver' in window)) { revealEls.forEach(function(el){ el.classList.add('reveal-shown'); }); return; }
+  revealEls.forEach(function(el){ el.classList.add('reveal-hidden'); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('reveal-hidden');
+        entry.target.classList.add('reveal-shown');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(function(el){ io.observe(el); });
+  setTimeout(function(){
+    document.querySelectorAll('.reveal-hidden').forEach(function(el){
+      el.classList.remove('reveal-hidden'); el.classList.add('reveal-shown');
+    });
+  }, 3000);
+})();
+</script>
+</body>
+</html>

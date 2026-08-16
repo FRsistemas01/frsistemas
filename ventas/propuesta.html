@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Propuesta — FR.Sistemas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e16;
+    --bg-soft:#0f1520;
+    --ink:#eef2f7;
+    --ink-dim:#7c8aa0;
+    --line:rgba(238,242,247,0.12);
+    --accent:#3ecfff;
+    --accent-2:#7c5cff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  @page{ size:210mm 206mm; margin:0; }
+  html,body{
+    width:210mm;
+    background:var(--bg); color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  body{
+    padding:16mm 16mm 16mm;
+    position:relative;
+  }
+  h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:-0.015em; }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+
+  /* decorative dotted arc, echoes the site's data-viz motif */
+  .arc{
+    position:absolute; top:-60mm; right:-60mm; width:160mm; height:160mm;
+    border-radius:50%; border:1.4px dashed rgba(62,207,255,0.16);
+  }
+  .arc.arc2{ top:-90mm; right:-90mm; width:220mm; height:220mm; border-color:rgba(124,92,255,0.12); }
+
+  header{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    border-bottom:1px solid var(--line); padding-bottom:8mm; margin-bottom:9mm;
+    position:relative; z-index:1;
+  }
+  .brand{ font-size:15px; font-weight:600; letter-spacing:0.01em; }
+  .brand span{ color:var(--accent); }
+  header .meta{ text-align:right; }
+  header .meta .label{ font-size:10px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:2mm; }
+  header .meta .value{ font-size:13px; }
+
+  .title-row{ margin-bottom:10mm; position:relative; z-index:1; }
+  .eyebrow{ font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:3mm; }
+  h1.headline{ font-size:30px; line-height:1.15; max-width:140mm; }
+  .for-client{ margin-top:4mm; font-size:13px; color:var(--ink-dim); }
+  .for-client b{ color:var(--ink); font-weight:600; }
+
+  .intro{ font-size:12.5px; line-height:1.6; color:var(--ink-dim); max-width:150mm; margin-bottom:9mm; position:relative; z-index:1; }
+  .intro b{ color:var(--ink); font-weight:500; }
+
+  section{ position:relative; z-index:1; }
+  .section-label{ font-size:10px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4mm; display:flex; align-items:center; gap:6px; }
+  .section-label::before{ content:''; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+
+  .includes{ display:flex; gap:6mm; margin-bottom:9mm; flex-wrap:wrap; }
+  .includes div{ font-size:12px; padding:3mm 5mm; border:1px solid var(--line); border-radius:8px; color:var(--ink-dim); }
+
+  .options{ display:grid; grid-template-columns:1fr 1fr; gap:6mm; margin-bottom:9mm; }
+  .opt{ border:1px solid var(--line); border-radius:10px; padding:6mm; background:var(--bg-soft); }
+  .opt.b{ border-color:rgba(124,92,255,0.4); }
+  .opt .opt-name{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; margin-bottom:1mm; }
+  .opt.b .opt-name{ color:var(--accent-2); }
+  .opt.a .opt-name{ color:var(--accent); }
+  .opt .opt-tag{ font-size:11px; color:var(--ink-dim); margin-bottom:4mm; }
+  .opt ul{ list-style:none; margin-bottom:5mm; }
+  .opt li{ font-size:12px; color:var(--ink); padding:1.2mm 0; padding-left:4mm; position:relative; }
+  .opt li::before{ content:'—'; position:absolute; left:0; color:var(--ink-dim); }
+  .opt .price{ font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:600; }
+  .opt .price .cur{ font-size:12px; color:var(--ink-dim); font-weight:400; margin-right:2px; }
+
+  .strip{ display:flex; gap:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:9mm; }
+  .strip > div{ flex:1; padding:5mm 6mm; border-right:1px solid var(--line); }
+  .strip > div:last-child{ border-right:none; }
+  .strip .k{ font-size:10px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:2mm; }
+  .strip .v{ font-size:13px; }
+  .strip .v b{ color:var(--accent); font-weight:600; }
+
+  .close{
+    margin-top:14mm;
+    padding-top:8mm; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:flex-end;
+    position:relative; z-index:1;
+  }
+  .close h2{ font-size:22px; max-width:110mm; line-height:1.2; }
+  .close .cta{ font-size:11.5px; color:var(--ink-dim); margin-top:3mm; }
+  .contact{ text-align:right; font-size:11.5px; color:var(--ink-dim); line-height:1.7; }
+  .contact b{ color:var(--ink); }
+</style>
+</head>
+<body>
+
+  <div class="arc"></div>
+  <div class="arc arc2"></div>
+
+  <header>
+    <div class="brand">FR<span>.</span>Sistemas</div>
+    <div class="meta">
+      <div class="label mono">Propuesta</div>
+      <div class="value mono">Agosto 2026</div>
+    </div>
+  </header>
+
+  <div class="title-row">
+    <div class="eyebrow mono">Desarrollo web · sistemas a medida</div>
+    <h1 class="headline">Una propuesta pensada para lo que necesita <span style="color:var(--accent)">[Nombre del negocio]</span>.</h1>
+    <div class="for-client">Preparada para <b>[Nombre del cliente]</b></div>
+  </div>
+
+  <p class="intro">Trabajo directo con vos, sin intermediarios — todo el desarrollo pasa por acá. <b>[Una línea puntual sobre lo que el cliente te contó que necesita.]</b> Abajo tenés dos formas de encararlo, con tiempos y precio claros desde el arranque.</p>
+
+  <section>
+    <div class="section-label">Qué incluye</div>
+    <div class="includes">
+      <div>Diseño responsive</div>
+      <div>Formulario de contacto</div>
+      <div>Hosting y dominio</div>
+      <div>[Otro ítem]</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Elegí cómo arrancamos</div>
+    <div class="options">
+      <div class="opt a">
+        <div class="opt-name">Esencial</div>
+        <div class="opt-tag">Para arrancar con presencia sólida</div>
+        <ul>
+          <li>Diseño responsive</li>
+          <li>Formulario de contacto</li>
+          <li>Hosting y dominio</li>
+        </ul>
+        <div class="price"><span class="cur">$</span>[monto]</div>
+      </div>
+      <div class="opt b">
+        <div class="opt-name">Completa</div>
+        <div class="opt-tag">Todo lo de Esencial, más</div>
+        <ul>
+          <li>[Extra 1]</li>
+          <li>[Extra 2]</li>
+        </ul>
+        <div class="price"><span class="cur">$</span>[monto]</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div>
+      <div class="k mono">Tiempo de entrega</div>
+      <div class="v"><b>[X días/semanas]</b> desde que arrancamos</div>
+    </div>
+    <div>
+      <div class="k mono">Vigencia</div>
+      <div class="v">Precios válidos hasta el <b>[fecha]</b></div>
+    </div>
+  </div>
+
+  <div class="close">
+    <div>
+      <h2>¿Vamos con la A o con la B?</h2>
+      <div class="cta">Cualquier duda te la resuelvo al toque — hablamos por WhatsApp.</div>
+    </div>
+    <div class="contact">
+      <div><b>fr.sistemas01@gmail.com</b></div>
+      <div>+54 11 5482-2753</div>
+      <div>Buenos Aires, Argentina</div>
+    </div>
+  </div>
+
+</body>
+</html>
