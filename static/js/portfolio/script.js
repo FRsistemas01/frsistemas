@@ -22,33 +22,41 @@ function runPortfolioScripts() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* En mobile, mostrar/ocultar la barra de direcciones al scrollear dispara
-     eventos de resize todo el tiempo. Por defecto ScrollTrigger recalcula
-     las posiciones de disparo en cada resize, y eso corre el punto donde
-     "debería" aparecer cada sección — el efecto visible es que hay que
-     bajar hasta el final de la página para que el contenido se muestre.
-     Esto le dice a ScrollTrigger que ignore esos resizes de mobile. */
-  ScrollTrigger.config({ ignoreMobileResize: true });
-
-  /* Además, si alguna imagen o fuente carga después de que ScrollTrigger
-     midió la altura de la página, las posiciones quedan mal calculadas
-     (secciones enteras se quedan invisibles, o dos elementos terminan
-     superpuestos). Un solo refresh en 'load' no alcanza porque en mobile
-     el layout todavía se puede seguir asentando unos instantes después
-     (fuentes, imágenes sin loading eager, la barra de direcciones).
-     Reintentamos varias veces en la ventana en la que eso pasa — refresh()
-     es liviano y no hace nada si ya estaba todo bien medido. */
-  function settleScrollTrigger() {
-    ScrollTrigger.refresh();
-    setTimeout(() => ScrollTrigger.refresh(), 300);
-    setTimeout(() => ScrollTrigger.refresh(), 1000);
-    setTimeout(() => ScrollTrigger.refresh(), 2200);
-  }
-  if (document.readyState === 'complete') settleScrollTrigger();
-  else window.addEventListener('load', settleScrollTrigger);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
-
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Disparador de reveals: IntersectionObserver, no ScrollTrigger ----------
+     Antes, cada animación "aparecer al hacer scroll" usaba scrollTrigger con una
+     posición en píxeles que GSAP precalcula UNA VEZ al cargar la página. En mobile
+     esa medida inicial se descalibra fácil (fuentes, imágenes, la barra de
+     direcciones cambiando el alto real) y quedaba secciones enteras invisibles
+     hasta bajar al final — vimos el bug en vivo y un refresh() no lo resolvía
+     de forma confiable.
+
+     IntersectionObserver no tiene ese problema: no precalcula nada, el navegador
+     mismo avisa cuando el elemento entra en pantalla en tiempo real, sea cual sea
+     el alto final de la página. Lo usamos para todo lo que es "aparecer una vez
+     al entrar en viewport". Mantenemos ScrollTrigger solo para lo que de verdad
+     necesita seguir el scroll de forma continua (el paralax de las case studies). */
+  function onEnterViewport(el, run, options) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          run();
+          io.unobserve(entry.target);
+        }
+      });
+    }, Object.assign({ threshold: 0.12, rootMargin: '0px 0px -8% 0px' }, options));
+    io.observe(el);
+  }
+
+  /* Red de seguridad final: pase lo que pase con los observers de arriba,
+     nada se queda invisible para siempre. */
+  setTimeout(() => {
+    document.querySelectorAll('.reveal-line, .fade-up, .fade-in, .reveal-curtain').forEach(el => {
+      gsap.set(el, { clearProps: 'opacity,transform' });
+    });
+    document.querySelectorAll('.word-inner').forEach(el => gsap.set(el, { clearProps: 'transform' }));
+  }, 6000);
 
   /* ---------- Lenis smooth scroll ---------- */
   let lenis;
@@ -193,51 +201,53 @@ function runPortfolioScripts() {
 
   /* ---------- Scroll reveals (genéricos) — anima DESDE oculto ---------- */
   gsap.utils.toArray('.reveal-line:not(.hero-reveal .reveal-line)').forEach(el => {
-    gsap.from(el.querySelectorAll('.word-inner'), {
+    const words = el.querySelectorAll('.word-inner');
+    const tween = gsap.from(words, {
       yPercent: 115,
       rotate: 4,
       duration: 0.85,
       ease: 'power4.out',
       stagger: 0.022,
-      scrollTrigger: { trigger: el, start: 'top 88%' }
+      paused: true
     });
+    onEnterViewport(el, () => tween.play());
   });
 
   gsap.utils.toArray('.fade-up').forEach((el, i) => {
-    gsap.from(el, {
+    const tween = gsap.from(el, {
       opacity: 0,
       y: 54,
       scale: 0.97,
       duration: 1,
       ease: 'power3.out',
       delay: (i % 3) * 0.05,
-      scrollTrigger: { trigger: el, start: 'top 90%' }
+      paused: true
     });
+    onEnterViewport(el, () => tween.play());
   });
 
   gsap.utils.toArray('.fade-in:not(.hero-reveal .fade-in)').forEach(el => {
-    gsap.from(el, {
-      opacity: 0,
-      duration: 1,
-      scrollTrigger: { trigger: el, start: 'top 92%' }
-    });
+    const tween = gsap.from(el, { opacity: 0, duration: 1, paused: true });
+    onEnterViewport(el, () => tween.play());
   });
 
   /* ---------- Cortina de revelado sobre imágenes ----------
      Inyecta un panel que "levanta" al entrar en viewport, más un leve
      zoom-out de la foto por debajo. Los fondos de hero (ya visibles al
-     cargar) revelan sin scrollTrigger; el resto revela al hacer scroll. */
+     cargar) revelan de una, sin esperar scroll; el resto revela al entrar
+     en viewport (IntersectionObserver, ver nota arriba). */
   function addCurtain(box, { scaleFrom, scaleTo, onScroll }) {
     if (!box || box.querySelector('.reveal-curtain')) return;
     const curtain = document.createElement('div');
     curtain.className = 'reveal-curtain';
     box.appendChild(curtain);
     const img = box.querySelector('img.shot');
-    const tl = gsap.timeline(onScroll ? { scrollTrigger: { trigger: box, start: 'top 85%' } } : { delay: 0.3 });
+    const tl = gsap.timeline(onScroll ? { paused: true } : { delay: 0.3 });
     tl.fromTo(curtain, { scaleY: 1 }, { scaleY: 0, duration: 1.1, ease: 'power4.inOut' }, 0);
     if (img && scaleFrom != null) {
       tl.fromTo(img, { scale: scaleFrom }, { scale: scaleTo, duration: 1.5, ease: 'power3.out' }, 0);
     }
+    if (onScroll) onEnterViewport(box, () => tl.play());
   }
   document.querySelectorAll('.ph-box').forEach(box => addCurtain(box, { scaleFrom: 1.18, scaleTo: 1, onScroll: true }));
   document.querySelectorAll('.full-media').forEach(box => addCurtain(box, { scaleFrom: 1.22, scaleTo: 1.06, onScroll: true }));
@@ -257,30 +267,29 @@ function runPortfolioScripts() {
   gsap.utils.toArray('[data-count]').forEach(el => {
     const target = parseFloat(el.getAttribute('data-count'));
     const obj = { v: 0 };
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 90%',
-      once: true,
-      onEnter: () => {
-        gsap.to(obj, {
-          v: target,
-          duration: 1.6,
-          ease: 'power2.out',
-          onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('es'); }
-        });
-      }
+    onEnterViewport(el, () => {
+      gsap.to(obj, {
+        v: target,
+        duration: 1.6,
+        ease: 'power2.out',
+        onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('es'); }
+      });
     });
   });
 
-  /* ---------- Barra de progreso de lectura ---------- */
+  /* ---------- Barra de progreso de lectura ----------
+     Se calcula directo con la fracción de scroll de Lenis en cada frame,
+     en vez de con un start/end en píxeles precalculado por ScrollTrigger. */
   const progressBar = document.querySelector('.scroll-progress .bar');
   if (progressBar) {
-    gsap.to(progressBar, {
-      scaleX: 1,
-      ease: 'none',
-      scrollTrigger: { start: 0, end: 'max', scrub: 0.3 }
-    });
-    gsap.set(progressBar, { scaleX: 0 });
+    function updateProgressBar() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      progressBar.style.width = (pct * 100) + '%';
+    }
+    if (lenis) lenis.on('scroll', updateProgressBar);
+    else window.addEventListener('scroll', updateProgressBar, { passive: true });
+    updateProgressBar();
   }
 
   /* ---------- Transición al navegar a otra página ---------- */
@@ -305,12 +314,10 @@ function runPortfolioScripts() {
   /* ---------- Nav background on scroll ---------- */
   const nav = document.querySelector('.site-nav');
   if (nav) {
-    ScrollTrigger.create({
-      trigger: document.body,
-      start: 'top -80',
-      end: 'max',
-      toggleClass: { targets: nav, className: 'scrolled' }
-    });
+    function updateNavScrolled() { nav.classList.toggle('scrolled', window.scrollY > 80); }
+    if (lenis) lenis.on('scroll', updateNavScrolled);
+    else window.addEventListener('scroll', updateNavScrolled, { passive: true });
+    updateNavScrolled();
   }
 
   /* ---------- Carruseles (hscroll + flechas + barra de progreso) ---------- */
