@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BLOQUE - Entrenamiento de Fuerza</title>
+<meta name="description" content="BLOQUE — entrenamiento de fuerza y acondicionamiento en grupos chicos en Palermo. Técnica primero, progreso medible, primera clase gratis.">
+<meta property="og:title" content="BLOQUE - Entrenamiento de Fuerza">
+<meta property="og:description" content="Entrenamiento de fuerza en grupos de hasta 8 personas. Sin espejos, sin humo — pesas, técnica y progreso medible.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -47,13 +51,33 @@ h1,h2,h3{font-family:'Unbounded',sans-serif;font-weight:900;letter-spacing:-0.02
 /* ---------- nav ---------- */
 .nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:2px solid var(--ink);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
-.nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:1.4rem;text-transform:uppercase;}
+.nav-logo{display:flex;align-items:center;gap:9px;font-family:'Unbounded',sans-serif;font-weight:900;font-size:1.4rem;text-transform:uppercase;}
+.nav-logo svg{width:22px;height:22px;flex-shrink:0;}
 .nav-links{display:flex;gap:30px;list-style:none;}
 .nav-links a{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:600;transition:opacity 0.2s;}
 .nav-links a:hover{opacity:0.55;}
 .nav-cta{font-family:'Inter',sans-serif;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.04em;font-weight:700;padding:11px 22px;background:var(--ink);color:var(--accent);transition:transform 0.2s;}
 .nav-cta:hover{transform:translateY(-2px);}
+.nav-links a.active{color:var(--accent);}
 @media (max-width:820px){.nav-links{display:none;}}
+
+/* ---------- menu mobile ---------- */
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;}
+.nav-burger span{display:block;width:100%;height:2px;background:var(--ink);transition:transform .25s,opacity .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media (max-width:820px){.nav-burger{display:flex;}}
+.mobile-menu{
+  position:fixed;inset:0;z-index:99;background:var(--bg);
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:24px;
+  padding:0 40px;list-style:none;
+  transform:translateY(-100%);transition:transform .35s ease;
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{font-family:'Unbounded',sans-serif;font-weight:900;font-size:1.9rem;text-transform:uppercase;}
+@media (min-width:821px){.mobile-menu{display:none;}}
 
 /* ---------- hero ---------- */
 .hero{position:relative;padding:64px 0 0;overflow:hidden;}
@@ -108,6 +132,9 @@ section{padding:110px 0;position:relative;}
 /* ---------- programas ---------- */
 .programs{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--ink);}
 .program{background:var(--bg);padding:40px 32px;transition:background 0.25s,color 0.25s;}
+.programs .program:nth-child(1){transition-delay:0s;}
+.programs .program:nth-child(2){transition-delay:.1s;}
+.programs .program:nth-child(3){transition-delay:.2s;}
 .program:hover{background:var(--ink);color:var(--bg);}
 .program:hover .program-n{color:var(--accent);}
 .program-n{font-family:'Unbounded',sans-serif;font-weight:900;font-size:2.6rem;color:var(--ink);transition:color 0.25s;}
@@ -123,6 +150,11 @@ section{padding:110px 0;position:relative;}
 .schedule .time{font-family:'IBM Plex Mono',monospace;font-weight:500;}
 .schedule .cls{font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;font-size:0.95rem;}
 .schedule .coach{color:var(--ink-dim);}
+.cupos-cell{display:flex;align-items:center;gap:10px;}
+.cupos-bar{width:56px;height:6px;background:var(--bg-panel);border:1px solid var(--ink);position:relative;flex-shrink:0;}
+.cupos-bar span{position:absolute;left:0;top:0;bottom:0;background:var(--ink);}
+.cupos-cell.full .cupos-bar span{background:var(--accent);}
+.cupos-cell.full .cupos-n{color:var(--accent);font-weight:700;}
 @media (max-width:720px){.schedule th:nth-child(3),.schedule td:nth-child(3){display:none;}}
 
 /* ---------- planes ---------- */
@@ -142,7 +174,9 @@ section{padding:110px 0;position:relative;}
 
 /* ---------- coaches ---------- */
 .coach-list{display:flex;flex-direction:column;border-top:2px solid var(--ink);}
-.c-row{display:grid;grid-template-columns:110px 1fr 1fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--line);align-items:center;transition:padding-left 0.3s;}
+.c-row{display:grid;grid-template-columns:110px 1fr 1fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--line);align-items:center;transition:padding-left 0.3s,opacity .8s var(--ease),transform .8s var(--ease);}
+.coach-list .c-row:nth-child(1){transition-delay:0s;}
+.coach-list .c-row:nth-child(2){transition-delay:.1s;}
 .c-row:hover{padding-left:14px;background:var(--bg-panel);}
 .c-photo{width:110px;aspect-ratio:1/1;overflow:hidden;}
 .c-photo img{width:100%;height:100%;object-fit:cover;}
@@ -174,16 +208,33 @@ footer{border-top:2px solid var(--ink);padding:40px 0;}
 
 <nav class="nav">
   <div class="wrap nav-inner">
-    <a href="#top" class="nav-logo">Bloque</a>
-    <ul class="nav-links">
+    <a href="#top" class="nav-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="square">
+        <path d="M3 12h4M17 12h4M7 8v8M17 8v8M7 12h10"/>
+      </svg>
+      Bloque
+    </a>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#programas">Programas</a></li>
       <li><a href="#horario">Horario</a></li>
       <li><a href="#planes">Planes</a></li>
       <li><a href="#coaches">Coaches</a></li>
     </ul>
-    <a href="#contacto" class="nav-cta">Probar clase</a>
+    <div class="nav-right">
+      <a href="#contacto" class="nav-cta">Probar clase</a>
+      <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
+
+<ul class="mobile-menu" id="mobileMenu">
+  <li><a href="#programas">Programas</a></li>
+  <li><a href="#horario">Horario</a></li>
+  <li><a href="#planes">Planes</a></li>
+  <li><a href="#coaches">Coaches</a></li>
+</ul>
 
 <header class="hero" id="top">
   <div class="wrap">
@@ -197,11 +248,11 @@ footer{border-top:2px solid var(--ink);padding:40px 0;}
     <div class="hero-media reveal" data-reveal>
       <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2000&q=80" alt="Entrenamiento con pesas en BLOQUE">
     </div>
-    <div class="hero-meta reveal" data-reveal>
-      <div><div class="n tabular">2019</div><div class="l">Desde</div></div>
-      <div><div class="n tabular">340</div><div class="l">Socios activos</div></div>
-      <div><div class="n tabular">8</div><div class="l">Máx. por grupo</div></div>
-      <div><div class="n tabular">2</div><div class="l">Coaches certificados</div></div>
+    <div class="hero-meta reveal" data-reveal id="heroStats">
+      <div><div class="n tabular" data-count="2019">0</div><div class="l">Desde</div></div>
+      <div><div class="n tabular" data-count="340">0</div><div class="l">Socios activos</div></div>
+      <div><div class="n tabular" data-count="8">0</div><div class="l">Máx. por grupo</div></div>
+      <div><div class="n tabular" data-count="2">0</div><div class="l">Coaches certificados</div></div>
     </div>
   </div>
   <div class="hero-strip">
@@ -241,7 +292,7 @@ footer{border-top:2px solid var(--ink);padding:40px 0;}
 <section class="editorial">
   <div class="ed-grid">
     <div class="ed-img reveal" data-reveal>
-      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1000&q=80" alt="Peso muerto con barra cargada en BLOQUE">
+      <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1000&q=80" alt="Peso muerto con barra cargada en BLOQUE">
     </div>
     <div class="ed-body reveal" data-reveal>
       <span class="tag mono">Técnica primero</span>
@@ -260,12 +311,12 @@ footer{border-top:2px solid var(--ink);padding:40px 0;}
     <table class="schedule">
       <thead><tr><th>Hora</th><th>Clase</th><th>Coach</th><th>Cupos</th></tr></thead>
       <tbody>
-        <tr><td class="time tabular">07:00</td><td class="cls">Fuerza</td><td class="coach">Nico Alarcón</td><td class="tabular">3/8</td></tr>
-        <tr><td class="time tabular">09:00</td><td class="cls">Metcon</td><td class="coach">Sole Vidal</td><td class="tabular">8/8</td></tr>
-        <tr><td class="time tabular">12:30</td><td class="cls">Movilidad</td><td class="coach">Nico Alarcón</td><td class="tabular">5/8</td></tr>
-        <tr><td class="time tabular">18:00</td><td class="cls">Fuerza</td><td class="coach">Sole Vidal</td><td class="tabular">6/8</td></tr>
-        <tr><td class="time tabular">19:30</td><td class="cls">Metcon</td><td class="coach">Nico Alarcón</td><td class="tabular">2/8</td></tr>
-        <tr><td class="time tabular">20:30</td><td class="cls">Fuerza</td><td class="coach">Sole Vidal</td><td class="tabular">4/8</td></tr>
+        <tr><td class="time tabular">07:00</td><td class="cls">Fuerza</td><td class="coach">Nico Alarcón</td><td><div class="cupos-cell"><div class="cupos-bar"><span style="width:37.5%;"></span></div><span class="cupos-n tabular">3/8</span></div></td></tr>
+        <tr><td class="time tabular">09:00</td><td class="cls">Metcon</td><td class="coach">Sole Vidal</td><td><div class="cupos-cell full"><div class="cupos-bar"><span style="width:100%;"></span></div><span class="cupos-n tabular">8/8</span></div></td></tr>
+        <tr><td class="time tabular">12:30</td><td class="cls">Movilidad</td><td class="coach">Nico Alarcón</td><td><div class="cupos-cell"><div class="cupos-bar"><span style="width:62.5%;"></span></div><span class="cupos-n tabular">5/8</span></div></td></tr>
+        <tr><td class="time tabular">18:00</td><td class="cls">Fuerza</td><td class="coach">Sole Vidal</td><td><div class="cupos-cell"><div class="cupos-bar"><span style="width:75%;"></span></div><span class="cupos-n tabular">6/8</span></div></td></tr>
+        <tr><td class="time tabular">19:30</td><td class="cls">Metcon</td><td class="coach">Nico Alarcón</td><td><div class="cupos-cell"><div class="cupos-bar"><span style="width:25%;"></span></div><span class="cupos-n tabular">2/8</span></div></td></tr>
+        <tr><td class="time tabular">20:30</td><td class="cls">Fuerza</td><td class="coach">Sole Vidal</td><td><div class="cupos-cell"><div class="cupos-bar"><span style="width:50%;"></span></div><span class="cupos-n tabular">4/8</span></div></td></tr>
       </tbody>
     </table>
   </div>
@@ -307,13 +358,13 @@ footer{border-top:2px solid var(--ink);padding:40px 0;}
       <span class="tag">2 personas</span>
     </div>
     <div class="coach-list">
-      <div class="c-row">
-        <div class="c-photo"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=75" alt="Nico Alarcón"></div>
+      <div class="c-row reveal" data-reveal>
+        <div class="c-photo"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=75" alt="Nico Alarcón"></div>
         <div><h4>Nico Alarcón</h4><span class="spec">Fuerza · poderlifting</span></div>
         <p>Ex powerlifter competitivo, 9 años formando atletas amateur.</p>
       </div>
-      <div class="c-row">
-        <div class="c-photo"><img src="https://images.unsplash.com/photo-1550345332-09e3ac987658?auto=format&fit=crop&w=400&q=75" alt="Sole Vidal"></div>
+      <div class="c-row reveal" data-reveal>
+        <div class="c-photo"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1550345332-09e3ac987658?auto=format&fit=crop&w=400&q=75" alt="Sole Vidal"></div>
         <div><h4>Sole Vidal</h4><span class="spec">Acondicionamiento</span></div>
         <p>Especialista en metcon y programación de intensidad progresiva.</p>
       </div>
@@ -329,16 +380,16 @@ footer{border-top:2px solid var(--ink);padding:40px 0;}
     </div>
     <div class="amb-grid reveal" data-reveal>
       <div class="amb-main">
-        <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1100&q=80" alt="Atleta haciendo dominadas en la barra">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1100&q=80" alt="Atleta haciendo dominadas en la barra">
         <div class="amb-cap">Zona de calistenia</div>
       </div>
       <div class="amb-side">
         <div class="amb-cell">
-          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=600&q=80" alt="Atleta con press militar en rack">
+          <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=600&q=80" alt="Atleta con press militar en rack">
           <div class="amb-cap">Racks de fuerza</div>
         </div>
         <div class="amb-cell">
-          <img src="https://images.unsplash.com/photo-1550259979-ed79b48d2a30?auto=format&fit=crop&w=600&q=80" alt="Entrenamiento funcional con kettlebell">
+          <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1550259979-ed79b48d2a30?auto=format&fit=crop&w=600&q=80" alt="Entrenamiento funcional con kettlebell">
           <div class="amb-cap">Zona funcional</div>
         </div>
       </div>
@@ -376,6 +427,36 @@ footer{border-top:2px solid var(--ink);padding:40px 0;}
 
 <script>
 (function(){
+  var burger = document.getElementById('navBurger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var isOpen = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  var navLinks = document.querySelectorAll('#navLinks a');
+  var spySections = document.querySelectorAll('section[id]');
+  if ('IntersectionObserver' in window) {
+    var spyIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          navLinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    spySections.forEach(function(s){ spyIO.observe(s); });
+  }
+
   var els = document.querySelectorAll('[data-reveal]');
   if (!('IntersectionObserver' in window)) {
     els.forEach(function(el){ el.classList.add('reveal-shown'); });
@@ -397,6 +478,32 @@ footer{border-top:2px solid var(--ink);padding:40px 0;}
       el.classList.remove('reveal-hidden'); el.classList.add('reveal-shown');
     });
   }, 3000);
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function animateCount(el) {
+    var target = parseInt(el.dataset.count, 10);
+    if (reduceMotion) { el.textContent = target; return; }
+    var duration = 1100;
+    var start = performance.now();
+    function tick(now) {
+      var p = Math.min(1, (now - start) / duration);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var heroStats = document.getElementById('heroStats');
+  if ('IntersectionObserver' in window) {
+    var statsIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { heroStats.querySelectorAll('.n[data-count]').forEach(animateCount); statsIO.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    statsIO.observe(heroStats);
+  } else {
+    heroStats.querySelectorAll('.n[data-count]').forEach(animateCount);
+  }
 })();
 </script>
 </body>

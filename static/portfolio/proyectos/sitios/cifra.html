@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CIFRA — Streetwear editorial</title>
+<meta name="description" content="CIFRA — ropa de producción chica hecha en Argentina. Drops limitados, sin reposición. Mirá el catálogo del drop actual.">
+<meta property="og:title" content="CIFRA — Streetwear editorial">
+<meta property="og:description" content="Ropa de producción chica hecha en Argentina. Drops limitados, sin reposición.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0b0c'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='900' font-size='18' fill='%232452ff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -53,11 +58,32 @@ img{display:block;max-width:100%;}
 @media(max-width:720px){.nav{padding:20px 22px;}.nav.solid{padding:14px 22px;}}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.03em;}
 .nav-links{display:flex;gap:36px;font-size:.86rem;font-weight:500;}
-.nav-links a{opacity:.7;transition:opacity .2s;}
+.nav-links a{position:relative;opacity:.7;transition:opacity .2s;padding-bottom:3px;}
+.nav-links a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .25s cubic-bezier(.16,1,.3,1);}
 .nav-links a:hover{opacity:1;}
-.nav-cta{font-family:'Space Mono',monospace;font-size:.76rem;background:var(--accent);color:var(--paper);padding:10px 18px;letter-spacing:.03em;transition:filter .2s;}
-.nav-cta:hover{filter:brightness(1.15);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-cta{font-family:'Space Mono',monospace;font-size:.76rem;background:var(--accent);color:var(--paper);padding:10px 18px;letter-spacing:.03em;transition:filter .2s,transform .2s;}
+.nav-cta:hover{filter:brightness(1.15);transform:translateY(-1px);}
+.nav-links a.active{opacity:1;color:var(--accent);}
 @media(max-width:900px){.nav-links{display:none;}}
+
+/* MOBILE MENU */
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;}
+.nav-burger span{display:block;width:100%;height:2px;background:var(--paper);transition:transform .25s,opacity .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:900px){.nav-burger{display:flex;}}
+.mobile-menu{
+  position:fixed;inset:0;z-index:99;background:var(--bg);
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:26px;
+  padding:0 44px;
+  transform:translateY(-100%);transition:transform .35s ease;
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:.01em;}
+@media(min-width:901px){.mobile-menu{display:none;}}
 
 /* HERO */
 .hero{
@@ -70,17 +96,21 @@ img{display:block;max-width:100%;}
   padding:140px 40px 60px 44px;
   position:relative;
 }
-.hero-left h1{font-size:clamp(4.4rem,10.6vw,10rem);}
+.hero-left h1{font-size:clamp(4.4rem,10.6vw,10rem);animation:heroIn .9s cubic-bezier(.16,1,.3,1) both;}
 .hero-left h1 .o{color:var(--accent);}
-.hero-tags{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;}
+.hero-tags{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;animation:heroIn .9s cubic-bezier(.16,1,.3,1) .18s both;}
 .hero-tags span{font-family:'Space Mono',monospace;font-size:.74rem;border:1px solid var(--line);padding:7px 14px;color:var(--grey);}
-.hero-right{position:relative;min-height:400px;}
-.hero-right img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:grayscale(.15) contrast(1.08);}
+.hero-right{position:relative;min-height:400px;overflow:hidden;}
+.hero-right img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:grayscale(.15) contrast(1.08);animation:heroZoom 1.3s cubic-bezier(.16,1,.3,1) both;}
 .hero-drop-tag{
   position:absolute;bottom:30px;left:30px;z-index:2;
   background:var(--accent);color:var(--paper);
   padding:10px 16px;font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.03em;
+  animation:heroIn .7s cubic-bezier(.16,1,.3,1) .35s both;
 }
+@keyframes heroIn{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes heroZoom{from{opacity:0;transform:scale(1.08);}to{opacity:1;transform:scale(1);}}
+@media(prefers-reduced-motion:reduce){.hero-left h1,.hero-tags,.hero-right img,.hero-drop-tag{animation:none;}}
 @media(max-width:900px){.hero-right{height:60vh;}.hero-left{padding:120px 22px 40px;}}
 
 /* MARQUEE */
@@ -89,6 +119,7 @@ img{display:block;max-width:100%;}
   padding:16px 0;overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--line-dark);
 }
 .marquee-strip .track{display:inline-block;animation:mq 24s linear infinite;font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.03em;}
+.marquee-strip:hover .track{animation-play-state:paused;}
 .marquee-strip .track span{margin:0 30px;}
 .marquee-strip .track span.acc{color:var(--accent);}
 @keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
@@ -106,6 +137,9 @@ section{padding:130px 0;}
 @media(max-width:900px){.drop-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:560px){.drop-grid{grid-template-columns:1fr;}}
 .drop-item{position:relative;overflow:hidden;background:#151516;aspect-ratio:3/4;}
+.drop-grid .drop-item:nth-child(1){transition-delay:0s;}
+.drop-grid .drop-item:nth-child(2){transition-delay:.09s;}
+.drop-grid .drop-item:nth-child(3){transition-delay:.18s;}
 .drop-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;filter:grayscale(.1) contrast(1.05);}
 .drop-item:hover img{transform:scale(1.04);}
 .drop-info{
@@ -141,12 +175,19 @@ section{padding:130px 0;}
 /* PRODUCT TABLE STYLE LIST */
 .stock{}
 .stock-cats{display:flex;gap:14px;margin-bottom:52px;flex-wrap:wrap;}
-.stock-cat{font-family:'Space Mono',monospace;font-size:.78rem;letter-spacing:.04em;padding:9px 18px;border:1px solid var(--line);color:var(--grey);}
+.stock-cat{font-family:'Space Mono',monospace;font-size:.78rem;letter-spacing:.04em;padding:9px 18px;border:1px solid var(--line);color:var(--grey);background:none;cursor:pointer;transition:border-color .15s,color .15s;}
+.stock-cat:hover{color:var(--paper);}
 .stock-cat.active{border-color:var(--accent);color:var(--accent);}
+.stock-empty{display:none;color:var(--grey);font-family:'Space Mono',monospace;font-size:.88rem;padding:30px 0;}
+.stock-empty.show{display:block;}
 .stock-row{
   display:grid;grid-template-columns:90px 1fr auto auto;gap:24px;align-items:center;
-  padding:22px 0;border-bottom:1px solid var(--line);
+  padding:22px 4px;border-bottom:1px solid var(--line);
+  transition:opacity .25s ease,max-height .3s ease,padding .25s ease,background .2s ease;
+  max-height:200px;overflow:hidden;
 }
+.stock-row:hover{background:rgba(244,242,236,.035);}
+.stock-row.filtered-out{opacity:0;max-height:0;padding-top:0;padding-bottom:0;border-color:transparent;pointer-events:none;}
 .stock-row:first-of-type{border-top:1px solid var(--line);}
 .stock-row .thumb{width:90px;height:110px;object-fit:cover;background:#151516;filter:grayscale(.1) contrast(1.05);}
 .stock-row .name{font-weight:600;font-size:1.05rem;}
@@ -166,6 +207,9 @@ section{padding:130px 0;}
 .resenas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
 @media(max-width:900px){.resenas-grid{grid-template-columns:1fr;}}
 .resena{background:var(--bg);padding:40px 34px;}
+.resenas-grid .resena:nth-child(1){transition-delay:0s;}
+.resenas-grid .resena:nth-child(2){transition-delay:.1s;}
+.resenas-grid .resena:nth-child(3){transition-delay:.2s;}
 .resena .stars{color:var(--accent);font-size:.9rem;letter-spacing:.14em;margin-bottom:20px;}
 .resena p{font-size:1.02rem;color:var(--paper);margin-bottom:26px;line-height:1.5;}
 .resena .who{font-family:'Space Mono',monospace;font-size:.76rem;color:var(--grey);}
@@ -197,13 +241,25 @@ footer{padding:0 0 40px;border-top:1px solid var(--line);}
 
 <nav class="nav" id="nav">
   <div class="nav-logo">CIFRA</div>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="#drop">Drop</a>
     <a href="#stock">Catálogo</a>
     <a href="#lookbook">Lookbook</a>
   </div>
-  <a class="nav-cta" href="#stock">Ver catálogo</a>
+  <div class="nav-right">
+    <a class="nav-cta" href="#stock">Ver catálogo</a>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#drop">Drop</a>
+  <a href="#stock">Catálogo</a>
+  <a href="#lookbook">Lookbook</a>
+  <a class="btn on-dark" href="#stock">Ver catálogo</a>
+</div>
 
 <header class="hero">
   <div class="hero-left">
@@ -233,17 +289,17 @@ footer{padding:0 0 40px;border-top:1px solid var(--line);}
       <h2>El drop</h2>
       <p>Ocho piezas, producción chica, sin reposición. Lo que se agota, se agota.</p>
     </div>
-    <div class="drop-grid reveal-hidden">
-      <div class="drop-item">
-        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=700&q=80" alt="Percha de prendas beige y crudo en vidriera">
+    <div class="drop-grid">
+      <div class="drop-item reveal-hidden">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=700&q=80" alt="Percha de prendas beige y crudo en vidriera">
         <div class="drop-info"><div><div class="name">Colección cápsula</div><div class="cat">UNISEX</div></div><div class="price tabular">DESDE $32.400</div></div>
       </div>
-      <div class="drop-item">
-        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80" alt="Interior de tienda de ropa con estanterías">
+      <div class="drop-item reveal-hidden">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80" alt="Interior de tienda de ropa con estanterías">
         <div class="drop-info"><div><div class="name">Showroom Palermo</div><div class="cat">RETAIL</div></div><div class="price tabular">VISITANOS</div></div>
       </div>
-      <div class="drop-item">
-        <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=700&q=80" alt="Accesorios y calzado de vestir sobre tela a cuadros">
+      <div class="drop-item reveal-hidden">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=700&q=80" alt="Accesorios y calzado de vestir sobre tela a cuadros">
         <div class="drop-info"><div><div class="name">Línea formal</div><div class="cat">ACCESORIOS</div></div><div class="price tabular">DESDE $18.900</div></div>
       </div>
     </div>
@@ -265,11 +321,11 @@ footer{padding:0 0 40px;border-top:1px solid var(--line);}
 </section>
 
 <section class="strip">
-  <div class="wrap strip-grid">
-    <div><div class="n tabular">04</div><div class="l">DROPS POR AÑO</div></div>
-    <div><div class="n tabular">120</div><div class="l">UNIDADES POR PIEZA</div></div>
-    <div><div class="n tabular">100%</div><div class="l">ALGODÓN Y LINO</div></div>
-    <div><div class="n tabular">48H</div><div class="l">ENVÍO NACIONAL</div></div>
+  <div class="wrap strip-grid" id="statsGrid">
+    <div><div class="n tabular" data-count="4" data-pad="2">00</div><div class="l">DROPS POR AÑO</div></div>
+    <div><div class="n tabular" data-count="120">0</div><div class="l">UNIDADES POR PIEZA</div></div>
+    <div><div class="n tabular" data-count="100" data-suffix="%">0%</div><div class="l">ALGODÓN Y LINO</div></div>
+    <div><div class="n tabular" data-count="48" data-suffix="H">0H</div><div class="l">ENVÍO NACIONAL</div></div>
   </div>
 </section>
 
@@ -279,44 +335,45 @@ footer{padding:0 0 40px;border-top:1px solid var(--line);}
       <h2>Catálogo</h2>
       <p>Stock real, actualizado por drop. Sin reposición fuera de temporada.</p>
     </div>
-    <div class="stock-cats reveal-hidden">
-      <span class="stock-cat active">Todo</span>
-      <span class="stock-cat">Abrigo</span>
-      <span class="stock-cat">Remeras</span>
-      <span class="stock-cat">Pantalones</span>
-      <span class="stock-cat">Accesorios</span>
+    <div class="stock-cats reveal-hidden" id="stockCats">
+      <button class="stock-cat active" data-cat="todo">Todo</button>
+      <button class="stock-cat" data-cat="abrigo">Abrigo</button>
+      <button class="stock-cat" data-cat="remeras">Remeras</button>
+      <button class="stock-cat" data-cat="pantalones">Pantalones</button>
+      <button class="stock-cat" data-cat="accesorios">Accesorios</button>
     </div>
-    <div class="reveal-hidden">
-      <div class="stock-row">
-        <img class="thumb" src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=200&q=70" alt="Campera negra streetwear">
+    <div class="reveal-hidden" id="stockList">
+      <div class="stock-row" data-cat="abrigo">
+        <img class="thumb" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=200&q=70" alt="Campera negra streetwear">
         <div><div class="name">Campera Argo</div><div class="meta">Nylon ripstop, forro polar</div></div>
         <div class="sizes">S · M · L · XL</div>
         <div class="price tabular">$84.900</div>
       </div>
-      <div class="stock-row">
-        <img class="thumb" src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=200&q=70" alt="Sweater tejido crudo">
+      <div class="stock-row" data-cat="abrigo">
+        <img class="thumb" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=200&q=70" alt="Sweater tejido crudo">
         <div><div class="name">Sweater Cifra</div><div class="meta">Lana merino, cuello redondo</div></div>
         <div class="sizes">XS · S · M · L</div>
         <div class="price tabular">$41.200</div>
       </div>
-      <div class="stock-row">
-        <img class="thumb" src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=200&q=70" alt="Botines de gamuza">
+      <div class="stock-row" data-cat="accesorios">
+        <img class="thumb" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=200&q=70" alt="Botines de gamuza">
         <div><div class="name">Botín Suela</div><div class="meta">Gamuza natural, suela de goma</div></div>
         <div class="sizes">38 · 39 · 40 · 41 · 42</div>
         <div class="price tabular">$62.500</div>
       </div>
-      <div class="stock-row">
-        <img class="thumb" src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=200&q=70" alt="Camisa crudo de algodón">
+      <div class="stock-row" data-cat="remeras">
+        <img class="thumb" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=200&q=70" alt="Camisa crudo de algodón">
         <div><div class="name">Camisa Base</div><div class="meta">Algodón egipcio, corte recto</div></div>
         <div class="sizes">S · M · L · XL</div>
         <div class="price tabular">$28.400</div>
       </div>
-      <div class="stock-row">
-        <img class="thumb" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=200&q=70" alt="Perchero minimal con prendas blancas">
+      <div class="stock-row" data-cat="remeras">
+        <img class="thumb" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=200&q=70" alt="Perchero minimal con prendas blancas">
         <div><div class="name">Pack básicos x3</div><div class="meta">Remeras lisas, algodón peinado</div></div>
         <div class="sizes">XS · S · M · L · XL</div>
         <div class="price tabular">$19.800</div>
       </div>
+      <p class="stock-empty" id="stockEmpty">Todavía no hay stock cargado en esta categoría — volvé a mirar en el próximo drop.</p>
     </div>
   </div>
 </section>
@@ -324,18 +381,18 @@ footer{padding:0 0 40px;border-top:1px solid var(--line);}
 <section>
   <div class="wrap">
     <div class="sec-head reveal-hidden"><h2>Lo dicen ellos</h2></div>
-    <div class="resenas-grid reveal-hidden">
-      <div class="resena">
+    <div class="resenas-grid">
+      <div class="resena reveal-hidden">
         <div class="stars">★★★★★</div>
         <p>"La campera Argo va a los tres inviernos y sigue como el primer día. Vale cada peso."</p>
         <div class="who">Bruno T. — Almagro</div>
       </div>
-      <div class="resena">
+      <div class="resena reveal-hidden">
         <div class="stars">★★★★★</div>
         <p>"Compré el pack de básicos y la calidad de la tela no tiene nada que ver con lo que se consigue en cadenas."</p>
         <div class="who">Cami D. — Villa Crespo</div>
       </div>
-      <div class="resena">
+      <div class="resena reveal-hidden">
         <div class="stars">★★★★★</div>
         <p>"Se agotó mi talle en dos días. Ya sé que hay que moverse rápido con los drops de acá."</p>
         <div class="who">Nico P. — San Telmo</div>
@@ -391,6 +448,81 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('solid', window.scrollY > 40);
 });
+
+// Menú mobile
+const burger = document.getElementById('navBurger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  burger.classList.toggle('open', isOpen);
+  burger.setAttribute('aria-expanded', String(isOpen));
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  burger.classList.remove('open');
+  burger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}));
+
+// Nav activo según sección visible
+const navLinks = document.querySelectorAll('#navLinks a');
+const spySections = document.querySelectorAll('section[id]');
+const spyIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-45% 0px -45% 0px' });
+spySections.forEach(s => spyIO.observe(s));
+
+// Filtro de catálogo (con transición suave en vez de display:none instantáneo)
+const stockCats = document.getElementById('stockCats');
+const stockEmpty = document.getElementById('stockEmpty');
+stockCats.addEventListener('click', (e) => {
+  const btn = e.target.closest('.stock-cat');
+  if (!btn) return;
+  stockCats.querySelectorAll('.stock-cat').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cat = btn.dataset.cat;
+  let visibleCount = 0;
+  document.querySelectorAll('#stockList .stock-row').forEach(row => {
+    const show = cat === 'todo' || row.dataset.cat === cat;
+    row.classList.toggle('filtered-out', !show);
+    if (show) visibleCount++;
+  });
+  stockEmpty.classList.toggle('show', visibleCount === 0);
+});
+
+// Conteo animado de las estadísticas al entrar en pantalla
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function animateCount(el) {
+  const target = parseInt(el.dataset.count, 10);
+  const suffix = el.dataset.suffix || '';
+  const pad = el.dataset.pad ? parseInt(el.dataset.pad, 10) : 0;
+  const format = (v) => (pad ? String(v).padStart(pad, '0') : String(v)) + suffix;
+  if (reduceMotion) { el.textContent = format(target); return; }
+  const duration = 1100;
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = format(Math.round(target * eased));
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const statsGrid = document.getElementById('statsGrid');
+const statsIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      statsGrid.querySelectorAll('.n[data-count]').forEach(animateCount);
+      statsIO.disconnect();
+    }
+  });
+}, { threshold: 0.4 });
+statsIO.observe(statsGrid);
 
 const revealEls = document.querySelectorAll('.reveal-hidden');
 const io = new IntersectionObserver((entries) => {

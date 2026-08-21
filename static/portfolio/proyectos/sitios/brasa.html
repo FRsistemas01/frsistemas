@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BRASA — Parrilla de fuego vivo</title>
+<meta name="description" content="BRASA — parrilla de fuego vivo en Palermo. Cortes argentinos, brasas de quebracho, sin apuro. Reservá tu mesa.">
+<meta property="og:title" content="BRASA — Parrilla de fuego vivo">
+<meta property="og:description" content="Cortes argentinos y brasas de quebracho en el corazón de Palermo, Buenos Aires.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23161210'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e0472c'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700;900&family=Archivo:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -61,12 +66,39 @@ h1,h2,h3,h4{font-family:'Bitter',serif;font-weight:700;line-height:1.05;letter-s
 .nav-links a:hover{opacity:1;}
 .nav-cta{font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.04em;border:1px solid var(--paper);padding:9px 18px;transition:background .2s,color .2s;}
 .nav-cta:hover{background:var(--paper);color:var(--ink);}
+.nav-links a.active{opacity:1;color:var(--ember);}
 @media(max-width:900px){.nav-links{display:none;}}
+
+/* MOBILE MENU */
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;}
+.nav-burger span{display:block;width:100%;height:2px;background:var(--paper);transition:transform .25s,opacity .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:900px){.nav-burger{display:flex;}}
+.mobile-menu{
+  position:fixed;inset:0;z-index:99;background:var(--bg);
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:24px;
+  padding:0 40px;
+  transform:translateY(-100%);transition:transform .35s ease;
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{font-family:'Bitter',serif;font-weight:700;font-size:2.2rem;}
+@media(min-width:901px){.mobile-menu{display:none;}}
 
 /* HERO */
 .hero{
-  position:relative;min-height:100vh;display:flex;align-items:flex-end;
-  padding:0 0 90px;overflow:hidden;
+  position:relative;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:640px;
+  min-height:100vh;
+  min-height:100svh;
+  /* padding-top es espacio garantizado en flujo normal: el contenido nunca puede
+     empezar antes de acá, aunque el bloque completo (título + stats) mida más
+     que la altura de pantalla y el hero tenga que crecer más allá de 100vh */
+  padding:110px 0 64px;
+  overflow:hidden;
 }
 .hero-bg{
   position:absolute;inset:0;
@@ -81,24 +113,33 @@ h1,h2,h3,h4{font-family:'Bitter',serif;font-weight:700;line-height:1.05;letter-s
 .hero-inner{position:relative;z-index:2;width:100%;}
 .hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
 .hero h1{
-  font-size:clamp(3.4rem, 8.6vw, 7.4rem);
+  font-size:clamp(2.6rem, 7vw, 6.4rem);
   color:var(--paper);
   max-width:14ch;
 }
 .hero h1 em{font-style:italic;color:var(--ember);font-weight:400;}
-.hero-side{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--smoke);text-align:right;max-width:220px;line-height:1.7;}
+.hero-side{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--smoke);text-align:right;max-width:220px;line-height:1.7;flex-shrink:0;}
 @media(max-width:720px){
   .hero-top{flex-direction:column;align-items:flex-start;gap:22px;}
   .hero-side{text-align:left;}
 }
 .hero-meta{
-  display:flex;gap:0;margin-top:46px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  margin-top:40px;
+  background:rgba(22,18,16,.62);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid var(--line);
 }
-.hero-meta div{flex:1;padding:18px 24px 0 0;border-right:1px solid var(--line);}
-.hero-meta div:last-child{border-right:none;}
-.hero-meta .n{font-family:'DM Mono',monospace;font-size:1.5rem;color:var(--ember);}
+.hero-meta div{padding:20px 22px;border-right:1px solid var(--line);}
+.hero-meta div:nth-child(4n){border-right:none;}
+.hero-meta .n{font-family:'DM Mono',monospace;font-size:1.5rem;color:var(--ember);white-space:nowrap;}
 .hero-meta .l{font-size:.78rem;color:var(--smoke);margin-top:4px;}
-@media(max-width:720px){.hero-meta{flex-wrap:wrap;}.hero-meta div{flex:1 1 50%;margin-bottom:18px;}}
+@media(max-width:720px){
+  .hero-meta{grid-template-columns:repeat(2,1fr);}
+  .hero-meta div{padding:16px 16px;border-bottom:1px solid var(--line);}
+  .hero-meta div:nth-child(2n){border-right:none;}
+  .hero-meta div:nth-last-child(-n+2){border-bottom:none;}
+}
 
 /* MARQUEE */
 .marquee-strip{
@@ -134,12 +175,17 @@ section{padding:130px 0;}
 .menu-cats{display:flex;gap:14px;margin-bottom:56px;flex-wrap:wrap;}
 .menu-cat{
   font-family:'DM Mono',monospace;font-size:.8rem;letter-spacing:.05em;
-  padding:9px 18px;border:1px solid var(--line);color:var(--smoke);cursor:default;
+  padding:9px 18px;border:1px solid var(--line);color:var(--smoke);background:none;cursor:pointer;
+  transition:border-color .15s,color .15s;
 }
+.menu-cat:hover{color:var(--paper);}
 .menu-cat.active{border-color:var(--ember);color:var(--ember);}
-.menu-col{display:grid;grid-template-columns:1fr 1fr;gap:0 90px;}
+.menu-col{display:grid;grid-template-columns:1fr 1fr;gap:0 90px;align-items:start;}
 @media(max-width:900px){.menu-col{grid-template-columns:1fr;}}
 .menu-group{margin-bottom:50px;}
+.menu-group.hide{display:none;}
+.menu-empty{display:none;color:var(--smoke);font-family:'DM Mono',monospace;font-size:.9rem;grid-column:1/-1;padding:20px 0;}
+.menu-empty.show{display:block;}
 .menu-group h3{font-size:1.3rem;color:var(--ember);margin-bottom:6px;font-style:italic;font-weight:400;}
 .menu-group .sub{font-size:.82rem;color:var(--smoke);margin-bottom:22px;}
 .menu-row{
@@ -239,14 +285,27 @@ footer{padding:80px 0 40px;}
 
 <nav class="nav" id="nav">
   <div class="nav-logo"><span class="dot"></span>BRASA</div>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="#menu">Carta</a>
     <a href="#corte">Corte del día</a>
     <a href="#ambiente">El lugar</a>
     <a href="#vinos">Vinos</a>
   </div>
-  <a class="nav-cta" href="#reserva">Reservar mesa</a>
+  <div class="nav-right">
+    <a class="nav-cta" href="#reserva">Reservar mesa</a>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#menu">Carta</a>
+  <a href="#corte">Corte del día</a>
+  <a href="#ambiente">El lugar</a>
+  <a href="#vinos">Vinos</a>
+  <a class="btn light" href="#reserva">Reservar mesa</a>
+</div>
 
 <header class="hero">
   <div class="hero-bg"></div>
@@ -280,7 +339,7 @@ footer{padding:80px 0 40px;}
       <p>El parrillero decide el punto mirando la carne, no un cronómetro. Así se cocinó siempre en esta casa, y así se sigue haciendo.</p>
     </div>
     <div class="fuego-img reveal-hidden">
-      <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=900&q=80" alt="Costillar a la parrilla sobre tabla de madera">
+      <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=900&q=80" alt="Costillar a la parrilla sobre tabla de madera">
       <div class="tag">Costillar · 4hs de brasa</div>
     </div>
   </div>
@@ -292,73 +351,91 @@ footer{padding:80px 0 40px;}
       <h2>La carta</h2>
       <p>Cortes de novillo criado a pasto, achuras de casa y guarniciones que no compiten — acompañan.</p>
     </div>
-    <div class="menu-cats reveal-hidden">
-      <span class="menu-cat active">Parrilla</span>
-      <span class="menu-cat">Achuras</span>
-      <span class="menu-cat">Entradas</span>
-      <span class="menu-cat">Guarniciones</span>
+    <div class="menu-cats reveal-hidden" id="menuCats">
+      <button class="menu-cat active" data-cat="todos">Toda la carta</button>
+      <button class="menu-cat" data-cat="parrilla">Parrilla</button>
+      <button class="menu-cat" data-cat="entradas">Entradas</button>
+      <button class="menu-cat" data-cat="achuras">Achuras</button>
+      <button class="menu-cat" data-cat="guarniciones">Guarniciones</button>
     </div>
-    <div class="menu-col reveal-hidden">
-      <div>
-        <div class="menu-group">
-          <h3>Cortes de tira</h3>
-          <div class="sub">A las brasas, punto a elección</div>
-          <div class="menu-row">
-            <div><div class="name">Bife de chorizo</div><div class="desc">400g, novillo criado a pasto, 45 días de estacionamiento</div></div>
-            <div class="price tabular">$14.200</div>
-          </div>
-          <div class="menu-row">
-            <div><div class="name">Asado de tira</div><div class="desc">Corte transversal, hueso incluido, para compartir</div></div>
-            <div class="price tabular">$11.800</div>
-          </div>
-          <div class="menu-row">
-            <div><div class="name">Vacío</div><div class="desc">450g, marcado a la parrilla con sal parrillera</div></div>
-            <div class="price tabular">$12.900</div>
-          </div>
+    <div class="menu-col reveal-hidden" id="menuList">
+      <div class="menu-group" data-cat="parrilla">
+        <h3>Cortes de tira</h3>
+        <div class="sub">A las brasas, punto a elección</div>
+        <div class="menu-row">
+          <div><div class="name">Bife de chorizo</div><div class="desc">400g, novillo criado a pasto, 45 días de estacionamiento</div></div>
+          <div class="price tabular">$14.200</div>
         </div>
-        <div class="menu-group">
-          <h3>Cortes finos</h3>
-          <div class="sub">Rápidos al fuego vivo</div>
-          <div class="menu-row">
-            <div><div class="name">Entraña</div><div class="desc">380g, el corte de la casa — se agota temprano</div></div>
-            <div class="price tabular">$15.600</div>
-          </div>
-          <div class="menu-row">
-            <div><div class="name">Ojo de bife</div><div class="desc">350g, veteado, cocción media recomendada</div></div>
-            <div class="price tabular">$16.400</div>
-          </div>
+        <div class="menu-row">
+          <div><div class="name">Asado de tira</div><div class="desc">Corte transversal, hueso incluido, para compartir</div></div>
+          <div class="price tabular">$11.800</div>
+        </div>
+        <div class="menu-row">
+          <div><div class="name">Vacío</div><div class="desc">450g, marcado a la parrilla con sal parrillera</div></div>
+          <div class="price tabular">$12.900</div>
         </div>
       </div>
-      <div>
-        <div class="menu-group">
-          <h3>Achuras</h3>
-          <div class="sub">Para arrancar, en el centro de la mesa</div>
-          <div class="menu-row">
-            <div><div class="name">Mollejas de cogote</div><div class="desc">Doradas de afuera, tiernas por dentro</div></div>
-            <div class="price tabular">$9.400</div>
-          </div>
-          <div class="menu-row">
-            <div><div class="name">Chorizo y morcilla</div><div class="desc">De elaboración propia, pan casero</div></div>
-            <div class="price tabular">$6.200</div>
-          </div>
-          <div class="menu-row">
-            <div><div class="name">Provoleta</div><div class="desc">Orégano y aceite de oliva, bien dorada</div></div>
-            <div class="price tabular">$7.800</div>
-          </div>
+      <div class="menu-group" data-cat="entradas">
+        <h3>Entradas</h3>
+        <div class="sub">Para arrancar, en el centro de la mesa</div>
+        <div class="menu-row">
+          <div><div class="name">Provoleta</div><div class="desc">Orégano y aceite de oliva, bien dorada</div></div>
+          <div class="price tabular">$7.800</div>
         </div>
-        <div class="menu-group">
-          <h3>Para compartir</h3>
-          <div class="sub">Parrillada completa, 2 a 3 personas</div>
-          <div class="menu-row">
-            <div><div class="name">Parrillada BRASA</div><div class="desc">Bife, vacío, chorizo, morcilla, mollejas y provoleta</div></div>
-            <div class="price tabular">$38.500</div>
-          </div>
-          <div class="menu-row">
-            <div><div class="name">Guarniciones</div><div class="desc">Ensalada criolla, papas rústicas, puré ahumado</div></div>
-            <div class="price tabular">$3.400</div>
-          </div>
+        <div class="menu-row">
+          <div><div class="name">Empanadas criollas</div><div class="desc">Carne cortada a cuchillo, de horno de barro, x4</div></div>
+          <div class="price tabular">$5.600</div>
         </div>
       </div>
+      <div class="menu-group" data-cat="parrilla">
+        <h3>Cortes finos</h3>
+        <div class="sub">Rápidos al fuego vivo</div>
+        <div class="menu-row">
+          <div><div class="name">Entraña</div><div class="desc">380g, el corte de la casa — se agota temprano</div></div>
+          <div class="price tabular">$15.600</div>
+        </div>
+        <div class="menu-row">
+          <div><div class="name">Ojo de bife</div><div class="desc">350g, veteado, cocción media recomendada</div></div>
+          <div class="price tabular">$16.400</div>
+        </div>
+      </div>
+      <div class="menu-group" data-cat="achuras">
+        <h3>Achuras</h3>
+        <div class="sub">Achuras de casa, elaboración propia</div>
+        <div class="menu-row">
+          <div><div class="name">Mollejas de cogote</div><div class="desc">Doradas de afuera, tiernas por dentro</div></div>
+          <div class="price tabular">$9.400</div>
+        </div>
+        <div class="menu-row">
+          <div><div class="name">Chorizo y morcilla</div><div class="desc">De elaboración propia, pan casero</div></div>
+          <div class="price tabular">$6.200</div>
+        </div>
+      </div>
+      <div class="menu-group" data-cat="parrilla">
+        <h3>Para compartir</h3>
+        <div class="sub">Parrillada completa, 2 a 3 personas</div>
+        <div class="menu-row">
+          <div><div class="name">Parrillada BRASA</div><div class="desc">Bife, vacío, chorizo, morcilla, mollejas y provoleta</div></div>
+          <div class="price tabular">$38.500</div>
+        </div>
+      </div>
+      <div class="menu-group" data-cat="guarniciones">
+        <h3>Guarniciones</h3>
+        <div class="sub">Para acompañar, no para competir</div>
+        <div class="menu-row">
+          <div><div class="name">Ensalada criolla</div><div class="desc">Tomate, cebolla y morrón, aderezo de la casa</div></div>
+          <div class="price tabular">$3.400</div>
+        </div>
+        <div class="menu-row">
+          <div><div class="name">Papas rústicas</div><div class="desc">Al horno de barro, con romero</div></div>
+          <div class="price tabular">$3.200</div>
+        </div>
+        <div class="menu-row">
+          <div><div class="name">Puré ahumado</div><div class="desc">Papa y puerro, un toque de humo de quebracho</div></div>
+          <div class="price tabular">$3.400</div>
+        </div>
+      </div>
+      <p class="menu-empty" id="menuEmpty">Todavía no hay platos cargados en esta categoría.</p>
     </div>
   </div>
 </section>
@@ -366,7 +443,7 @@ footer{padding:80px 0 40px;}
 <section class="corte" id="corte">
   <div class="corte-grid">
     <div class="corte-img reveal-hidden">
-      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Costillar y guarniciones recién salidos de la parrilla">
+      <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Costillar y guarniciones recién salidos de la parrilla">
     </div>
     <div class="corte-body wrap reveal-hidden" style="padding-left:80px;">
       <span class="eyebrow">Corte del día</span>
@@ -390,16 +467,16 @@ footer{padding:80px 0 40px;}
     </div>
     <div class="ambiente-grid reveal-hidden">
       <div class="amb-main">
-        <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=1100&q=80" alt="Salón del restaurante con mesas de madera">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=1100&q=80" alt="Salón del restaurante con mesas de madera">
         <div class="amb-cap">Salón principal · 60 cubiertos</div>
       </div>
       <div class="amb-side">
         <div class="cell">
-          <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=600&q=80" alt="Plato de cerdo a la parrilla con guarnición">
+          <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=600&q=80" alt="Plato de cerdo a la parrilla con guarnición">
           <div class="amb-cap">Cocina abierta</div>
         </div>
         <div class="cell">
-          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" alt="Selección de cortes a la parrilla con acompañamientos">
+          <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" alt="Selección de cortes a la parrilla con acompañamientos">
           <div class="amb-cap">Tabla para compartir</div>
         </div>
       </div>
@@ -410,7 +487,7 @@ footer{padding:80px 0 40px;}
 <section class="vinos" id="vinos">
   <div class="wrap vinos-grid">
     <div class="vinos-img reveal-hidden">
-      <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=80" alt="Trago servido en vaso bajo sobre barra de madera">
+      <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=80" alt="Trago servido en vaso bajo sobre barra de madera">
     </div>
     <div class="reveal-hidden">
       <span class="eyebrow">Carta de vinos</span>
@@ -494,6 +571,52 @@ footer{padding:80px 0 40px;}
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('solid', window.scrollY > 40);
+});
+
+// Menú mobile
+const burger = document.getElementById('navBurger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  burger.classList.toggle('open', isOpen);
+  burger.setAttribute('aria-expanded', String(isOpen));
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  burger.classList.remove('open');
+  burger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}));
+
+// Nav activo según sección visible
+const navLinks = document.querySelectorAll('#navLinks a');
+const spySections = document.querySelectorAll('section[id]');
+const spyIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-45% 0px -45% 0px' });
+spySections.forEach(s => spyIO.observe(s));
+
+// Filtro de la carta: muestra solo los grupos de la categoría elegida
+const menuCats = document.getElementById('menuCats');
+const menuEmpty = document.getElementById('menuEmpty');
+menuCats.addEventListener('click', (e) => {
+  const btn = e.target.closest('.menu-cat');
+  if (!btn) return;
+  menuCats.querySelectorAll('.menu-cat').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cat = btn.dataset.cat;
+  let visibleCount = 0;
+  document.querySelectorAll('#menuList .menu-group').forEach(group => {
+    const show = cat === 'todos' || group.dataset.cat === cat;
+    group.classList.toggle('hide', !show);
+    if (show) visibleCount++;
+  });
+  menuEmpty.classList.toggle('show', visibleCount === 0);
 });
 
 const revealEls = document.querySelectorAll('.reveal-hidden');

@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AUSTRAL - Turismo Patagonia</title>
+<meta name="description" content="AUSTRAL — turismo de aventura en la Patagonia Argentina. Trekking, glaciares y estancias, con guías patagónicos y grupos chicos.">
+<meta property="og:title" content="AUSTRAL - Turismo Patagonia">
+<meta property="og:description" content="Trekking, glaciares y estancias patagónicas. Viajes armados a medida, guías locales, grupos de hasta 8 personas.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Jost:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -44,16 +48,37 @@ h1,h2,h3{font-family:'Libre Caslon Display',serif;font-weight:400;letter-spacing
 .nav{position:absolute;top:0;left:0;right:0;z-index:100;padding:28px 0;}
 .nav.solid{position:sticky;background:var(--bg);border-bottom:1px solid var(--line);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{font-family:'Libre Caslon Display',serif;font-size:1.5rem;letter-spacing:0.02em;}
+.nav-logo{display:flex;align-items:center;gap:9px;font-family:'Libre Caslon Display',serif;font-size:1.5rem;letter-spacing:0.02em;}
+.nav-logo svg{width:20px;height:20px;flex-shrink:0;}
 .nav-links{display:flex;gap:34px;list-style:none;}
 .nav-links a{font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;transition:color 0.2s;}
 .nav-links a:hover{color:var(--accent);}
 .nav-cta{font-family:'Jost',sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.04em;padding:11px 22px;border:1px solid var(--ink);transition:background 0.2s,color 0.2s;}
 .nav-cta:hover{background:var(--accent);border-color:var(--accent);color:var(--bg);}
+.nav-links a.active{color:var(--accent);}
 @media (max-width:820px){.nav-links{display:none;}}
 
+/* ---------- menu mobile ---------- */
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;}
+.nav-burger span{display:block;width:100%;height:2px;background:var(--ink);transition:transform .25s,opacity .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media (max-width:820px){.nav-burger{display:flex;}}
+.mobile-menu{
+  position:fixed;inset:0;z-index:99;background:var(--bg);
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:24px;
+  padding:0 40px;list-style:none;
+  transform:translateY(-100%);transition:transform .35s ease;
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{font-family:'Libre Caslon Display',serif;font-size:2.2rem;}
+@media (min-width:821px){.mobile-menu{display:none;}}
+
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;}
+/* padding-top garantiza que el título nunca quede debajo del nav (que arranca en position:absolute encima del hero), sin importar cuánto mida el contenido */
+.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;padding-top:120px;}
 .hero-bg{position:absolute;inset:0;z-index:-2;}
 .hero-bg img{width:100%;height:100%;object-fit:cover;}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,30,33,0.1) 0%,rgba(15,30,33,0.92) 100%);}
@@ -90,6 +115,10 @@ section{padding:120px 0;position:relative;}
 .dest-main{aspect-ratio:4/5;position:relative;overflow:hidden;}
 .dest-col{display:flex;flex-direction:column;gap:24px;}
 .dest-card{aspect-ratio:16/10;position:relative;overflow:hidden;flex:1;}
+.dest-col .dest-card:nth-child(1){transition-delay:.1s;}
+.dest-col .dest-card:nth-child(2){transition-delay:.2s;}
+.camp-grid .camp-cell:nth-child(1){transition-delay:0s;}
+.camp-grid .camp-cell:nth-child(2){transition-delay:.12s;}
 .dest-card img,.dest-main img{width:100%;height:100%;object-fit:cover;transition:transform 0.7s var(--ease);}
 .dest-card:hover img,.dest-main:hover img{transform:scale(1.06);}
 .dest-info{position:absolute;left:0;right:0;bottom:0;padding:24px;background:linear-gradient(0deg,rgba(15,30,33,0.85),transparent);}
@@ -139,15 +168,32 @@ footer{border-top:1px solid var(--line);padding:48px 0;}
 
 <nav class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="#top" class="nav-logo">Austral</a>
-    <ul class="nav-links">
+    <a href="#top" class="nav-logo">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="9.5" stroke="var(--accent)" stroke-width="1.4"/>
+        <path d="M15.5 8.5L10.5 10.5L8.5 15.5L13.5 13.5L15.5 8.5Z" fill="var(--accent)"/>
+      </svg>
+      Austral
+    </a>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#destinos">Destinos</a></li>
       <li><a href="#itinerarios">Itinerarios</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a href="#contacto" class="nav-cta">Armar viaje</a>
+    <div class="nav-right">
+      <a href="#contacto" class="nav-cta">Armar viaje</a>
+      <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
+
+<ul class="mobile-menu" id="mobileMenu">
+  <li><a href="#destinos">Destinos</a></li>
+  <li><a href="#itinerarios">Itinerarios</a></li>
+  <li><a href="#contacto">Contacto</a></li>
+</ul>
 
 <header class="hero" id="top">
   <div class="hero-bg"><img src="https://images.unsplash.com/photo-1478827387698-1527781a4887?auto=format&fit=crop&w=2000&q=80" alt="Patagonia Argentina"></div>
@@ -156,10 +202,10 @@ footer{border-top:1px solid var(--line);padding:48px 0;}
     <h1>El fin del mundo empieza acá</h1>
     <p class="sub">Trekking, glaciares y estancias patagónicas. Viajes armados a medida por gente que vive ahí, no un catálogo genérico.</p>
     <a href="#destinos" class="hero-cta">Ver destinos ↓</a>
-    <div class="hero-meta reveal" data-reveal>
-      <div><div class="n tabular">2011</div><div class="l">Desde</div></div>
-      <div><div class="n tabular">4</div><div class="l">Regiones</div></div>
-      <div><div class="n tabular">8</div><div class="l">Máx. por grupo</div></div>
+    <div class="hero-meta reveal" data-reveal id="heroStats">
+      <div><div class="n tabular" data-count="2011">0</div><div class="l">Desde</div></div>
+      <div><div class="n tabular" data-count="4">0</div><div class="l">Regiones</div></div>
+      <div><div class="n tabular" data-count="8">0</div><div class="l">Máx. por grupo</div></div>
     </div>
   </div>
 </header>
@@ -172,12 +218,12 @@ footer{border-top:1px solid var(--line);padding:48px 0;}
     </div>
     <div class="dest-grid">
       <a class="dest-main reveal" data-reveal>
-        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=80" alt="El Chaltén">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=80" alt="El Chaltén">
         <div class="dest-info"><span class="name">El Chaltén</span><span class="meta">Trekking · Fitz Roy</span></div>
       </a>
       <div class="dest-col">
-        <a class="dest-card"><img src="https://images.unsplash.com/photo-1502786129293-79981df4e689?auto=format&fit=crop&w=800&q=75" alt="Perito Moreno"><div class="dest-info"><span class="name">Perito Moreno</span><span class="meta">Glaciar · Trekking de hielo</span></div></a>
-        <a class="dest-card"><img src="https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&w=800&q=75" alt="Tierra del Fuego"><div class="dest-info"><span class="name">Tierra del Fuego</span><span class="meta">Refugios · Bosque fueguino</span></div></a>
+        <a class="dest-card reveal" data-reveal><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1502786129293-79981df4e689?auto=format&fit=crop&w=800&q=75" alt="Perito Moreno"><div class="dest-info"><span class="name">Perito Moreno</span><span class="meta">Glaciar · Trekking de hielo</span></div></a>
+        <a class="dest-card reveal" data-reveal><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&w=800&q=75" alt="Tierra del Fuego"><div class="dest-info"><span class="name">Tierra del Fuego</span><span class="meta">Refugios · Bosque fueguino</span></div></a>
       </div>
     </div>
   </div>
@@ -200,7 +246,7 @@ footer{border-top:1px solid var(--line);padding:48px 0;}
 
 <section class="editorial section-border">
   <div class="wrap split">
-    <div class="editorial-media reveal" data-reveal><img src="https://images.unsplash.com/photo-1520962880247-cfaf541c8724?auto=format&fit=crop&w=1000&q=80" alt="Guía local en la Patagonia"></div>
+    <div class="editorial-media reveal" data-reveal><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1520962880247-cfaf541c8724?auto=format&fit=crop&w=1000&q=80" alt="Guía local en la Patagonia"></div>
     <div>
       <h2>Guías que nacieron acá</h2>
       <p>Cada grupo lo lleva un guía patagónico con conocimiento real del terreno — no un operador de turno leyendo un guion. Grupos de máximo 8 personas.</p>
@@ -214,13 +260,13 @@ footer{border-top:1px solid var(--line);padding:48px 0;}
       <h2>Noches bajo cielo austral</h2>
       <span class="tag">Campamentos y estancias en ruta</span>
     </div>
-    <div class="camp-grid reveal" data-reveal>
-      <div class="camp-cell">
-        <img src="https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&w=700&q=80" alt="Carpa iluminada bajo la vía láctea en la Patagonia">
+    <div class="camp-grid">
+      <div class="camp-cell reveal" data-reveal>
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&w=700&q=80" alt="Carpa iluminada bajo la vía láctea en la Patagonia">
         <div class="camp-cap">Campamento base, cielo despejado</div>
       </div>
-      <div class="camp-cell">
-        <img src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?auto=format&fit=crop&w=1000&q=80" alt="Vista aérea de bosque y lago turquesa">
+      <div class="camp-cell reveal" data-reveal>
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?auto=format&fit=crop&w=1000&q=80" alt="Vista aérea de bosque y lago turquesa">
         <div class="camp-cap">Lago glaciar, vista aérea</div>
       </div>
     </div>
@@ -260,6 +306,37 @@ footer{border-top:1px solid var(--line);padding:48px 0;}
 (function(){
   var nav = document.getElementById('nav');
   window.addEventListener('scroll', function(){ nav.classList.toggle('solid', window.scrollY > 60); });
+
+  var burger = document.getElementById('navBurger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var isOpen = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  var navLinks = document.querySelectorAll('#navLinks a');
+  var spySections = document.querySelectorAll('section[id]');
+  if ('IntersectionObserver' in window) {
+    var spyIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          navLinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    spySections.forEach(function(s){ spyIO.observe(s); });
+  }
+
   var els = document.querySelectorAll('[data-reveal]');
   if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('reveal-shown'); }); }
   else {
@@ -270,6 +347,32 @@ footer{border-top:1px solid var(--line);padding:48px 0;}
     els.forEach(function(el){ io.observe(el); });
   }
   setTimeout(function(){ document.querySelectorAll('.reveal-hidden').forEach(function(el){ el.classList.remove('reveal-hidden'); el.classList.add('reveal-shown'); }); }, 3000);
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function animateCount(el) {
+    var target = parseInt(el.dataset.count, 10);
+    if (reduceMotion) { el.textContent = target; return; }
+    var duration = 1100;
+    var start = performance.now();
+    function tick(now) {
+      var p = Math.min(1, (now - start) / duration);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var heroStats = document.getElementById('heroStats');
+  if ('IntersectionObserver' in window) {
+    var statsIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { heroStats.querySelectorAll('.n[data-count]').forEach(animateCount); statsIO.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    statsIO.observe(heroStats);
+  } else {
+    heroStats.querySelectorAll('.n[data-count]').forEach(animateCount);
+  }
 })();
 </script>
 </body>

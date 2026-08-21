@@ -3,252 +3,565 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NÓMADA - Equipo de Expedición</title>
+<title>TRENDLY Mayorista - Pedido mínimo $100.000 combinando productos</title>
+<meta name="description" content="TRENDLY Mayorista — Stanley, vapes, perfumes y body splash a precio de proveedor. Pedido mínimo $100.000 combinando cualquier producto de la tienda.">
+<meta property="og:title" content="TRENDLY Mayorista - Comprá para revender">
+<meta property="og:description" content="Precio mayorista real, por niveles según lo que compres. Combiná cualquier producto de la tienda para llegar al mínimo.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2716%27 fill=%27%232b1420%27/%3E%3Ctext x=%2750%27 y=%2769%27 font-size=%2758%27 font-family=%27Arial,sans-serif%27 font-weight=%27800%27 fill=%27%23ff2d78%27 text-anchor=%27middle%27%3ET%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2712%27 fill=%27%23241a1d%27/%3E%3Ctext x=%2750%27 y=%2769%27 font-size=%2758%27 font-family=%27Arial,sans-serif%27 font-weight=%27800%27 fill=%27%23e7dfce%27 text-anchor=%27middle%27%3EF%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f2ede3;
-  --panel:#e8e1d2;
-  --ink:#231f1c;
-  --ink-dim:#7a7261;
-  --line:rgba(44,39,24,0.15);
-  --accent:#7a2634;
-  --accent-soft:#e7dfce;
-  --olive:#3f4a3a;
+  --bg:#fbf8f6;
+  --bg-soft:#f2ece8;
+  --panel:#221019;
+  --ink:#221019;
+  --ink-dim:#7d7075;
+  --line:rgba(34,16,25,0.12);
+  --accent:#ff2d78;
+  --accent2:#7c5cff;
+  --gold:#ffb800;
+  --ok:#1ea672;
+  --grad:linear-gradient(120deg,var(--accent),var(--accent2));
   --ease:cubic-bezier(0.16,1,0.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--ink);font-family:'Work Sans',sans-serif;font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-::selection{background:var(--accent);color:var(--bg);}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+::selection{background:var(--accent);color:#fff;}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
 ::-webkit-scrollbar{width:11px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--olive);border:2px solid var(--bg);border-radius:99px;}
-html{scrollbar-color:var(--olive) var(--bg);scrollbar-width:thin;}
+::-webkit-scrollbar-thumb{background:var(--grad);border:2px solid var(--bg);border-radius:99px;}
+html{scrollbar-color:var(--accent) var(--bg);scrollbar-width:thin;}
 img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
 a:active,button:active{transform:scale(0.98);}
-.wrap{max-width:1400px;margin:0 auto;padding:0 40px;}
-@media (max-width:720px){.wrap{padding:0 22px;}}
-h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;line-height:1.02;}
+.wrap{max-width:1320px;margin:0 auto;padding:0 40px;}
+@media (max-width:720px){.wrap{padding:0 20px;}}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.01em;line-height:1.08;}
 .mono{font-family:'IBM Plex Mono',monospace;}
 .tabular{font-variant-numeric:tabular-nums;}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .reveal{opacity:1;}
-.reveal.reveal-hidden{opacity:0;transform:translateY(24px);transition:opacity 800ms var(--ease),transform 800ms var(--ease);}
+.reveal.reveal-hidden{opacity:0;transform:translateY(20px);transition:opacity 700ms var(--ease),transform 700ms var(--ease);}
 .reveal.reveal-shown{opacity:1;transform:translateY(0);}
 
-/* ---------- topbar + nav ---------- */
-.topbar{background:var(--ink);color:var(--accent-soft);padding:8px 0;font-family:'IBM Plex Mono',monospace;font-size:0.74rem;text-align:center;text-transform:uppercase;letter-spacing:0.04em;}
-.nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line);}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
-.nav-logo{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;}
-.nav-links{display:flex;gap:30px;list-style:none;}
-.nav-links a{font-size:0.85rem;transition:color 0.2s;}
+/* ---------- topbar ---------- */
+.topbar{background:var(--panel);color:#fdf3f7;padding:10px 0;font-family:'IBM Plex Mono',monospace;font-size:0.74rem;text-align:center;letter-spacing:0.02em;}
+.topbar b{color:var(--gold);}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:100;background:rgba(251,248,246,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:15px 0;}
+.nav-logo{display:flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.25rem;}
+.nav-logo svg{width:22px;height:22px;flex-shrink:0;}
+.nav-logo small{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:0.6rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-left:2px;}
+.nav-links{display:flex;gap:24px;list-style:none;}
+.nav-links a{font-size:0.85rem;font-weight:500;color:var(--ink-dim);transition:color 0.2s;}
 .nav-links a:hover{color:var(--accent);}
-.nav-icons{display:flex;gap:20px;align-items:center;font-size:0.85rem;}
-.cart-badge{background:var(--accent);color:var(--bg);border-radius:99px;font-size:0.68rem;padding:1px 7px;margin-left:4px;font-family:'IBM Plex Mono',monospace;}
+.nav-links a.active{color:var(--accent);font-weight:600;}
+.nav-icons{display:flex;gap:16px;align-items:center;}
+.cart-btn{position:relative;display:flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:99px;background:var(--panel);color:#fff;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.76rem;font-weight:600;}
+.cart-btn svg{width:16px;height:16px;stroke:#fff;flex-shrink:0;}
+.cart-btn .cart-btn-amt{display:none;}
+.cart-btn.has-items .cart-btn-amt{display:inline;}
 @media (max-width:820px){.nav-links{display:none;}}
 
+/* ---------- menu mobile ---------- */
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;}
+.nav-burger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media (max-width:820px){.nav-burger{display:flex;}}
+.mobile-menu{
+  position:fixed;inset:0;z-index:99;background:var(--bg);
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:22px;
+  padding:0 40px;list-style:none;
+  transform:translateY(-100%);transition:transform .35s ease;
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:2rem;}
+@media (min-width:821px){.mobile-menu{display:none;}}
+
 /* ---------- hero ---------- */
-.hero{padding:80px 0 0;}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:20px;display:block;}
-.hero h1{font-size:clamp(2.6rem,5vw,4.2rem);}
-.hero .sub{color:var(--ink-dim);font-size:1.05rem;max-width:44ch;margin-top:22px;}
-.hero-cta{display:inline-flex;gap:14px;margin-top:32px;}
-.btn{font-family:'Work Sans',sans-serif;font-weight:600;font-size:0.92rem;padding:14px 28px;transition:transform 0.2s,background 0.2s;}
-.btn-fill{background:var(--ink);color:var(--bg);}
-.btn-fill:hover{background:var(--accent);}
-.btn-ghost{border:1px solid var(--ink);}
-.btn-ghost:hover{background:var(--ink);color:var(--bg);}
-.hero-media{aspect-ratio:4/5;overflow:hidden;position:relative;}
-.hero-media img{width:100%;height:100%;object-fit:cover;}
+.hero{padding:56px 0 0;}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center;}
 @media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--bg-soft);color:var(--accent);font-weight:600;font-size:0.76rem;padding:7px 14px;border-radius:99px;margin-bottom:20px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.03em;}
+.hero h1{font-size:clamp(2.2rem,4.6vw,3.5rem);}
+.hero .sub{color:var(--ink-dim);font-size:1.02rem;max-width:48ch;margin-top:18px;}
+.hero-min-badge{display:flex;align-items:center;gap:10px;margin-top:22px;background:var(--panel);color:#fff;padding:12px 18px;border-radius:14px;font-size:0.85rem;max-width:fit-content;}
+.hero-min-badge b{color:var(--gold);}
+.hero-cta{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;}
+.btn{font-family:'Inter',sans-serif;font-weight:600;font-size:0.9rem;padding:14px 26px;border-radius:99px;transition:transform 0.2s,box-shadow 0.2s,background .2s,opacity .2s;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;}
+.btn-fill{background:var(--grad);color:#fff;box-shadow:0 10px 22px rgba(255,45,120,.25);}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(255,45,120,.34);}
+.btn-fill:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-ghost{border:1.5px solid var(--line);color:var(--ink);background:none;}
+.btn-ghost:hover{border-color:var(--ink);}
+.hero-media{position:relative;aspect-ratio:1/1;border-radius:24px;overflow:hidden;background:var(--bg-soft);}
+.hero-media img{width:100%;height:100%;object-fit:cover;}
+.hero-float{
+  position:absolute;bottom:16px;left:16px;background:#fff;color:var(--ink);
+  padding:11px 16px;border-radius:14px;box-shadow:0 12px 26px rgba(34,16,25,.16);
+  font-size:0.78rem;font-weight:600;display:flex;align-items:center;gap:8px;
+}
+.hero-float .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex-shrink:0;}
 
-/* ---------- hero stat bar ---------- */
-.hero-meta{display:flex;border-top:1px solid var(--line);margin-top:56px;}
-.hero-meta div{flex:1;padding:22px 24px 0 0;border-right:1px solid var(--line);}
-.hero-meta div:last-child{border-right:none;}
-.hero-meta .n{font-family:'Fraunces',serif;font-weight:600;font-size:1.7rem;color:var(--accent);}
-.hero-meta .l{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--ink-dim);text-transform:uppercase;margin-top:6px;}
-@media (max-width:720px){.hero-meta{flex-wrap:wrap;}.hero-meta div{flex:1 1 50%;margin-bottom:18px;}}
+/* ---------- hero stats ---------- */
+.hero-stats{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap;}
+.hero-stats .stat-card{flex:1;min-width:120px;background:var(--bg-soft);border-radius:14px;padding:14px 16px;}
+.hero-stats .n{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.3rem;color:var(--ink);}
+.hero-stats .l{font-family:'IBM Plex Mono',monospace;font-size:0.64rem;color:var(--ink-dim);margin-top:3px;text-transform:uppercase;letter-spacing:.03em;}
 
-/* ---------- terreno gallery ---------- */
-.terreno{background:var(--panel);}
-.terreno-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;}
-@media (max-width:900px){.terreno-grid{grid-template-columns:1fr;}}
-.terreno-main{position:relative;height:520px;overflow:hidden;}
-.terreno-main img{width:100%;height:100%;object-fit:cover;}
-.terreno-side{display:flex;flex-direction:column;gap:20px;}
-.terreno-cell{position:relative;flex:1;min-height:160px;overflow:hidden;}
-.terreno-cell img{width:100%;height:100%;object-fit:cover;}
-.terreno-cap{position:absolute;bottom:0;left:0;right:0;padding:18px;background:linear-gradient(0deg,rgba(44,39,24,.82),transparent);font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--bg);text-transform:uppercase;}
+/* ---------- niveles de precio ---------- */
+.tiers{background:var(--panel);color:#fff;border-radius:24px;margin:70px 40px 0;padding:48px 40px;}
+@media (max-width:720px){.tiers{margin:60px 16px 0;padding:34px 22px;}}
+.tiers-head{text-align:center;max-width:52ch;margin:0 auto 36px;}
+.tiers-head .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;}
+.tiers-head h2{color:#fff;font-size:clamp(1.7rem,3.6vw,2.4rem);margin-top:10px;}
+.tiers-head p{color:rgba(255,255,255,.65);margin-top:10px;font-size:0.95rem;}
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media (max-width:820px){.tiers-grid{grid-template-columns:1fr;}}
+.tier-card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);border-radius:18px;padding:26px 24px;position:relative;transition:border-color .2s,background .2s;}
+.tier-card.active-tier{border-color:var(--accent);background:rgba(255,45,120,.12);}
+.tier-card .tier-name{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;color:rgba(255,255,255,.55);letter-spacing:.05em;}
+.tier-card .tier-range{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.3rem;margin-top:8px;color:#fff;}
+.tier-card .tier-off{margin-top:6px;font-size:0.85rem;color:var(--gold);font-weight:600;}
+.tier-card .tier-tag{position:absolute;top:-11px;right:20px;background:var(--grad);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.64rem;font-weight:700;padding:4px 10px;border-radius:99px;display:none;}
+.tier-card.active-tier .tier-tag{display:block;}
 
-/* ---------- categorias ---------- */
-.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);margin-top:80px;}
-.cat{background:var(--bg);aspect-ratio:3/4;position:relative;overflow:hidden;}
-.cat img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease);}
-.cat:hover img{transform:scale(1.06);}
-.cat-label{position:absolute;left:0;right:0;bottom:0;padding:18px;background:linear-gradient(0deg,rgba(44,39,24,0.75),transparent);color:#fff;font-family:'Fraunces',serif;font-size:1.2rem;}
-@media (max-width:820px){.cats{grid-template-columns:repeat(2,1fr);}}
+/* ---------- combo emprendedor ---------- */
+.combo{margin-top:80px;}
+.combo-card{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--bg-soft);border-radius:24px;overflow:hidden;align-items:stretch;}
+@media (max-width:860px){.combo-card{grid-template-columns:1fr;}}
+.combo-media{position:relative;min-height:280px;}
+.combo-media img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.combo-body{padding:44px;display:flex;flex-direction:column;justify-content:center;}
+@media (max-width:720px){.combo-body{padding:30px 24px;}}
+.combo-body .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--accent);text-transform:uppercase;letter-spacing:.04em;}
+.combo-body h2{font-size:clamp(1.6rem,3.2vw,2.2rem);margin:10px 0 12px;}
+.combo-body p{color:var(--ink-dim);max-width:44ch;font-size:0.95rem;}
+.combo-list{list-style:none;margin:18px 0;display:flex;flex-direction:column;gap:7px;}
+.combo-list li{font-size:0.88rem;display:flex;align-items:center;gap:8px;}
+.combo-list li::before{content:'✓';color:var(--ok);font-weight:700;}
+.combo-price-row{display:flex;align-items:baseline;gap:12px;margin:8px 0 20px;flex-wrap:wrap;}
+.combo-price-row .old{font-size:1rem;color:var(--ink-dim);text-decoration:line-through;}
+.combo-price-row .now{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.7rem;color:var(--accent);}
+
+/* ---------- marquee ---------- */
+.marquee-strip{background:var(--panel);color:#fff;overflow:hidden;margin-top:80px;}
+.marquee-strip:hover .track{animation-play-state:paused;}
+.marquee-strip .track{display:inline-flex;animation:mq 24s linear infinite;padding:13px 0;white-space:nowrap;}
+.marquee-strip .track span{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;margin:0 24px;}
+.marquee-strip .track span.acc{color:var(--gold);}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
 /* ---------- section shell ---------- */
-section{padding:100px 0;}
+section{padding:90px 0;}
 .section-border{border-top:1px solid var(--line);}
-.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;gap:24px;flex-wrap:wrap;}
-.section-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem);}
-.section-head .tag{font-family:'IBM Plex Mono',monospace;font-size:0.76rem;color:var(--ink-dim);text-transform:uppercase;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;gap:24px;flex-wrap:wrap;}
+.section-head h2{font-size:clamp(1.7rem,3.2vw,2.3rem);}
+.section-head .tag{font-family:'IBM Plex Mono',monospace;font-size:0.76rem;color:var(--ink-dim);}
+.quick-jump{display:flex;gap:9px;margin-bottom:50px;flex-wrap:wrap;}
+.quick-jump a{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;font-weight:600;padding:9px 16px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink-dim);transition:border-color .15s,color .15s;}
+.quick-jump a:hover{color:var(--ink);border-color:var(--ink);}
+
+/* ---------- grupo de marca ---------- */
+.brand-group{margin-bottom:60px;}
+.brand-group:last-child{margin-bottom:0;}
+.brand-head{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.brand-head h3{font-size:1.15rem;}
+.brand-head .stock-tag{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--ok);font-weight:600;text-transform:uppercase;letter-spacing:.03em;}
+.brand-head .stock-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--ok);}
 
 /* ---------- productos ---------- */
-.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;}
-.pcard-media{aspect-ratio:4/5;overflow:hidden;background:var(--panel);position:relative;}
-.pcard-media img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease);}
-.pcard:hover .pcard-media img{transform:scale(1.05);}
-.pcard-tag{position:absolute;top:12px;left:12px;background:var(--accent);color:var(--bg);font-family:'IBM Plex Mono',monospace;font-size:0.68rem;padding:4px 10px;text-transform:uppercase;}
-.pcard-body{padding-top:16px;}
-.pcard-body h4{font-family:'Work Sans',sans-serif;font-weight:600;font-size:0.98rem;}
-.pcard-body .cat-name{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--ink-dim);text-transform:uppercase;display:block;margin-bottom:6px;}
-.pcard-price{margin-top:8px;font-weight:600;}
-.pcard-price .old{color:var(--ink-dim);text-decoration:line-through;font-weight:400;margin-right:8px;font-size:0.9rem;}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 @media (max-width:980px){.pgrid{grid-template-columns:repeat(2,1fr);}}
+.pcard{border:1px solid var(--line);border-radius:18px;padding:16px;transition:border-color .2s;background:#fff;}
+.pcard:hover{border-color:var(--ink);}
+.pgrid .pcard:nth-child(1){transition-delay:0s;}
+.pgrid .pcard:nth-child(2){transition-delay:.06s;}
+.pgrid .pcard:nth-child(3){transition-delay:.12s;}
+.pgrid .pcard:nth-child(4){transition-delay:.18s;}
+.pcard-media{aspect-ratio:1/1;overflow:hidden;background:var(--bg-soft);border-radius:12px;position:relative;margin-bottom:12px;}
+.pcard-media img{width:100%;height:100%;object-fit:cover;}
+.pcard-tag{position:absolute;top:10px;left:10px;background:var(--grad);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:700;padding:4px 9px;border-radius:99px;z-index:1;}
+.pcard-body h4{font-family:'Inter',sans-serif;font-weight:600;font-size:0.9rem;line-height:1.3;}
+.pcard-body .age{font-size:0.68rem;color:var(--ink-dim);margin-top:3px;}
+.pcard-price-row{display:flex;align-items:baseline;gap:6px;margin-top:9px;}
+.pcard-price-row .val{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.15rem;color:var(--ink);}
+.pcard-price-row .unit{font-size:0.7rem;color:var(--ink-dim);}
+.pcard-tier-note{font-size:0.66rem;color:var(--ink-dim);margin-top:2px;font-family:'IBM Plex Mono',monospace;}
+.pcard-actions{display:flex;align-items:center;gap:8px;margin-top:12px;}
+.qty-stepper{display:flex;align-items:center;background:var(--bg-soft);border-radius:99px;padding:3px;flex-shrink:0;}
+.qty-btn{width:24px;height:24px;border-radius:50%;background:#fff;border:none;font-size:0.9rem;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;padding:0;}
+.qty-btn:hover{background:var(--grad);color:#fff;}
+.qty-val{min-width:22px;text-align:center;font-weight:600;font-size:0.8rem;}
+.btn-add{flex:1;background:var(--panel);color:#fff;border:none;border-radius:99px;padding:8px 10px;font-weight:600;font-size:0.76rem;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .15s,background .15s;white-space:nowrap;}
+.btn-add:hover{transform:translateY(-1px);}
+.btn-add.added{background:var(--ok);}
 
 /* ---------- banda de confianza ---------- */
-.trust{background:var(--olive);color:var(--accent-soft);}
-.trust-inner{display:flex;justify-content:space-between;padding:34px 0;flex-wrap:wrap;gap:20px;}
-.trust-item{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.03em;}
+.trust{background:var(--bg-soft);}
+.trust-inner{display:flex;justify-content:space-between;padding:28px 0;flex-wrap:wrap;gap:18px;}
+.trust-item{font-size:0.84rem;font-weight:600;display:flex;align-items:center;gap:8px;}
+.trust-item::before{content:'';width:7px;height:7px;border-radius:99px;background:var(--grad);}
 
 /* ---------- editorial split ---------- */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.split-media{aspect-ratio:5/6;overflow:hidden;}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+.split-media{aspect-ratio:5/6;overflow:hidden;border-radius:22px;}
 .split-media img{width:100%;height:100%;object-fit:cover;}
-.split h2{font-size:clamp(1.9rem,3.6vw,2.8rem);margin-bottom:20px;}
+.split h2{font-size:clamp(1.7rem,3.2vw,2.3rem);margin-bottom:16px;}
 .split p{color:var(--ink-dim);max-width:44ch;}
-@media (max-width:900px){.split{grid-template-columns:1fr;gap:32px;}}
+@media (max-width:900px){.split{grid-template-columns:1fr;gap:30px;}}
 
 /* ---------- reviews ---------- */
-.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-.review{background:var(--bg);padding:32px;}
-.review .stars{color:var(--accent);letter-spacing:2px;font-size:0.85rem;}
-.review p{margin:14px 0;font-size:0.95rem;}
-.review cite{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--ink-dim);text-transform:uppercase;font-style:normal;}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.review{background:var(--bg-soft);border-radius:18px;padding:26px;}
+.review .stars{color:var(--gold);letter-spacing:2px;font-size:0.88rem;}
+.review p{margin:12px 0;font-size:0.93rem;}
+.review cite{font-family:'IBM Plex Mono',monospace;font-size:0.73rem;color:var(--ink-dim);font-style:normal;}
 @media (max-width:820px){.reviews{grid-template-columns:1fr;}}
 
 /* ---------- newsletter ---------- */
-.news{background:var(--accent);color:var(--bg);text-align:center;padding:130px 0;}
-.news h2{font-size:clamp(2.4rem,6vw,4.6rem);color:var(--bg);}
-.news p{color:rgba(247,243,234,.82);margin-top:14px;}
-.news-form{display:flex;justify-content:center;gap:0;margin-top:32px;max-width:440px;margin-left:auto;margin-right:auto;}
-.news-form input{flex:1;background:transparent;border:1px solid rgba(247,243,234,.5);color:var(--bg);padding:13px 16px;font-family:'Work Sans',sans-serif;}
-.news-form input::placeholder{color:rgba(247,243,234,.65);}
-.news-form button{background:var(--ink);color:var(--accent-soft);border:none;padding:13px 22px;font-weight:600;}
+.news{background:var(--panel);color:#fff;text-align:center;padding:80px 40px;border-radius:24px;}
+@media (max-width:720px){.news{padding:56px 22px;}}
+.news h2{font-size:clamp(1.8rem,4vw,2.6rem);color:#fff;}
+.news p{color:rgba(255,255,255,.65);margin-top:10px;max-width:44ch;margin-left:auto;margin-right:auto;}
+.news-row{display:flex;justify-content:center;gap:12px;margin-top:26px;flex-wrap:wrap;}
+.news-form{display:flex;gap:0;max-width:360px;}
+.news-form input{flex:1;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.3);border-radius:99px 0 0 99px;color:#fff;padding:12px 16px;font-family:'Inter',sans-serif;border-right:none;}
+.news-form input::placeholder{color:rgba(255,255,255,.6);}
+.news-form button{background:#fff;color:var(--accent);border:none;padding:12px 20px;font-weight:700;border-radius:0 99px 99px 0;font-family:'Inter',sans-serif;cursor:pointer;}
+.news .btn-ig{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.4);color:#fff;}
 
 /* ---------- footer ---------- */
-footer{border-top:1px solid var(--line);padding:56px 0 30px;}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
-.footer-col h5{font-family:'IBM Plex Mono',monospace;font-size:0.76rem;text-transform:uppercase;color:var(--ink-dim);margin-bottom:16px;}
-.footer-col a{display:block;font-size:0.9rem;margin-bottom:9px;}
-.footer-bottom{border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:0.76rem;color:var(--ink-dim);text-transform:uppercase;}
+footer{border-top:1px solid var(--line);padding:50px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;}
+.footer-col h5{font-family:'IBM Plex Mono',monospace;font-size:0.74rem;text-transform:uppercase;color:var(--ink-dim);margin-bottom:14px;}
+.footer-col a,.footer-col button{display:block;font-size:0.88rem;margin-bottom:8px;background:none;border:none;padding:0;text-align:left;cursor:pointer;color:var(--ink);font-family:'Inter',sans-serif;}
+.footer-note{font-size:0.75rem;color:var(--ink-dim);max-width:70ch;margin-top:8px;line-height:1.6;}
+.footer-bottom{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:0.74rem;color:var(--ink-dim);}
 .footer-bottom a{color:var(--ink);}
 @media (max-width:820px){.footer-grid{grid-template-columns:1fr 1fr;}}
+
+/* ---------- carrito ---------- */
+.cart-overlay{position:fixed;inset:0;background:rgba(34,16,25,.5);z-index:199;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.cart-overlay.open{opacity:1;pointer-events:auto;}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:430px;max-width:92vw;background:#fff;z-index:200;box-shadow:-20px 0 50px rgba(34,16,25,.2);transform:translateX(100%);transition:transform .35s var(--ease);display:flex;flex-direction:column;}
+.cart-drawer.open{transform:translateX(0);}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line);}
+.cart-head h3{font-size:1.1rem;}
+.cart-close{width:32px;height:32px;border-radius:50%;background:var(--bg-soft);border:none;font-size:0.95rem;cursor:pointer;color:var(--ink);flex-shrink:0;}
+.cart-progress-wrap{padding:16px 22px;border-bottom:1px solid var(--line);}
+.cart-progress-label{display:flex;justify-content:space-between;font-size:0.76rem;color:var(--ink-dim);margin-bottom:8px;}
+.cart-progress-label b{color:var(--ink);}
+.cart-progress-track{height:8px;background:var(--bg-soft);border-radius:99px;overflow:hidden;}
+.cart-progress-bar{height:100%;background:var(--grad);border-radius:99px;transition:width .3s var(--ease);width:0%;}
+.cart-progress-msg{font-size:0.76rem;margin-top:8px;color:var(--ink-dim);}
+.cart-progress-msg.ok{color:var(--ok);font-weight:600;}
+.cart-items{flex:1;overflow-y:auto;padding:4px 22px;}
+.cart-empty{color:var(--ink-dim);font-size:0.88rem;padding:36px 0;text-align:center;}
+.cart-item{display:flex;gap:11px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center;}
+.cart-item img{width:52px;height:52px;object-fit:cover;border-radius:10px;background:var(--bg-soft);flex-shrink:0;}
+.cart-item-body{flex:1;min-width:0;}
+.cart-item-body h5{font-size:0.82rem;font-weight:600;line-height:1.3;}
+.cart-item-body .meta{font-size:0.7rem;color:var(--ink-dim);margin-top:2px;}
+.cart-item-qty{display:flex;align-items:center;gap:9px;margin-top:7px;}
+.cart-item-remove{background:none;border:none;color:var(--ink-dim);font-size:0.7rem;text-decoration:underline;cursor:pointer;padding:0;font-family:'Inter',sans-serif;}
+.cart-item-price{font-weight:700;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;white-space:nowrap;flex-shrink:0;}
+.cart-summary{padding:16px 22px 22px;border-top:1px solid var(--line);}
+.cart-tier-badge{display:inline-flex;align-items:center;gap:6px;background:var(--bg-soft);padding:6px 12px;border-radius:99px;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:600;margin-bottom:10px;}
+.cart-total-row{display:flex;justify-content:space-between;font-size:0.84rem;color:var(--ink-dim);padding:3px 0;}
+.cart-total-row.big{font-size:1.1rem;font-weight:700;color:var(--ink);font-family:'Space Grotesk',sans-serif;padding-top:6px;}
+.cart-checkout{width:100%;justify-content:center;margin-top:14px;}
+@media (max-width:480px){.cart-drawer{width:100%;max-width:100%;}}
 </style>
 </head>
 <body>
 
-<div class="topbar">Envío gratis a todo el país en compras mayores a $80.000</div>
+<div class="topbar">📦 <b>Pedido mínimo $100.000</b> combinando cualquier producto de la tienda</div>
 <nav class="nav">
   <div class="wrap nav-inner">
-    <a href="#top" class="nav-logo">Nómada</a>
-    <ul class="nav-links">
-      <li><a href="#catalogo">Catálogo</a></li>
-      <li><a href="#mochilas">Mochilas</a></li>
-      <li><a href="#opiniones">Opiniones</a></li>
+    <a href="#top" class="nav-logo">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L14 9L21 11L14 13L12 20L10 13L3 11L10 9L12 2Z" fill="var(--accent)"/>
+      </svg>
+      Trendly <small>Mayorista</small>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#stanley">Stanley</a></li>
+      <li><a href="#vapes">Vapes</a></li>
+      <li><a href="#perfumes">Perfumes</a></li>
+      <li><a href="#bodysplash">Body Splash</a></li>
+      <li><a href="#combo">Combo Emprendedor</a></li>
     </ul>
-    <div class="nav-icons">
-      <span>Buscar</span>
-      <span>Cuenta</span>
-      <span>Carrito<span class="cart-badge">2</span></span>
+    <div class="nav-right">
+      <button class="cart-btn" id="cartBtn" aria-label="Ver pedido">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6h15l-1.5 9h-13z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L4 2H2"/></svg>
+        <span id="cartBtnLabel">Pedido</span><span class="cart-btn-amt tabular" id="cartBtnAmt"></span>
+      </button>
+      <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
 
+<ul class="mobile-menu" id="mobileMenu">
+  <li><a href="#stanley">Stanley</a></li>
+  <li><a href="#vapes">Vapes</a></li>
+  <li><a href="#perfumes">Perfumes</a></li>
+  <li><a href="#bodysplash">Body Splash</a></li>
+  <li><a href="#combo">Combo Emprendedor</a></li>
+</ul>
+
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="hero-eyebrow">Nueva colección — Otoño 2026</span>
-      <h1>Equipo pensado<br>para ir lejos</h1>
-      <p class="sub">Mochilas, calzado y ropa técnica para expediciones reales. Materiales durables, diseño que no pasa de moda.</p>
+      <span class="hero-eyebrow">Para emprendedores y revendedores</span>
+      <h1>Comprá mayorista. <span class="grad-text">Combiná lo que quieras.</span></h1>
+      <p class="sub">Stanley, vapes, perfumes y body splash a precio de proveedor. Armás tu pedido mezclando cualquier producto de la tienda — cuanto más comprás en total, menos pagás por unidad.</p>
+      <div class="hero-min-badge">📦 Pedido mínimo <b class="tabular">$100.000</b> — se puede combinar</div>
       <div class="hero-cta">
-        <a href="#catalogo" class="btn btn-fill">Ver catálogo</a>
-        <a href="#mochilas" class="btn btn-ghost">Mochilas nuevas</a>
+        <a href="#stanley" class="btn btn-fill">Ver catálogo</a>
+        <a href="#niveles" class="btn btn-ghost">Cómo funcionan los niveles</a>
+      </div>
+      <div class="hero-stats reveal" data-reveal id="heroStats">
+        <div class="stat-card"><div class="n tabular" data-count="2023">0</div><div class="l">Desde</div></div>
+        <div class="stat-card"><div class="n tabular" data-count="800" data-suffix="+">0</div><div class="l">Revendedores</div></div>
+        <div class="stat-card"><div class="n tabular" data-count="49" data-decimals="1">0</div><div class="l">Rating</div></div>
       </div>
     </div>
     <div class="hero-media reveal" data-reveal>
-      <img src="https://images.unsplash.com/photo-1516939884455-1445c8652f83?auto=format&fit=crop&w=1200&q=80" alt="Mochila de expedición NÓMADA">
+      <img src="img/trendly/hero1.jpg" alt="Productos de tendencia en tonos rosados">
+      <div class="hero-float"><span class="dot"></span>Stock actualizado hoy</div>
     </div>
-  </div>
-
-  <div class="wrap hero-meta reveal" data-reveal>
-    <div><div class="n tabular">2015</div><div class="l">Desde</div></div>
-    <div><div class="n tabular">18</div><div class="l">Países de envío</div></div>
-    <div><div class="n tabular">4.8</div><div class="l">Rating promedio</div></div>
-    <div><div class="n tabular">∞</div><div class="l">Garantía en mochilas</div></div>
-  </div>
-
-  <div class="cats">
-    <a class="cat"><img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=75" alt="Mochilas"><span class="cat-label">Mochilas</span></a>
-    <a class="cat"><img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=75" alt="Calzado"><span class="cat-label">Calzado</span></a>
-    <a class="cat"><img src="https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=600&q=75" alt="Camperas"><span class="cat-label">Camperas</span></a>
-    <a class="cat"><img src="https://images.unsplash.com/photo-1495856458515-0637185db551?auto=format&fit=crop&w=600&q=75" alt="Accesorios"><span class="cat-label">Accesorios</span></a>
   </div>
 </header>
 
-<section class="section-border" id="catalogo">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Más vendidos</h2>
-      <span class="tag">24 productos</span>
+<div class="wrap">
+  <div class="tiers reveal" data-reveal id="niveles">
+    <div class="tiers-head">
+      <span class="eyebrow">Cuanto más comprás, menos pagás</span>
+      <h2>Niveles de precio mayorista</h2>
+      <p>Se calculan sobre el total de tu pedido, combinando cualquier producto de la tienda — no hace falta llevar varias unidades del mismo.</p>
     </div>
-    <div class="pgrid">
-      <a href="#" class="pcard">
-        <div class="pcard-media"><span class="pcard-tag">-20%</span><img src="https://images.unsplash.com/photo-1622260614153-03223fb72052?auto=format&fit=crop&w=600&q=75" alt="Mochila Trail 45L"></div>
-        <div class="pcard-body"><span class="cat-name">Mochilas</span><h4>Trail 45L</h4><div class="pcard-price tabular"><span class="old">$145.000</span>$116.000</div></div>
-      </a>
-      <a href="#" class="pcard">
-        <div class="pcard-media"><img src="https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&w=600&q=75" alt="Botas Summit"></div>
-        <div class="pcard-body"><span class="cat-name">Calzado</span><h4>Botas Summit</h4><div class="pcard-price tabular">$98.000</div></div>
-      </a>
-      <a href="#" class="pcard">
-        <div class="pcard-media"><span class="pcard-tag">Nuevo</span><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=75" alt="Campera Windbreaker"></div>
-        <div class="pcard-body"><span class="cat-name">Camperas</span><h4>Windbreaker Ridge</h4><div class="pcard-price tabular">$132.000</div></div>
-      </a>
-      <a href="#" class="pcard">
-        <div class="pcard-media"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=75" alt="Termo Nómada"></div>
-        <div class="pcard-body"><span class="cat-name">Accesorios</span><h4>Termo 1L Acero</h4><div class="pcard-price tabular">$34.000</div></div>
-      </a>
+    <div class="tiers-grid" id="tiersGrid">
+      <div class="tier-card" data-tier="0">
+        <span class="tier-tag">Tu nivel</span>
+        <div class="tier-name">Nivel 1</div>
+        <div class="tier-range tabular">$100.000 – $299.999</div>
+        <div class="tier-off">Precio mayorista base</div>
+      </div>
+      <div class="tier-card" data-tier="1">
+        <span class="tier-tag">Tu nivel</span>
+        <div class="tier-name">Nivel 2</div>
+        <div class="tier-range tabular">$300.000 – $599.999</div>
+        <div class="tier-off">5% off adicional</div>
+      </div>
+      <div class="tier-card" data-tier="2">
+        <span class="tier-tag">Tu nivel</span>
+        <div class="tier-name">Nivel 3</div>
+        <div class="tier-range tabular">$600.000+</div>
+        <div class="tier-off">10% off adicional</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="combo" id="combo">
+  <div class="wrap">
+    <div class="combo-card reveal" data-reveal>
+      <div class="combo-media"><img loading="lazy" decoding="async" src="img/trendly/hero1.jpg" alt="Combo emprendedor Trendly"></div>
+      <div class="combo-body">
+        <span class="eyebrow">Para arrancar a revender</span>
+        <h2>Combo Emprendedor</h2>
+        <p>Un surtido de las 4 categorías para arrancar con variedad sin pensar cuánto pedir de cada una. Entra directo en Nivel 2.</p>
+        <ul class="combo-list">
+          <li>2 Stanley Rosa Chicle + 2 Stanley Verde Menta</li>
+          <li>2 Vape Sandía + 2 Vape Mora Azul</li>
+          <li>2 Perfumes tipo Bombshell + 2 tipo Tease</li>
+          <li>2 Body Splash Coconut Passion + 2 Pure Seduction</li>
+        </ul>
+        <div class="combo-price-row">
+          <span class="old tabular">$470.000</span>
+          <span class="now tabular">$446.500</span>
+          <span style="font-size:0.8rem;color:var(--ink-dim);">con Nivel 2 (5% off) · 16 unidades</span>
+        </div>
+        <button type="button" class="btn btn-fill" id="addComboBtn" style="width:fit-content;">Agregar combo completo</button>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="trust">
-  <div class="wrap trust-inner">
-    <span class="trust-item">Envío en 24-48h</span>
-    <span class="trust-item">Cambios sin cargo x 30 días</span>
-    <span class="trust-item">3 y 6 cuotas sin interés</span>
-    <span class="trust-item">Garantía de por vida en mochilas</span>
+<div class="marquee-strip">
+  <div class="track">
+    <span>STANLEY</span><span class="acc">·</span><span>VAPES</span><span class="acc">·</span><span>PERFUMES</span><span class="acc">·</span><span>BODY SPLASH</span><span class="acc">·</span><span>PEDIDO MÍNIMO $100.000 SURTIDO</span><span class="acc">·</span>
+    <span>STANLEY</span><span class="acc">·</span><span>VAPES</span><span class="acc">·</span><span>PERFUMES</span><span class="acc">·</span><span>BODY SPLASH</span><span class="acc">·</span><span>PEDIDO MÍNIMO $100.000 SURTIDO</span><span class="acc">·</span>
   </div>
 </div>
 
-<section class="section-border" id="mochilas">
+<section id="catalogo">
   <div class="wrap">
-    <div class="split">
-      <div class="split-media reveal" data-reveal><img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1000&q=80" alt="Cosido de mochila"></div>
+    <div class="section-head">
       <div>
-        <h2>Cosidas para durar años, no temporadas</h2>
-        <p>Cada mochila se testea con 40kg de carga simulada y 500 ciclos de apertura antes de salir a producción. Si algo falla, la garantía la cubre de por vida — sin letra chica.</p>
+        <h2>Catálogo mayorista</h2>
+        <p style="color:var(--ink-dim);font-size:0.92rem;margin-top:8px;max-width:50ch;">El precio que ves es de Nivel 1. Se actualiza solo en tu carrito a medida que combinás más productos.</p>
       </div>
+    </div>
+    <div class="quick-jump">
+      <a href="#stanley">Stanley</a>
+      <a href="#vapes">Vapes</a>
+      <a href="#perfumes">Perfumes</a>
+      <a href="#bodysplash">Body Splash</a>
+    </div>
+
+    <div class="brand-group" id="stanley">
+      <div class="brand-head"><h3>Stanley</h3><span class="stock-tag">Stock disponible</span></div>
+      <div class="pgrid">
+        <div class="pcard reveal" data-reveal data-id="stanley1" data-name="Stanley Quencher 40oz Rosa Chicle" data-price="58000" data-img="img/trendly/stanley1.png">
+          <div class="pcard-media"><span class="pcard-tag">🔥 Top ventas</span><img loading="lazy" decoding="async" src="img/trendly/stanley1.png" alt="Stanley Quencher 40oz Rosa Chicle"></div>
+          <div class="pcard-body">
+            <h4>Quencher 40oz Rosa Chicle</h4>
+            <div class="pcard-price-row"><span class="val tabular price-display">$58.000</span><span class="unit">c/u · Nivel 1</span></div>
+            <div class="pcard-tier-note">Baja a $52.200 en Nivel 3</div>
+            <div class="pcard-actions">
+              <div class="qty-stepper"><button type="button" class="qty-btn" data-action="minus" aria-label="Restar">−</button><span class="qty-val tabular">1</span><button type="button" class="qty-btn" data-action="plus" aria-label="Sumar">+</button></div>
+              <button type="button" class="btn-add">Agregar</button>
+            </div>
+          </div>
+        </div>
+        <div class="pcard reveal" data-reveal data-id="stanley2" data-name="Stanley Quencher 40oz Verde Menta" data-price="58000" data-img="img/trendly/stanley2.png">
+          <div class="pcard-media"><img loading="lazy" decoding="async" src="img/trendly/stanley2.png" alt="Stanley Quencher 40oz Verde Menta"></div>
+          <div class="pcard-body">
+            <h4>Quencher 40oz Verde Menta</h4>
+            <div class="pcard-price-row"><span class="val tabular price-display">$58.000</span><span class="unit">c/u · Nivel 1</span></div>
+            <div class="pcard-tier-note">Baja a $52.200 en Nivel 3</div>
+            <div class="pcard-actions">
+              <div class="qty-stepper"><button type="button" class="qty-btn" data-action="minus" aria-label="Restar">−</button><span class="qty-val tabular">1</span><button type="button" class="qty-btn" data-action="plus" aria-label="Sumar">+</button></div>
+              <button type="button" class="btn-add">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-group" id="vapes">
+      <div class="brand-head"><h3>Vapes</h3><span class="stock-tag">Stock disponible</span></div>
+      <div class="pgrid">
+        <div class="pcard reveal" data-reveal data-id="vape1" data-name="Vape Descartable 5000 Puff Sandía" data-price="10500" data-img="img/trendly/vape1.jpg">
+          <div class="pcard-media"><span class="pcard-tag">Nuevo</span><img loading="lazy" decoding="async" src="img/trendly/vape1.jpg" alt="Vape descartable sabor sandía"></div>
+          <div class="pcard-body">
+            <h4>Descartable 5000 Puff — Sandía</h4>
+            <div class="age">+18 años · Descartable</div>
+            <div class="pcard-price-row"><span class="val tabular price-display">$10.500</span><span class="unit">c/u · Nivel 1</span></div>
+            <div class="pcard-tier-note">Baja a $9.450 en Nivel 3</div>
+            <div class="pcard-actions">
+              <div class="qty-stepper"><button type="button" class="qty-btn" data-action="minus" aria-label="Restar">−</button><span class="qty-val tabular">1</span><button type="button" class="qty-btn" data-action="plus" aria-label="Sumar">+</button></div>
+              <button type="button" class="btn-add">Agregar</button>
+            </div>
+          </div>
+        </div>
+        <div class="pcard reveal" data-reveal data-id="vape2" data-name="Vape Descartable 5000 Puff Mora Azul" data-price="10500" data-img="img/trendly/vape2.jpg">
+          <div class="pcard-media"><img loading="lazy" decoding="async" src="img/trendly/vape2.jpg" alt="Vape descartable sabor mora azul"></div>
+          <div class="pcard-body">
+            <h4>Descartable 5000 Puff — Mora Azul</h4>
+            <div class="age">+18 años · Descartable</div>
+            <div class="pcard-price-row"><span class="val tabular price-display">$10.500</span><span class="unit">c/u · Nivel 1</span></div>
+            <div class="pcard-tier-note">Baja a $9.450 en Nivel 3</div>
+            <div class="pcard-actions">
+              <div class="qty-stepper"><button type="button" class="qty-btn" data-action="minus" aria-label="Restar">−</button><span class="qty-val tabular">1</span><button type="button" class="qty-btn" data-action="plus" aria-label="Sumar">+</button></div>
+              <button type="button" class="btn-add">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-group" id="perfumes">
+      <div class="brand-head"><h3>Perfumes</h3><span class="stock-tag">Stock disponible</span></div>
+      <div class="pgrid">
+        <div class="pcard reveal" data-reveal data-id="perfume1" data-name="Perfume tipo Bombshell 100ml" data-price="36000" data-img="img/trendly/perfume1.jpg">
+          <div class="pcard-media"><img loading="lazy" decoding="async" src="img/trendly/perfume1.jpg" alt="Perfume tipo Bombshell 100ml"></div>
+          <div class="pcard-body">
+            <h4>Tipo Bombshell 100ml</h4>
+            <div class="pcard-price-row"><span class="val tabular price-display">$36.000</span><span class="unit">c/u · Nivel 1</span></div>
+            <div class="pcard-tier-note">Baja a $32.400 en Nivel 3</div>
+            <div class="pcard-actions">
+              <div class="qty-stepper"><button type="button" class="qty-btn" data-action="minus" aria-label="Restar">−</button><span class="qty-val tabular">1</span><button type="button" class="qty-btn" data-action="plus" aria-label="Sumar">+</button></div>
+              <button type="button" class="btn-add">Agregar</button>
+            </div>
+          </div>
+        </div>
+        <div class="pcard reveal" data-reveal data-id="perfume2" data-name="Perfume tipo Tease 100ml" data-price="36000" data-img="img/trendly/perfume2.jpg">
+          <div class="pcard-media"><span class="pcard-tag">Mejor margen</span><img loading="lazy" decoding="async" src="img/trendly/perfume2.jpg" alt="Perfume tipo Tease 100ml"></div>
+          <div class="pcard-body">
+            <h4>Tipo Tease 100ml</h4>
+            <div class="pcard-price-row"><span class="val tabular price-display">$36.000</span><span class="unit">c/u · Nivel 1</span></div>
+            <div class="pcard-tier-note">Baja a $32.400 en Nivel 3</div>
+            <div class="pcard-actions">
+              <div class="qty-stepper"><button type="button" class="qty-btn" data-action="minus" aria-label="Restar">−</button><span class="qty-val tabular">1</span><button type="button" class="qty-btn" data-action="plus" aria-label="Sumar">+</button></div>
+              <button type="button" class="btn-add">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-group" id="bodysplash">
+      <div class="brand-head"><h3>Body Splash</h3><span class="stock-tag">Stock disponible</span></div>
+      <div class="pgrid">
+        <div class="pcard reveal" data-reveal data-id="bodysplash1" data-name="Body Splash tipo Coconut Passion 250ml" data-price="13000" data-img="img/trendly/bodysplash1.jpg">
+          <div class="pcard-media"><span class="pcard-tag">🔥 Top ventas</span><img loading="lazy" decoding="async" src="img/trendly/bodysplash1.jpg" alt="Body splash tipo Coconut Passion 250ml"></div>
+          <div class="pcard-body">
+            <h4>Tipo Coconut Passion 250ml</h4>
+            <div class="pcard-price-row"><span class="val tabular price-display">$13.000</span><span class="unit">c/u · Nivel 1</span></div>
+            <div class="pcard-tier-note">Baja a $11.700 en Nivel 3</div>
+            <div class="pcard-actions">
+              <div class="qty-stepper"><button type="button" class="qty-btn" data-action="minus" aria-label="Restar">−</button><span class="qty-val tabular">1</span><button type="button" class="qty-btn" data-action="plus" aria-label="Sumar">+</button></div>
+              <button type="button" class="btn-add">Agregar</button>
+            </div>
+          </div>
+        </div>
+        <div class="pcard reveal" data-reveal data-id="bodysplash2" data-name="Body Splash tipo Pure Seduction 250ml" data-price="13000" data-img="img/trendly/bodysplash2.jpg">
+          <div class="pcard-media"><img loading="lazy" decoding="async" src="img/trendly/bodysplash2.jpg" alt="Body splash tipo Pure Seduction 250ml"></div>
+          <div class="pcard-body">
+            <h4>Tipo Pure Seduction 250ml</h4>
+            <div class="pcard-price-row"><span class="val tabular price-display">$13.000</span><span class="unit">c/u · Nivel 1</span></div>
+            <div class="pcard-tier-note">Baja a $11.700 en Nivel 3</div>
+            <div class="pcard-actions">
+              <div class="qty-stepper"><button type="button" class="qty-btn" data-action="minus" aria-label="Restar">−</button><span class="qty-val tabular">1</span><button type="button" class="qty-btn" data-action="plus" aria-label="Sumar">+</button></div>
+              <button type="button" class="btn-add">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust section-border">
+  <div class="wrap trust-inner">
+    <span class="trust-item">100% originales</span>
+    <span class="trust-item">Podés combinar productos</span>
+    <span class="trust-item">Envío a todo el país</span>
+    <span class="trust-item">Precio mayorista real</span>
+  </div>
+</div>
+
+<section>
+  <div class="wrap split">
+    <div class="split-media reveal" data-reveal><img loading="lazy" decoding="async" src="img/trendly/editorial1.jpg" alt="Pedido de Trendly recién llegado"></div>
+    <div>
+      <span class="mono" style="color:var(--accent);font-size:0.78rem;text-transform:uppercase;letter-spacing:.04em;">Por qué somos tu proveedor</span>
+      <h2 style="margin-top:12px;">No tercerizamos nada — así el margen que te dejamos es real</h2>
+      <p>Importamos directo y vendemos al precio de mayorista real, no de catálogo inflado. Cuanto más bajo el costo que te damos, más te queda a vos cuando revendés. Lo que ves en la foto es lo que te llega.</p>
     </div>
   </div>
 </section>
@@ -256,70 +569,114 @@ footer{border-top:1px solid var(--line);padding:56px 0 30px;}
 <section class="section-border" id="opiniones">
   <div class="wrap">
     <div class="section-head">
-      <h2>Lo que dicen los que ya viajaron</h2>
-      <span class="tag">4.8 / 5 · 1.240 reseñas</span>
+      <h2>Lo que dicen los revendedores</h2>
+      <span class="tag">4.9 / 5 · 3.100 reseñas</span>
     </div>
-  </div>
-  <div class="reviews">
-    <div class="review"><span class="stars">★★★★★</span><p>"Hice el Huemul con la Trail 45L y ni una costura se movió. Increíble."</p><cite>Marina R. — compra verificada</cite></div>
-    <div class="review"><span class="stars">★★★★★</span><p>"Las botas Summit me duraron 3 temporadas de trekking intenso."</p><cite>Diego F. — compra verificada</cite></div>
-    <div class="review"><span class="stars">★★★★★</span><p>"Cambio sin drama cuando pedí el talle mal. Van a ser mi marca de acá en más."</p><cite>Lucía P. — compra verificada</cite></div>
-  </div>
-</section>
-
-<section class="terreno section-border">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>En el terreno</h2>
-      <span class="tag">Fotos de nuestra comunidad de viajeros</span>
-    </div>
-    <div class="terreno-grid reveal" data-reveal>
-      <div class="terreno-main">
-        <img src="https://images.unsplash.com/photo-1533240332313-0db49b459ad6?auto=format&fit=crop&w=1100&q=80" alt="Trekking con mochila en sendero de montaña">
-        <div class="terreno-cap">Sendero del Huemul, Patagonia</div>
-      </div>
-      <div class="terreno-side">
-        <div class="terreno-cell">
-          <img src="https://images.unsplash.com/photo-1521336575822-6da63fb45455?auto=format&fit=crop&w=600&q=80" alt="Kayak cruzando un fiordo">
-          <div class="terreno-cap">Fiordo, expedición en agua</div>
-        </div>
-        <div class="terreno-cell">
-          <img src="https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&w=600&q=80" alt="Picos de montaña al atardecer">
-          <div class="terreno-cap">Cumbre, amanecer</div>
-        </div>
-      </div>
+    <div class="reviews">
+      <div class="review reveal" data-reveal><span class="stars">★★★★★</span><p>"Arranqué con el Combo Emprendedor para no pensar cuánto pedir de cada cosa. Se vendió todo en dos semanas."</p><cite>Flor M. — revendedora</cite></div>
+      <div class="review reveal" data-reveal><span class="stars">★★★★★</span><p>"Combiné vapes y perfumes para llegar al mínimo y ya me ahorré el 5% del Nivel 2 sin darme cuenta."</p><cite>Male G. — revendedor</cite></div>
+      <div class="review reveal" data-reveal><span class="stars">★★★★★</span><p>"El margen del body splash es una locura, se vende solo con las historias de Instagram."</p><cite>Cande R. — revendedora</cite></div>
     </div>
   </div>
 </section>
 
-<section class="news">
+<section>
   <div class="wrap">
-    <h2>Sumate a la lista</h2>
-    <p>Acceso anticipado a lanzamientos y descuentos exclusivos por email.</p>
-    <form class="news-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Listo ✓';">
-      <input type="email" placeholder="tu@email.com" required>
-      <button type="submit">Sumarme</button>
-    </form>
+    <div class="news">
+      <h2>Sumate a la lista de revendedores</h2>
+      <p>Enterate primero cuando entra stock nuevo — los productos más pedidos se agotan en días.</p>
+      <div class="news-row">
+        <form class="news-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Listo ✓';">
+          <input type="email" placeholder="tu@email.com" required>
+          <button type="submit">Sumarme</button>
+        </form>
+        <a href="#" class="btn btn-ghost btn-ig" style="border-color:rgba(255,255,255,.4);color:#fff;">Seguinos en Instagram ↗</a>
+      </div>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <div class="footer-grid">
-      <div class="footer-col"><h5>Nómada</h5><p style="color:var(--ink-dim);font-size:0.88rem;max-width:30ch;">Equipo de expedición para quienes van en serio.</p></div>
-      <div class="footer-col"><h5>Tienda</h5><a href="#catalogo">Catálogo</a><a href="#mochilas">Mochilas</a><a href="#opiniones">Opiniones</a></div>
-      <div class="footer-col"><h5>Ayuda</h5><a href="#">Envíos</a><a href="#">Cambios y devoluciones</a><a href="#">Guía de talles</a></div>
+      <div class="footer-col">
+        <h5>Trendly</h5>
+        <p style="color:var(--ink-dim);font-size:0.88rem;max-width:30ch;">Tu proveedor mayorista de productos en tendencia. Pedido mínimo $100.000 combinando cualquier producto.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Catálogo</h5>
+        <a href="#stanley">Stanley</a>
+        <a href="#vapes">Vapes</a>
+        <a href="#perfumes">Perfumes</a>
+        <a href="#bodysplash">Body Splash</a>
+      </div>
+      <div class="footer-col"><h5>Ayuda</h5><a href="#niveles">Niveles de precio</a><a href="#">Envíos</a><a href="#">Preguntas frecuentes</a></div>
       <div class="footer-col"><h5>Contacto</h5><a href="mailto:fr.sistemas01@gmail.com">Escribinos</a><a href="#">Instagram ↗</a></div>
     </div>
+    <p class="footer-note">Los precios mostrados son por unidad, Nivel 1. El nivel final se calcula en tu carrito sobre el total combinado del pedido. Vapes: venta exclusiva a mayores de 18 años. Perfumes y body splash son versiones inspiradas en fragancias conocidas, no productos oficiales de las marcas mencionadas.</p>
     <div class="footer-bottom">
-      <span>NÓMADA — Marca conceptual creada por FR.Sistemas</span>
+      <span>TRENDLY — Marca conceptual creada por FR.Sistemas</span>
       <a href="../../index.html">Volver al portfolio</a>
     </div>
   </div>
 </footer>
 
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Tu pedido mayorista">
+  <div class="cart-head">
+    <h3>Tu pedido mayorista</h3>
+    <button class="cart-close" id="cartClose" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="cart-progress-wrap">
+    <div class="cart-progress-label"><span>Progreso al mínimo</span><b class="tabular" id="cartProgressText">$0 / $100.000</b></div>
+    <div class="cart-progress-track"><div class="cart-progress-bar" id="cartProgressBar"></div></div>
+    <div class="cart-progress-msg" id="cartProgressMsg">Te faltan $100.000 combinando cualquier producto.</div>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty" id="cartEmpty">Todavía no agregaste productos. Elegí del catálogo y armá tu pedido.</p>
+  </div>
+  <div class="cart-summary" id="cartSummary" style="display:none;">
+    <span class="cart-tier-badge" id="cartTierBadge">Nivel 1</span>
+    <div class="cart-total-row"><span>Unidades totales</span><span class="tabular" id="cartUnits">0</span></div>
+    <div class="cart-total-row"><span>Subtotal Nivel 1</span><span class="tabular" id="cartSubtotal">$0</span></div>
+    <div class="cart-total-row" id="cartDiscountRow" style="display:none;"><span id="cartDiscountLabel">Descuento Nivel 2</span><span class="tabular" id="cartDiscountAmt">-$0</span></div>
+    <div class="cart-total-row big"><span>Total</span><span class="tabular" id="cartTotal">$0</span></div>
+    <a href="#" class="btn btn-fill cart-checkout" id="cartCheckout" target="_blank" rel="noopener">Finalizar pedido por WhatsApp</a>
+  </div>
+</aside>
+
 <script>
 (function(){
+  var burger = document.getElementById('navBurger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var isOpen = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  var navLinks = document.querySelectorAll('#navLinks a');
+  var spySections = document.querySelectorAll('section[id], .brand-group[id]');
+  if ('IntersectionObserver' in window) {
+    var spyIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          navLinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    spySections.forEach(function(s){ spyIO.observe(s); });
+  }
+
   var els = document.querySelectorAll('[data-reveal]');
   if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('reveal-shown'); }); }
   else {
@@ -330,6 +687,257 @@ footer{border-top:1px solid var(--line);padding:56px 0 30px;}
     els.forEach(function(el){ io.observe(el); });
   }
   setTimeout(function(){ document.querySelectorAll('.reveal-hidden').forEach(function(el){ el.classList.remove('reveal-hidden'); el.classList.add('reveal-shown'); }); }, 3000);
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function animateCount(el) {
+    var target = parseInt(el.dataset.count, 10);
+    var decimals = el.dataset.decimals ? parseInt(el.dataset.decimals, 10) : 0;
+    var suffix = el.dataset.suffix || '';
+    var divisor = Math.pow(10, decimals);
+    function format(v) { return (v / divisor).toFixed(decimals) + suffix; }
+    if (reduceMotion) { el.textContent = format(target); return; }
+    var duration = 1100;
+    var start = performance.now();
+    function tick(now) {
+      var p = Math.min(1, (now - start) / duration);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = format(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var heroStats = document.getElementById('heroStats');
+  if ('IntersectionObserver' in window) {
+    var statsIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { heroStats.querySelectorAll('.n[data-count]').forEach(animateCount); statsIO.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    statsIO.observe(heroStats);
+  } else {
+    heroStats.querySelectorAll('.n[data-count]').forEach(animateCount);
+  }
+
+  // ============================================================
+  // Carrito mayorista con niveles de precio por total combinado.
+  // Pedido mínimo $100.000 mezclando cualquier producto — igual
+  // que trabajan los mayoristas reales (no es "6 del mismo producto").
+  // Un solo mensaje de WhatsApp al finalizar, no uno por producto.
+  // ============================================================
+  var MIN_ORDER = 100000;
+  var TIERS = [
+    { min: 100000, max: 299999, discount: 0,    label: 'Nivel 1' },
+    { min: 300000, max: 599999, discount: 0.05, label: 'Nivel 2' },
+    { min: 600000, max: Infinity, discount: 0.10, label: 'Nivel 3' }
+  ];
+  function tierForSubtotal(subtotal) {
+    if (subtotal < MIN_ORDER) return null;
+    for (var i = TIERS.length - 1; i >= 0; i--) {
+      if (subtotal >= TIERS[i].min) return TIERS[i];
+    }
+    return TIERS[0];
+  }
+
+  var CART_KEY = 'trendlyCart';
+  var cart = {};
+  try { cart = JSON.parse(localStorage.getItem(CART_KEY) || '{}'); } catch (e) { cart = {}; }
+
+  var PRODUCTS = {};
+  document.querySelectorAll('.pcard[data-id]').forEach(function(card){
+    PRODUCTS[card.dataset.id] = {
+      id: card.dataset.id,
+      name: card.dataset.name,
+      price: parseInt(card.dataset.price, 10),
+      img: card.dataset.img
+    };
+  });
+
+  function fmtMoney(n) { return '$' + Math.round(n).toLocaleString('es-AR'); }
+  function saveCart() { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} }
+  function cartBaseSubtotal() {
+    var s = 0;
+    Object.keys(cart).forEach(function(id){ if (PRODUCTS[id]) s += PRODUCTS[id].price * cart[id]; });
+    return s;
+  }
+  function cartUnitsTotal() {
+    var u = 0;
+    Object.keys(cart).forEach(function(id){ u += cart[id]; });
+    return u;
+  }
+
+  var cartDrawer = document.getElementById('cartDrawer');
+  var cartOverlay = document.getElementById('cartOverlay');
+  var cartBtn = document.getElementById('cartBtn');
+  var cartBtnAmt = document.getElementById('cartBtnAmt');
+  var cartItemsEl = document.getElementById('cartItems');
+  var cartSummaryEl = document.getElementById('cartSummary');
+  var tiersGrid = document.getElementById('tiersGrid');
+
+  function openCart() { cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeCart() { cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+  cartBtn.addEventListener('click', openCart);
+  document.getElementById('cartClose').addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+
+  function buildWhatsAppLink(ids, subtotal, total, tier) {
+    var lines = ['Hola! Quiero hacer este pedido mayorista en Trendly:', ''];
+    ids.forEach(function(id){
+      var p = PRODUCTS[id];
+      lines.push('• ' + cart[id] + 'x ' + p.name + ' — ' + fmtMoney(p.price * cart[id]));
+    });
+    lines.push('');
+    lines.push('Nivel alcanzado: ' + (tier ? tier.label : '—'));
+    lines.push('Total: ' + fmtMoney(total));
+    return 'https://wa.me/541154822753?text=' + encodeURIComponent(lines.join('\n'));
+  }
+
+  function renderCart() {
+    var units = cartUnitsTotal();
+    var subtotal = cartBaseSubtotal();
+    var tier = tierForSubtotal(subtotal);
+
+    cartBtn.classList.toggle('has-items', units > 0);
+    cartBtnAmt.textContent = units > 0 ? '· ' + units : '';
+
+    // Progreso al mínimo
+    var pct = Math.min(100, (subtotal / MIN_ORDER) * 100);
+    document.getElementById('cartProgressBar').style.width = pct + '%';
+    document.getElementById('cartProgressText').textContent = fmtMoney(subtotal) + ' / ' + fmtMoney(MIN_ORDER);
+    var msgEl = document.getElementById('cartProgressMsg');
+    if (subtotal >= MIN_ORDER) {
+      msgEl.textContent = '✓ Mínimo alcanzado — ya podés finalizar tu pedido.';
+      msgEl.classList.add('ok');
+    } else {
+      msgEl.textContent = 'Te faltan ' + fmtMoney(MIN_ORDER - subtotal) + ' combinando cualquier producto.';
+      msgEl.classList.remove('ok');
+    }
+
+    // Nivel activo en la franja de niveles de la página
+    tiersGrid.querySelectorAll('.tier-card').forEach(function(card, i){
+      card.classList.toggle('active-tier', !!tier && TIERS[i] === tier);
+    });
+
+    // Precio mostrado en cada card del catálogo, según nivel activo
+    document.querySelectorAll('.pcard[data-id]').forEach(function(card){
+      var p = PRODUCTS[card.dataset.id];
+      var base = p.price;
+      var shown = tier ? base * (1 - tier.discount) : base;
+      var priceEl = card.querySelector('.price-display');
+      var unitEl = card.querySelector('.pcard-price-row .unit');
+      if (priceEl) priceEl.textContent = fmtMoney(shown);
+      if (unitEl) unitEl.textContent = 'c/u · ' + (tier ? tier.label : 'Nivel 1');
+    });
+
+    var ids = Object.keys(cart).filter(function(id){ return cart[id] > 0 && PRODUCTS[id]; });
+    cartItemsEl.innerHTML = '';
+    if (ids.length === 0) {
+      cartItemsEl.innerHTML = '<p class="cart-empty" id="cartEmpty">Todavía no agregaste productos. Elegí del catálogo y armá tu pedido.</p>';
+      cartSummaryEl.style.display = 'none';
+      saveCart();
+      return;
+    }
+    cartSummaryEl.style.display = 'block';
+    var discount = tier ? subtotal * tier.discount : 0;
+    var total = subtotal - discount;
+
+    ids.forEach(function(id){
+      var p = PRODUCTS[id];
+      var qty = cart[id];
+      var lineSubtotal = p.price * qty;
+      var row = document.createElement('div');
+      row.className = 'cart-item';
+      row.innerHTML =
+        '<img src="' + p.img + '" alt="' + p.name + '">' +
+        '<div class="cart-item-body">' +
+          '<h5>' + p.name + '</h5>' +
+          '<div class="meta">' + fmtMoney(p.price) + ' c/u · Nivel 1</div>' +
+          '<div class="cart-item-qty">' +
+            '<div class="qty-stepper">' +
+              '<button type="button" class="qty-btn" data-cart-id="' + id + '" data-action="minus" aria-label="Restar">−</button>' +
+              '<span class="qty-val tabular">' + qty + '</span>' +
+              '<button type="button" class="qty-btn" data-cart-id="' + id + '" data-action="plus" aria-label="Sumar">+</button>' +
+            '</div>' +
+            '<button type="button" class="cart-item-remove" data-cart-id="' + id + '">Quitar</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="cart-item-price tabular">' + fmtMoney(lineSubtotal) + '</div>';
+      cartItemsEl.appendChild(row);
+    });
+
+    document.getElementById('cartTierBadge').textContent = tier ? tier.label + (tier.discount ? ' · ' + Math.round(tier.discount*100) + '% off' : '') : 'Por debajo del mínimo';
+    document.getElementById('cartUnits').textContent = units;
+    document.getElementById('cartSubtotal').textContent = fmtMoney(subtotal);
+    var discRow = document.getElementById('cartDiscountRow');
+    if (tier && tier.discount > 0) {
+      discRow.style.display = 'flex';
+      document.getElementById('cartDiscountLabel').textContent = 'Descuento ' + tier.label;
+      document.getElementById('cartDiscountAmt').textContent = '-' + fmtMoney(discount);
+    } else {
+      discRow.style.display = 'none';
+    }
+    document.getElementById('cartTotal').textContent = fmtMoney(total);
+
+    var checkoutBtn = document.getElementById('cartCheckout');
+    if (subtotal < MIN_ORDER) {
+      checkoutBtn.setAttribute('disabled', 'disabled');
+      checkoutBtn.textContent = 'Te falta llegar al mínimo';
+      checkoutBtn.removeAttribute('href');
+    } else {
+      checkoutBtn.removeAttribute('disabled');
+      checkoutBtn.textContent = 'Finalizar pedido por WhatsApp';
+      checkoutBtn.href = buildWhatsAppLink(ids, subtotal, total, tier);
+    }
+    saveCart();
+  }
+
+  cartItemsEl.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-cart-id]');
+    if (!btn) return;
+    var id = btn.dataset.cartId;
+    if (btn.classList.contains('cart-item-remove')) { delete cart[id]; renderCart(); return; }
+    var delta = btn.dataset.action === 'plus' ? 1 : -1;
+    var newQty = (cart[id] || 0) + delta;
+    if (newQty <= 0) { delete cart[id]; } else { cart[id] = newQty; }
+    renderCart();
+  });
+
+  function addToCart(id, qty) {
+    cart[id] = (cart[id] || 0) + qty;
+    renderCart();
+    openCart();
+  }
+
+  // Selector de cantidad + botón "Agregar" en cada card del catálogo
+  document.querySelectorAll('.pcard[data-id]').forEach(function(card){
+    var id = card.dataset.id;
+    var qtyEl = card.querySelector('.qty-val');
+    var qty = 1;
+    card.querySelectorAll('.qty-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var delta = btn.dataset.action === 'plus' ? 1 : -1;
+        qty = Math.max(1, qty + delta);
+        qtyEl.textContent = qty;
+      });
+    });
+    var addBtn = card.querySelector('.btn-add');
+    addBtn.addEventListener('click', function(){
+      addToCart(id, qty);
+      var original = addBtn.textContent;
+      addBtn.textContent = 'Agregado ✓';
+      addBtn.classList.add('added');
+      setTimeout(function(){ addBtn.textContent = original; addBtn.classList.remove('added'); }, 1400);
+    });
+  });
+
+  // Combo Emprendedor: agrega todo el surtido de un solo click
+  document.getElementById('addComboBtn').addEventListener('click', function(){
+    var combo = { stanley1: 2, stanley2: 2, vape1: 2, vape2: 2, perfume1: 2, perfume2: 2, bodysplash1: 2, bodysplash2: 2 };
+    Object.keys(combo).forEach(function(id){ cart[id] = (cart[id] || 0) + combo[id]; });
+    renderCart();
+    openCart();
+  });
+
+  renderCart();
 })();
 </script>
 </body>

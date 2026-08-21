@@ -22,6 +22,20 @@ function runPortfolioScripts() {
 
   gsap.registerPlugin(ScrollTrigger);
 
+  /* En mobile, mostrar/ocultar la barra de direcciones al scrollear dispara
+     eventos de resize todo el tiempo. Por defecto ScrollTrigger recalcula
+     las posiciones de disparo en cada resize, y eso corre el punto donde
+     "debería" aparecer cada sección — el efecto visible es que hay que
+     bajar hasta el final de la página para que el contenido se muestre.
+     Esto le dice a ScrollTrigger que ignore esos resizes de mobile. */
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
+  /* Además, si alguna imagen carga después de que ScrollTrigger midió la
+     altura de la página, las posiciones quedan mal calculadas. Un refresh
+     al terminar de cargar todo corrige eso una sola vez, sin el problema
+     de arriba. */
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Lenis smooth scroll ---------- */
