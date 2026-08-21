@@ -30,11 +30,23 @@ function runPortfolioScripts() {
      Esto le dice a ScrollTrigger que ignore esos resizes de mobile. */
   ScrollTrigger.config({ ignoreMobileResize: true });
 
-  /* Además, si alguna imagen carga después de que ScrollTrigger midió la
-     altura de la página, las posiciones quedan mal calculadas. Un refresh
-     al terminar de cargar todo corrige eso una sola vez, sin el problema
-     de arriba. */
-  window.addEventListener('load', () => ScrollTrigger.refresh());
+  /* Además, si alguna imagen o fuente carga después de que ScrollTrigger
+     midió la altura de la página, las posiciones quedan mal calculadas
+     (secciones enteras se quedan invisibles, o dos elementos terminan
+     superpuestos). Un solo refresh en 'load' no alcanza porque en mobile
+     el layout todavía se puede seguir asentando unos instantes después
+     (fuentes, imágenes sin loading eager, la barra de direcciones).
+     Reintentamos varias veces en la ventana en la que eso pasa — refresh()
+     es liviano y no hace nada si ya estaba todo bien medido. */
+  function settleScrollTrigger() {
+    ScrollTrigger.refresh();
+    setTimeout(() => ScrollTrigger.refresh(), 300);
+    setTimeout(() => ScrollTrigger.refresh(), 1000);
+    setTimeout(() => ScrollTrigger.refresh(), 2200);
+  }
+  if (document.readyState === 'complete') settleScrollTrigger();
+  else window.addEventListener('load', settleScrollTrigger);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
