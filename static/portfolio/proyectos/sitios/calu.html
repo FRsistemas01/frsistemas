@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CALU Consultorios — Reservá tu turno online</title>
+<meta name="description" content="CALU Consultorios — Equipo terapéutico interdisciplinario en Caseros y Santos Lugares. Psicología, psicopedagogía, coaching, nutrición y más. Reservá tu turno online.">
+<meta property="og:title" content="CALU Consultorios — Reservá tu turno online">
+<meta property="og:description" content="Psicología, psicopedagogía, coaching, nutrición y más. Dos sedes: Caseros y Santos Lugares.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/calu/foto-11.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#5c7a52">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="img/calu/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf9f3;
+  --bg-soft:#e8eedf;
+  --panel:#3d362e;
+  --ink:#3d362e;
+  --ink-dim:#8b7355;
+  --line:rgba(61,54,46,0.13);
+  --accent:#5c7a52;
+  --accent-dim:#4a6342;
+  --gold:#d4c4a0;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+::selection{background:var(--accent);color:#fff;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+::-webkit-scrollbar{width:11px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--accent);border:2px solid var(--bg);border-radius:99px;}
+html{scrollbar-color:var(--accent) var(--bg);scrollbar-width:thin;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+a:active,button:active{transform:scale(0.98);}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px;}
+@media (max-width:720px){.wrap{padding:0 22px;}}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;letter-spacing:-0.005em;line-height:1.08;}
+.eyebrow{font-family:'Outfit',sans-serif;font-size:0.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+.tabular{font-variant-numeric:tabular-nums;}
+.reveal{opacity:1;}
+.reveal.reveal-hidden{opacity:0;transform:translateY(22px);transition:opacity 750ms var(--ease),transform 750ms var(--ease);}
+.reveal.reveal-shown{opacity:1;transform:translateY(0);}
+
+/* ---------- topbar ---------- */
+.topbar{background:var(--panel);color:var(--bg);padding:10px 0;font-size:0.82rem;text-align:center;letter-spacing:.01em;}
+.topbar b{color:var(--gold);}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:100;background:rgba(251,249,243,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
+.nav-logo{display:flex;align-items:center;}
+.nav-logo img{height:38px;width:auto;object-fit:contain;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:0.9rem;font-weight:500;color:var(--ink-dim);transition:color 0.2s;}
+.nav-links a:hover{color:var(--accent);}
+.nav-links a.active{color:var(--accent);font-weight:600;}
+.nav-cta{font-size:0.85rem;font-weight:600;background:var(--accent);color:#fff;padding:11px 20px;border-radius:99px;transition:background .2s,transform .2s;}
+.nav-cta:hover{background:var(--accent-dim);transform:translateY(-1px);}
+@media (max-width:900px){.nav-links{display:none;}}
+
+/* ---------- menu mobile ---------- */
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;}
+.nav-burger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media (max-width:900px){.nav-burger{display:flex;}}
+.mobile-menu{
+  position:fixed;inset:0;z-index:199;background:var(--bg);
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:22px;
+  padding:0 40px;list-style:none;
+  transform:translateY(-100%);transition:transform .35s ease;
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2.1rem;}
+@media (min-width:901px){.mobile-menu{display:none;}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden;padding-top:120px;}
+.hero-bg{position:absolute;inset:0;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(61,54,46,.88) 0%,rgba(61,54,46,.5) 45%,rgba(61,54,46,.25) 100%);}
+.hero-inner{position:relative;z-index:2;width:100%;padding-bottom:70px;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(251,249,243,.14);border:1px solid rgba(251,249,243,.3);color:var(--bg);font-size:0.8rem;padding:8px 16px;border-radius:99px;margin-bottom:22px;letter-spacing:.03em;}
+.hero h1{color:#fff;font-size:clamp(2.6rem,5.6vw,4.4rem);max-width:16ch;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero .sub{color:rgba(251,249,243,.82);font-size:1.08rem;max-width:48ch;margin-top:20px;}
+.hero-cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap;}
+.btn{font-family:'Outfit',sans-serif;font-weight:600;font-size:0.92rem;padding:15px 28px;border-radius:99px;transition:transform 0.2s,box-shadow 0.2s,background .2s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;}
+.btn-fill{background:var(--accent);color:#fff;box-shadow:0 10px 24px rgba(92,122,82,.35);}
+.btn-fill:hover{transform:translateY(-2px);background:var(--accent-dim);}
+.btn-ghost{border:1.5px solid rgba(251,249,243,.5);color:#fff;background:none;}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+.btn-ghost.on-light{border-color:var(--line);color:var(--ink);}
+.btn-ghost.on-light:hover{border-color:var(--ink);background:var(--bg-soft);}
+
+.hero-stats{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap;}
+.hero-stats .stat-card{background:rgba(251,249,243,.1);border:1px solid rgba(251,249,243,.25);border-radius:16px;padding:14px 20px;backdrop-filter:blur(4px);}
+.hero-stats .n{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.5rem;color:#fff;}
+.hero-stats .l{font-size:0.72rem;color:rgba(251,249,243,.75);margin-top:2px;text-transform:uppercase;letter-spacing:.04em;}
+
+/* ---------- marquee ---------- */
+.marquee-strip{background:var(--panel);color:var(--bg);overflow:hidden;}
+.marquee-strip:hover .track{animation-play-state:paused;}
+.marquee-strip .track{display:inline-flex;animation:mq 30s linear infinite;padding:14px 0;white-space:nowrap;}
+.marquee-strip .track span{font-family:'Cormorant Garamond',serif;font-weight:600;font-style:italic;font-size:1.1rem;margin:0 26px;color:var(--gold);}
+.marquee-strip .track span.plain{font-style:normal;color:var(--bg);font-family:'Outfit',sans-serif;font-weight:400;font-size:0.95rem;}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ---------- section shell ---------- */
+section{padding:100px 0;}
+.section-border{border-top:1px solid var(--line);}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;gap:24px;flex-wrap:wrap;}
+.section-head h2{font-size:clamp(2rem,4vw,2.9rem);}
+.section-head p{max-width:40ch;color:var(--ink-dim);font-size:0.98rem;}
+@media (max-width:720px){.section-head{flex-direction:column;align-items:flex-start;}}
+
+/* ---------- como reservar ---------- */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media (max-width:1000px){.how-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:680px){.how-grid{grid-template-columns:1fr;}}
+.how-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:32px 28px;transition:border-color .2s,transform .2s;}
+.how-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.how-card .tag{display:inline-block;background:var(--bg-soft);color:var(--accent-dim);font-size:0.75rem;font-weight:600;padding:6px 14px;border-radius:99px;margin-bottom:16px;text-transform:uppercase;letter-spacing:.03em;}
+.how-card h3{font-size:1.6rem;margin-bottom:12px;}
+.how-card p{color:var(--ink-dim);font-size:0.96rem;margin-bottom:22px;}
+.how-steps{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.how-steps li{display:flex;align-items:flex-start;gap:10px;font-size:0.92rem;color:var(--ink);}
+.how-steps li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:8px;flex-shrink:0;}
+
+/* ---------- tratamientos ---------- */
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media (max-width:980px){.tgrid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.tgrid{grid-template-columns:1fr;}}
+.tcard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;transition:border-color .2s,transform .2s;}
+.tcard:hover{border-color:var(--accent);transform:translateY(-3px);}
+.tcard h4{font-size:1.25rem;margin-bottom:10px;}
+.tcard p{color:var(--ink-dim);font-size:0.88rem;line-height:1.55;}
+
+/* ---------- talleres ---------- */
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media (max-width:820px){.wgrid{grid-template-columns:1fr;}}
+.wcard{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:3/4;}
+.wcard img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);}
+.wcard:hover img{transform:scale(1.05);}
+.wcard::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(61,54,46,.85) 0%,rgba(61,54,46,.05) 55%);}
+.wcard-body{position:absolute;left:0;right:0;bottom:0;padding:24px;z-index:1;}
+.wcard-body .age{color:var(--gold);font-size:0.76rem;text-transform:uppercase;letter-spacing:.04em;font-weight:600;}
+.wcard-body h4{color:#fff;font-size:1.4rem;margin-top:6px;}
+
+/* ---------- galeria ---------- */
+.ggrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:170px;gap:12px;}
+.ggrid a{grid-row:span 1;}
+.ggrid a:nth-child(1){grid-row:span 2;}
+.ggrid a:nth-child(4){grid-row:span 2;}
+@media (max-width:820px){.ggrid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;}}
+.ggrid img{width:100%;height:100%;object-fit:cover;border-radius:16px;transition:transform .4s var(--ease);}
+.ggrid a{overflow:hidden;border-radius:16px;display:block;}
+.ggrid a:hover img{transform:scale(1.06);}
+.gtabs{display:flex;gap:10px;margin-bottom:32px;}
+.gtab{font-size:0.85rem;font-weight:600;padding:9px 18px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink-dim);background:none;cursor:pointer;transition:border-color .15s,color .15s,background .15s;}
+.gtab:hover{color:var(--ink);}
+.gtab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* ---------- valores ---------- */
+.values{background:var(--panel);color:var(--bg);}
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+@media (max-width:820px){.vgrid{grid-template-columns:1fr;}}
+.vitem h4{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.5rem;color:var(--gold);margin-bottom:10px;}
+.vitem p{color:rgba(251,249,243,.75);font-size:0.94rem;}
+
+/* ---------- equipo ---------- */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+@media (max-width:980px){.pgrid{grid-template-columns:repeat(2,1fr);}}
+.pro-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;text-align:center;transition:border-color .2s,transform .2s;cursor:pointer;}
+.pro-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.pro-avatar{width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.4rem;}
+.pro-card h4{font-size:1.05rem;}
+.pro-card .spec{color:var(--accent-dim);font-size:0.82rem;font-weight:600;margin-top:4px;}
+.pro-card .sede{color:var(--ink-dim);font-size:0.78rem;margin-top:6px;}
+
+/* ---------- ubicacion ---------- */
+.loc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+@media (max-width:820px){.loc-grid{grid-template-columns:1fr;}}
+.loc-card{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;}
+.loc-card img{height:220px;width:100%;object-fit:cover;}
+.loc-card iframe{height:220px;width:100%;border:0;display:block;filter:grayscale(0.15);}
+.loc-body{padding:26px;}
+.loc-body h4{font-size:1.3rem;margin-bottom:8px;}
+.loc-body p{color:var(--ink-dim);font-size:0.92rem;}
+.loc-body .addr{color:var(--accent-dim);font-weight:600;margin-top:8px;font-size:0.92rem;}
+
+/* ---------- CTA final ---------- */
+.cta-band{background:var(--bg-soft);border-radius:32px;margin:0 40px;padding:80px 40px;text-align:center;}
+@media (max-width:720px){.cta-band{margin:0 22px;padding:56px 22px;}}
+.cta-band h2{font-size:clamp(2rem,4.6vw,3.2rem);}
+.cta-band p{color:var(--ink-dim);max-width:44ch;margin:16px auto 30px;}
+
+/* ---------- footer ---------- */
+footer{padding:56px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;}
+.footer-col h5{font-size:0.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-dim);margin-bottom:14px;font-weight:600;}
+.footer-col a,.footer-col div{display:block;font-size:0.9rem;margin-bottom:9px;color:var(--ink);}
+.footer-col a:hover{color:var(--accent);}
+.footer-note{font-size:0.78rem;color:var(--ink-dim);max-width:70ch;margin-top:8px;line-height:1.6;background:var(--bg-soft);padding:14px 18px;border-radius:12px;}
+.footer-bottom{border-top:1px solid var(--line);padding-top:20px;margin-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.78rem;color:var(--ink-dim);}
+.footer-bottom a{color:var(--ink);}
+@media (max-width:820px){.footer-grid{grid-template-columns:1fr 1fr;}}
+
+/* ---------- booking modal ---------- */
+.booking-overlay{position:fixed;inset:0;background:rgba(61,54,46,.55);z-index:299;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.booking-overlay.open{opacity:1;pointer-events:auto;}
+.booking-modal{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:94vw;background:var(--bg);z-index:300;box-shadow:-24px 0 60px rgba(61,54,46,.25);transform:translateX(100%);transition:transform .4s var(--ease);display:flex;flex-direction:column;}
+.booking-modal.open{transform:translateX(0);}
+.booking-head{display:flex;justify-content:space-between;align-items:center;padding:22px 26px;border-bottom:1px solid var(--line);}
+.booking-head h3{font-size:1.3rem;}
+.booking-close{width:34px;height:34px;border-radius:50%;background:var(--bg-soft);border:none;font-size:1rem;cursor:pointer;color:var(--ink);flex-shrink:0;}
+.booking-body{flex:1;overflow-y:auto;padding:26px;}
+.booking-step{display:none;}
+.booking-step.active{display:block;}
+.step-label{font-size:0.78rem;color:var(--accent-dim);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:10px;}
+.choice-row{display:flex;flex-direction:column;gap:12px;margin-top:18px;}
+.choice-card{border:1.5px solid var(--line);border-radius:16px;padding:20px;text-align:left;background:#fff;cursor:pointer;transition:border-color .15s,background .15s;}
+.choice-card:hover{border-color:var(--accent);background:var(--bg-soft);}
+.choice-card h4{font-size:1.1rem;margin-bottom:6px;}
+.choice-card p{color:var(--ink-dim);font-size:0.86rem;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+.spec-card{border:1.5px solid var(--line);border-radius:16px;padding:16px;text-align:left;background:#fff;cursor:pointer;transition:border-color .15s,background .15s,transform .15s;}
+.spec-card:hover{border-color:var(--accent);background:var(--bg-soft);transform:translateY(-2px);}
+.spec-card .ic{font-size:1.4rem;margin-bottom:8px;display:block;}
+.spec-card h5{font-size:0.95rem;font-weight:600;line-height:1.25;}
+.spec-empty{background:var(--bg-soft);border-radius:14px;padding:18px;font-size:0.88rem;color:var(--ink-dim);margin-top:16px;}
+.pgrid-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.mini-list{display:flex;flex-direction:column;gap:10px;margin-top:16px;}
+.mini-pick{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;cursor:pointer;transition:border-color .15s,background .15s;}
+.mini-pick:hover{border-color:var(--accent);background:var(--bg-soft);}
+.mini-pick.selected{border-color:var(--accent);background:var(--bg-soft);}
+.mini-pick .av{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Cormorant Garamond',serif;font-weight:600;}
+.mini-pick .info h5{font-size:0.95rem;}
+.mini-pick .info span{font-size:0.78rem;color:var(--ink-dim);}
+.day-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-top:16px;}
+.day-tab{flex-shrink:0;text-align:center;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;cursor:pointer;min-width:56px;}
+.day-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.day-tab .dname{font-size:0.68rem;text-transform:uppercase;opacity:.75;}
+.day-tab .dnum{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;margin-top:2px;}
+.slot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+.slot{padding:11px 0;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:0.86rem;cursor:pointer;text-align:center;transition:border-color .15s,background .15s;}
+.slot:hover{border-color:var(--accent);}
+.slot.selected{background:var(--accent);border-color:var(--accent);color:#fff;}
+.slot.taken{opacity:.35;text-decoration:line-through;cursor:not-allowed;background:var(--bg-soft);}
+.form-field{margin-top:14px;}
+.form-field label{display:block;font-size:0.82rem;color:var(--ink-dim);margin-bottom:6px;font-weight:500;}
+.form-field input,.form-field textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-family:'Outfit',sans-serif;font-size:0.94rem;background:#fff;color:var(--ink);}
+.form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--accent);}
+.form-field.error input{border-color:#b5482f;}
+.field-error{display:none;color:#b5482f;font-size:0.78rem;margin-top:6px;}
+.form-field.error .field-error{display:block;}
+.wa-confirm{display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;margin-top:18px;font-size:0.94rem;color:#fff;font-weight:600;background:#25D366;border-radius:99px;padding:15px;box-shadow:0 10px 24px rgba(37,211,102,.3);transition:transform .2s,background .2s;}
+.wa-confirm:hover{background:#1ebc59;transform:translateY(-2px);}
+.ics-btn{display:block;text-align:center;margin-top:10px;font-size:0.86rem;color:var(--ink-dim);cursor:pointer;padding:10px;}
+.ics-btn:hover{color:var(--accent-dim);}
+.booking-footer{padding:20px 26px;border-top:1px solid var(--line);display:flex;gap:12px;}
+.booking-footer .btn{flex:1;justify-content:center;}
+.back-link{font-size:0.85rem;color:var(--ink-dim);cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}
+.back-link:hover{color:var(--accent);}
+.recap-box{background:var(--bg-soft);border-radius:16px;padding:20px;margin-top:18px;}
+.recap-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:0.88rem;}
+.recap-row:last-child{border-bottom:none;}
+.recap-row .k{color:var(--ink-dim);}
+.recap-row .v{font-weight:600;text-align:right;}
+.confirm-check{width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 18px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">🌿 Turnos <b>100% online</b> — sin esperar respuesta por WhatsApp</div>
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="nav-logo">
+      <img src="img/calu/logo-cropped.png" alt="CALU Consultorios">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#tratamientos">Tratamientos</a></li>
+      <li><a href="#talleres">Talleres</a></li>
+      <li><a href="#espacio">Nuestro espacio</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cta" id="openBookingBtn">Reservar turno</button>
+      <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<ul class="mobile-menu" id="mobileMenu">
+  <li><a href="#tratamientos">Tratamientos</a></li>
+  <li><a href="#talleres">Talleres</a></li>
+  <li><a href="#espacio">Nuestro espacio</a></li>
+  <li><a href="#equipo">Equipo</a></li>
+  <li><a href="#ubicacion">Ubicación</a></li>
+</ul>
+
+<header class="hero" id="top">
+  <div class="hero-bg"><img src="img/calu/foto-11.jpg" alt="Espacio de terapia CALU Consultorios"></div>
+  <div class="wrap hero-inner">
+    <span class="hero-eyebrow">📍 Caseros y Santos Lugares</span>
+    <h1>Un espacio para <em>cuidarte</em>, con turno asegurado</h1>
+    <p class="sub">Equipo terapéutico interdisciplinario: psicología, psicopedagogía, coaching, nutrición y más. Reservá tu turno online en segundos, sin esperar respuesta por WhatsApp.</p>
+    <div class="hero-cta">
+      <button class="btn btn-fill" id="heroBookBtn">Reservar mi turno</button>
+      <a href="#tratamientos" class="btn btn-ghost">Ver tratamientos</a>
+    </div>
+    <div class="hero-stats reveal" data-reveal>
+      <div class="stat-card"><div class="n">8</div><div class="l">Especialidades</div></div>
+      <div class="stat-card"><div class="n">2</div><div class="l">Sedes</div></div>
+      <div class="stat-card"><div class="n">100%</div><div class="l">Turnos online</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee-strip">
+  <div class="track">
+    <span>Psicología</span><span class="plain">·</span><span>Psicopedagogía</span><span class="plain">·</span><span>Coaching</span><span class="plain">·</span><span>Nutrición</span><span class="plain">·</span><span>Psicomotricidad</span><span class="plain">·</span><span>Terapia de pareja</span><span class="plain">·</span><span>Orientación vocacional</span><span class="plain">·</span><span>Fonoaudiología</span><span class="plain">·</span>
+    <span>Psicología</span><span class="plain">·</span><span>Psicopedagogía</span><span class="plain">·</span><span>Coaching</span><span class="plain">·</span><span>Nutrición</span><span class="plain">·</span><span>Psicomotricidad</span><span class="plain">·</span><span>Terapia de pareja</span><span class="plain">·</span><span>Orientación vocacional</span><span class="plain">·</span><span>Fonoaudiología</span><span class="plain">·</span>
+  </div>
+</div>
+
+<section id="como-reservar">
+  <div class="wrap">
+    <div class="section-head reveal" data-reveal>
+      <div>
+        <span class="eyebrow">Cómo funciona</span>
+        <h2 style="margin-top:10px;">Tres caminos, según tu momento</h2>
+      </div>
+      <p>El mismo proceso de siempre en CALU — elegir bien y agendar sin vueltas — pero ahora solo, sin cadena de mensajes por WhatsApp.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card reveal" data-reveal>
+        <span class="tag">Sé qué necesito</span>
+        <h3>Elegí tu especialidad</h3>
+        <p>Psicología, nutrición, terapia de pareja... elegís el área y te mostramos directo a los especialistas que la atienden.</p>
+        <ul class="how-steps">
+          <li>Elegís la especialidad de tu interés</li>
+          <li>Te mostramos los especialistas disponibles</li>
+          <li>Reservás horario en el momento</li>
+        </ul>
+        <button class="btn btn-fill" data-start-flow="especialidad">Elegir especialidad</button>
+      </div>
+      <div class="how-card reveal" data-reveal>
+        <span class="tag">No estoy seguro/a</span>
+        <h3>Entrevista de admisión</h3>
+        <p>Si no sabés bien qué necesitás, arrancamos por acá — así te derivamos al profesional que mejor se ajusta a tu consulta.</p>
+        <ul class="how-steps">
+          <li>Elegís sede y modalidad (presencial o virtual)</li>
+          <li>Elegís día y horario real, sin esperar respuesta</li>
+          <li>Nos contás brevemente el motivo de consulta</li>
+        </ul>
+        <button class="btn btn-fill" data-start-flow="admision">Reservar entrevista</button>
+      </div>
+      <div class="how-card reveal" data-reveal>
+        <span class="tag">Ya soy paciente</span>
+        <h3>Turno directo</h3>
+        <p>Si ya tenés un profesional asignado en CALU, reservá tu próxima sesión directo con él o ella, sin pasar por admisión de nuevo.</p>
+        <ul class="how-steps">
+          <li>Elegís a tu profesional de la lista del equipo</li>
+          <li>Ves sus horarios disponibles en tiempo real</li>
+          <li>Confirmás con tus datos — listo</li>
+        </ul>
+        <button class="btn btn-fill" data-start-flow="directo">Reservar mi sesión</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-border" id="tratamientos">
+  <div class="wrap">
+    <div class="section-head reveal" data-reveal>
+      <div>
+        <span class="eyebrow">Tratamientos</span>
+        <h2 style="margin-top:10px;">Nuestras especialidades</h2>
+      </div>
+      <p>Un equipo interdisciplinario, formado en distintos enfoques, para acompañarte desde una mirada integral.</p>
+    </div>
+    <div class="tgrid">
+      <div class="tcard reveal" data-reveal data-spec-link="Psicología" style="cursor:pointer;"><h4>Psicología</h4><p>Depresión, ansiedad, estrés, crisis vitales y procesos de adaptación, desde una mirada integral y cercana.</p></div>
+      <div class="tcard reveal" data-reveal data-spec-link="Psicopedagogía" style="cursor:pointer;"><h4>Psicopedagogía</h4><p>Dificultades de aprendizaje, técnicas de estudio y orientación en el proceso escolar.</p></div>
+      <div class="tcard reveal" data-reveal data-spec-link="Coaching" style="cursor:pointer;"><h4>Coaching</h4><p>Logro de objetivos personales y profesionales, gestión del cambio y clarificación de metas.</p></div>
+      <div class="tcard reveal" data-reveal data-spec-link="Nutrición" style="cursor:pointer;"><h4>Nutrición</h4><p>Asesoramiento nutricional integral, educación alimentaria y planes personalizados.</p></div>
+      <div class="tcard reveal" data-reveal data-spec-link="Psicomotricidad" style="cursor:pointer;"><h4>Psicomotricidad</h4><p>Desarrollo psicomotor en niñas y niños a través del juego y la exploración.</p></div>
+      <div class="tcard reveal" data-reveal data-spec-link="Terapia de pareja" style="cursor:pointer;"><h4>Terapia de pareja</h4><p>Nuevas formas de comunicación y conexión, con contención y respeto por lo que cada uno trae.</p></div>
+      <div class="tcard reveal" data-reveal data-spec-link="Orientación vocacional" style="cursor:pointer;"><h4>Orientación vocacional</h4><p>Explorar intereses y tomar decisiones sobre tu futuro académico y profesional con claridad.</p></div>
+      <div class="tcard reveal" data-reveal data-spec-link="Fonoaudiología" style="cursor:pointer;"><h4>Fonoaudiología</h4><p>Evaluación y tratamiento en lenguaje, comunicación y habla en todas las edades.</p></div>
+    </div>
+    <p style="margin-top:18px;font-size:0.85rem;color:var(--ink-dim);">💡 Tocá cualquier especialidad para ver a los profesionales que la atienden y reservar directo.</p>
+  </div>
+</section>
+
+<section class="section-border" id="talleres">
+  <div class="wrap">
+    <div class="section-head reveal" data-reveal>
+      <div>
+        <span class="eyebrow">Talleres</span>
+        <h2 style="margin-top:10px;">Espacios grupales</h2>
+      </div>
+      <p>Encuentros pensados para las primeras infancias y la niñez, en un ambiente cálido y contenido.</p>
+    </div>
+    <div class="wgrid">
+      <a class="wcard reveal" data-reveal href="#" data-start-flow="admision"><img src="img/calu/arteterapia.jpg" alt="Arteterapia"><div class="wcard-body"><span class="age">Niñas y niños de 7 a 10 años</span><h4>Arteterapia</h4></div></a>
+      <a class="wcard reveal" data-reveal href="#" data-start-flow="admision"><img src="img/calu/pequenos-exploradores.jpg" alt="Pequeños exploradores"><div class="wcard-body"><span class="age">1 a 3 años</span><h4>Pequeños exploradores</h4></div></a>
+      <a class="wcard reveal" data-reveal href="#" data-start-flow="admision"><img src="img/calu/bebeteca.jpg" alt="Bebeteca"><div class="wcard-body"><span class="age">8 meses a 2 años</span><h4>Bebeteca</h4></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="section-border" id="espacio">
+  <div class="wrap">
+    <div class="section-head reveal" data-reveal>
+      <div>
+        <span class="eyebrow">Nuestro espacio</span>
+        <h2 style="margin-top:10px;">Conocé los consultorios</h2>
+      </div>
+      <p>Un lugar acogedor donde el bienestar y la calma se encuentran.</p>
+    </div>
+    <div class="gtabs">
+      <button class="gtab active" data-gal="caseros">Caseros</button>
+      <button class="gtab" data-gal="santos">Santos Lugares</button>
+    </div>
+    <div class="ggrid reveal" data-reveal id="galCaseros">
+      <a href="img/calu/foto-03.jpg" target="_blank"><img src="img/calu/foto-03.jpg" alt="CALU Caseros — Espacio de trabajo"></a>
+      <a href="img/calu/foto-04.jpg" target="_blank"><img src="img/calu/foto-04.jpg" alt="CALU Caseros — Patio con mural"></a>
+      <a href="img/calu/foto-05.jpg" target="_blank"><img src="img/calu/foto-05.jpg" alt="CALU Caseros — Área de recepción"></a>
+      <a href="img/calu/foto-06.jpg" target="_blank"><img src="img/calu/foto-06.jpg" alt="CALU Caseros — Espacio infantil"></a>
+      <a href="img/calu/foto-09.jpg" target="_blank"><img src="img/calu/foto-09.jpg" alt="CALU Caseros — Consultorio"></a>
+      <a href="img/calu/foto-12.jpg" target="_blank"><img src="img/calu/foto-12.jpg" alt="CALU Caseros — Ambiente acogedor"></a>
+    </div>
+    <div class="ggrid" id="galSantos" style="display:none;">
+      <a href="img/calu/santos-07.png" target="_blank"><img src="img/calu/santos-07.png" alt="CALU Santos Lugares — Fachada"></a>
+      <a href="img/calu/santos-01.png" target="_blank"><img src="img/calu/santos-01.png" alt="CALU Santos Lugares — Sala de espera"></a>
+      <a href="img/calu/santos-02.png" target="_blank"><img src="img/calu/santos-02.png" alt="CALU Santos Lugares — Consultorio infantil"></a>
+      <a href="img/calu/santos-03.png" target="_blank"><img src="img/calu/santos-03.png" alt="CALU Santos Lugares — Rincón de espera"></a>
+      <a href="img/calu/santos-04.png" target="_blank"><img src="img/calu/santos-04.png" alt="CALU Santos Lugares — Tipi y librería infantil"></a>
+      <a href="img/calu/santos-05.png" target="_blank"><img src="img/calu/santos-05.png" alt="CALU Santos Lugares — Sala de juego y trabajo infantil"></a>
+      <a href="img/calu/santos-06.png" target="_blank"><img src="img/calu/santos-06.png" alt="CALU Santos Lugares — Sala de espera acogedora"></a>
+      <a href="img/calu/santos-08.png" target="_blank"><img src="img/calu/santos-08.png" alt="CALU Santos Lugares — Recepción"></a>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="wrap">
+    <div class="section-head reveal" data-reveal style="border:none;">
+      <div>
+        <span class="eyebrow" style="color:var(--gold);">Nuestro enfoque</span>
+        <h2 style="margin-top:10px;color:#fff;">Cómo trabajamos</h2>
+      </div>
+    </div>
+    <div class="vgrid">
+      <div class="vitem reveal" data-reveal><h4>Escucha activa</h4><p>Un espacio seguro donde tu voz es escuchada sin juicio.</p></div>
+      <div class="vitem reveal" data-reveal><h4>Enfoque integral</h4><p>Atendemos mente, cuerpo y emociones como un todo conectado.</p></div>
+      <div class="vitem reveal" data-reveal><h4>Respeto por tu ritmo</h4><p>Cada proceso es único. Te acompañamos a tu tiempo.</p></div>
+      <div class="vitem reveal" data-reveal><h4>Presencial y virtual</h4><p>Encuentro en el consultorio o, para mayor comodidad, sesión virtual desde tu casa.</p></div>
+      <div class="vitem reveal" data-reveal><h4>Diversidad de enfoques</h4><p>Psicoanálisis, cognitivo-conductual, ACT y terapias de tercera generación.</p></div>
+      <div class="vitem reveal" data-reveal><h4>Admisión primero</h4><p>Un primer encuentro para orientarte y derivarte al profesional más adecuado.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-border" id="equipo">
+  <div class="wrap">
+    <div class="section-head reveal" data-reveal>
+      <div>
+        <span class="eyebrow">Equipo</span>
+        <h2 style="margin-top:10px;">Nuestros profesionales</h2>
+      </div>
+      <p>Filtrá por especialidad o tocá a cualquiera para reservar tu próxima sesión directo.</p>
+    </div>
+    <div class="pgrid-filters" id="pgridFilters"></div>
+    <div class="pgrid" id="proGrid"></div>
+  </div>
+</section>
+
+<section class="section-border" id="ubicacion">
+  <div class="wrap">
+    <div class="section-head reveal" data-reveal>
+      <div>
+        <span class="eyebrow">Ubicación</span>
+        <h2 style="margin-top:10px;">Dos sedes, misma calidez</h2>
+      </div>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-card reveal" data-reveal>
+        <iframe src="https://www.google.com/maps?q=3+de+Febrero+2935,+Caseros,+Buenos+Aires&output=embed" loading="lazy" title="Mapa CALU Caseros"></iframe>
+        <div class="loc-body">
+          <h4>CALU Caseros</h4>
+          <p>Lunes a viernes, 9 a 18hs</p>
+          <div class="addr">📍 3 de Febrero 2935</div>
+        </div>
+      </div>
+      <div class="loc-card reveal" data-reveal>
+        <iframe src="https://www.google.com/maps?q=Av.+La+Plata+3444,+Santos+Lugares,+Buenos+Aires&output=embed" loading="lazy" title="Mapa CALU Santos Lugares"></iframe>
+        <div class="loc-body">
+          <h4>CALU Santos Lugares</h4>
+          <p>Lunes a viernes, 9 a 18hs</p>
+          <div class="addr">📍 Av. La Plata 3444</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-band reveal" data-reveal>
+      <h2>Tu primer paso puede ser hoy</h2>
+      <p>Reservá tu entrevista de admisión o tu próxima sesión — sin esperar respuesta por WhatsApp.</p>
+      <button class="btn btn-fill" id="ctaBookBtn">Reservar mi turno</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>CALU Consultorios</h5>
+        <div style="color:var(--ink-dim);max-width:30ch;">Equipo terapéutico interdisciplinario en Caseros y Santos Lugares.</div>
+      </div>
+      <div class="footer-col">
+        <h5>Secciones</h5>
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#talleres">Talleres</a>
+        <a href="#equipo">Equipo</a>
+      </div>
+      <div class="footer-col">
+        <h5>Sedes</h5>
+        <div>Caseros — 3 de Febrero 2935</div>
+        <div>Santos Lugares — Av. La Plata 3444</div>
+      </div>
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <a href="mailto:calu.consultorios@gmail.com">calu.consultorios@gmail.com</a>
+        <a href="tel:+541167011976">11 6701-1976</a>
+        <a href="https://www.instagram.com/calu.consultorios/" target="_blank">@calu.consultorios ↗</a>
+      </div>
+    </div>
+    <p class="footer-note">Esta página es una <b>propuesta de diseño</b> armada por FR.Sistemas a partir del contenido y las fotos reales de CALU Consultorios, para mostrar cómo quedaría un sistema de turnos online. No es el sitio oficial en producción — los nombres del equipo son a modo ilustrativo, a reemplazar por el staff real.</p>
+    <div class="footer-bottom">
+      <span>Propuesta para CALU Consultorios — armada por FR.Sistemas</span>
+      <a href="../../index.html">Volver al portfolio</a>
+    </div>
+  </div>
+</footer>
+
+<div class="booking-overlay" id="bookingOverlay"></div>
+<aside class="booking-modal" id="bookingModal" role="dialog" aria-modal="true" aria-label="Reservar turno">
+  <div class="booking-head">
+    <h3>Reservar turno</h3>
+    <button class="booking-close" id="bookingClose" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="booking-body" id="bookingBody">
+
+    <div class="booking-step active" data-step="entry">
+      <p style="color:var(--ink-dim);margin-bottom:8px;">¿Cómo querés reservar?</p>
+      <div class="choice-row">
+        <button class="choice-card" data-start-flow="especialidad">
+          <h4>🎯 Sé qué necesito</h4>
+          <p>Elegí la especialidad y te mostramos directo a los profesionales que la atienden.</p>
+        </button>
+        <button class="choice-card" data-start-flow="admision">
+          <h4>🌿 No estoy seguro/a</h4>
+          <p>Reservá tu entrevista de admisión para que te orientemos al profesional adecuado.</p>
+        </button>
+        <button class="choice-card" data-start-flow="directo">
+          <h4>👋 Ya soy paciente</h4>
+          <p>Reservá tu próxima sesión directo con tu profesional asignado.</p>
+        </button>
+      </div>
+    </div>
+
+    <div class="booking-step" data-step="especialidad">
+      <span class="back-link" data-back="entry">← Volver</span>
+      <div class="step-label">Sé qué necesito</div>
+      <h4 style="font-size:1.3rem;margin-bottom:4px;">¿Qué especialidad buscás?</h4>
+      <div class="spec-grid" id="specGrid"></div>
+    </div>
+
+    <div class="booking-step" data-step="especialidad-pro">
+      <span class="back-link" data-back="especialidad">← Volver</span>
+      <div class="step-label" id="specProLabel">Especialistas</div>
+      <h4 style="font-size:1.3rem;margin-bottom:4px;" id="specProTitle">Elegí tu profesional</h4>
+      <div class="mini-list" id="specProList"></div>
+    </div>
+
+    <div class="booking-step" data-step="admision-sede">
+      <span class="back-link" data-back="entry">← Volver</span>
+      <div class="step-label">Entrevista de admisión</div>
+      <h4 style="font-size:1.3rem;margin-bottom:4px;">¿En qué sede te queda mejor?</h4>
+      <div class="choice-row">
+        <button class="choice-card" data-pick-sede="Caseros">
+          <h4>CALU Caseros</h4>
+          <p>3 de Febrero 2935</p>
+        </button>
+        <button class="choice-card" data-pick-sede="Santos Lugares">
+          <h4>CALU Santos Lugares</h4>
+          <p>Av. La Plata 3444</p>
+        </button>
+        <button class="choice-card" data-pick-sede="Virtual">
+          <h4>Virtual</h4>
+          <p>Sesión por videollamada, desde donde estés</p>
+        </button>
+      </div>
+    </div>
+
+    <div class="booking-step" data-step="directo-pro">
+      <span class="back-link" data-back="entry">← Volver</span>
+      <div class="step-label">Ya soy paciente</div>
+      <h4 style="font-size:1.3rem;margin-bottom:4px;">Elegí tu profesional</h4>
+      <div class="mini-list" id="proPickList"></div>
+    </div>
+
+    <div class="booking-step" data-step="calendar">
+      <span class="back-link" id="calendarBack">← Volver</span>
+      <div class="step-label" id="calendarLabel">Elegí día y horario</div>
+      <div id="calendarWho" style="font-size:0.92rem;color:var(--ink-dim);margin-bottom:6px;"></div>
+      <div class="day-tabs" id="dayTabs"></div>
+      <div class="slot-grid" id="slotGrid"></div>
+    </div>
+
+    <div class="booking-step" data-step="datos">
+      <span class="back-link" data-back="calendar">← Volver</span>
+      <div class="step-label">Tus datos</div>
+      <div class="recap-box" id="recapPreview"></div>
+      <div class="form-field" id="fNameWrap"><label>Nombre y apellido *</label><input type="text" id="fName" placeholder="Tu nombre"><div class="field-error">Contanos tu nombre y apellido.</div></div>
+      <div class="form-field" id="fPhoneWrap"><label>Teléfono *</label><input type="tel" id="fPhone" placeholder="11 1234-5678"><div class="field-error" id="fPhoneError">Ingresá un teléfono válido (mínimo 8 números).</div></div>
+      <div class="form-field" id="fEmailWrap"><label>Email</label><input type="email" id="fEmail" placeholder="tu@email.com"><div class="field-error">Ese email no parece válido.</div></div>
+      <div class="form-field" id="fMotivoWrap"><label>Contanos brevemente el motivo de consulta (opcional)</label><textarea id="fMotivo" rows="3" placeholder="Lo que quieras contarnos..."></textarea></div>
+    </div>
+
+    <div class="booking-step" data-step="confirm">
+      <div style="text-align:center;padding-top:10px;">
+        <div class="confirm-check">✓</div>
+        <h4 style="font-size:1.4rem;text-align:center;">¡Turno pre-reservado!</h4>
+        <p style="color:var(--ink-dim);text-align:center;margin-top:8px;font-size:0.92rem;">Para asegurarlo del todo, confirmalo también por WhatsApp — así queda registrado por los dos canales.</p>
+      </div>
+      <div class="recap-box" id="recapFinal"></div>
+      <a class="wa-confirm" id="waConfirmBtn" href="#" target="_blank" rel="noopener">💬 Confirmar por WhatsApp a CALU</a>
+      <div class="ics-btn" id="icsBtn">📅 Agregar a mi calendario</div>
+    </div>
+
+  </div>
+  <div class="booking-footer" id="bookingFooter">
+    <button class="btn btn-fill" id="bookingNextBtn" style="width:100%;" disabled>Continuar</button>
+  </div>
+</aside>
+
+<script>
+(function(){
+  // ---------- menu mobile ----------
+  var burger = document.getElementById('navBurger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var isOpen = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ---------- nav activo por scroll ----------
+  var navLinks = document.querySelectorAll('#navLinks a');
+  var spySections = document.querySelectorAll('section[id]');
+  if ('IntersectionObserver' in window) {
+    var spyIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          navLinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    spySections.forEach(function(s){ spyIO.observe(s); });
+  }
+
+  // ---------- reveals ----------
+  var els = document.querySelectorAll('[data-reveal]');
+  if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('reveal-shown'); }); }
+  else {
+    els.forEach(function(el){ el.classList.add('reveal-hidden'); });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){ if (entry.isIntersecting) { entry.target.classList.remove('reveal-hidden'); entry.target.classList.add('reveal-shown'); io.unobserve(entry.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function(el){ io.observe(el); });
+  }
+  setTimeout(function(){ document.querySelectorAll('.reveal-hidden').forEach(function(el){ el.classList.remove('reveal-hidden'); el.classList.add('reveal-shown'); }); }, 4000);
+
+  // ---------- galeria tabs ----------
+  document.querySelectorAll('.gtab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.gtab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      var gal = tab.dataset.gal;
+      document.getElementById('galCaseros').style.display = gal === 'caseros' ? 'grid' : 'none';
+      document.getElementById('galSantos').style.display = gal === 'santos' ? 'grid' : 'none';
+    });
+  });
+
+  // ============================================================
+  // Equipo (nombres a modo ilustrativo)
+  // ============================================================
+  var COLORS = ['#5c7a52','#8b7355','#a17a58','#6d8c62','#9c7b4f','#4a6342','#b08968','#7a9470'];
+  var PROS = [
+    { id:'p1', name:'Lic. Ana Fernández', spec:'Psicología', sede:'Caseros' },
+    { id:'p2', name:'Lic. Martina Sosa', spec:'Psicología', sede:'Santos Lugares' },
+    { id:'p3', name:'Lic. Rocío Gómez', spec:'Psicopedagogía', sede:'Caseros' },
+    { id:'p4', name:'Lic. Julieta Paz', spec:'Coaching', sede:'Ambas sedes' },
+    { id:'p5', name:'Lic. Carla Medina', spec:'Nutrición', sede:'Santos Lugares' },
+    { id:'p6', name:'Lic. Pedro Lima', spec:'Terapia de pareja', sede:'Caseros' },
+    { id:'p7', name:'Lic. Sofía Duarte', spec:'Fonoaudiología', sede:'Santos Lugares' },
+    { id:'p8', name:'Lic. Valentina Ríos', spec:'Psicomotricidad', sede:'Caseros' }
+  ];
+  var SPECIALTIES = [
+    { key:'Psicología', ic:'🧠', desc:'Ansiedad, estrés, procesos de adaptación' },
+    { key:'Psicopedagogía', ic:'📚', desc:'Aprendizaje y proceso escolar' },
+    { key:'Coaching', ic:'🎯', desc:'Objetivos personales y profesionales' },
+    { key:'Nutrición', ic:'🥗', desc:'Asesoramiento y educación alimentaria' },
+    { key:'Psicomotricidad', ic:'🤸', desc:'Desarrollo psicomotor en niñas y niños' },
+    { key:'Terapia de pareja', ic:'💞', desc:'Comunicación y vínculo en pareja' },
+    { key:'Orientación vocacional', ic:'🧭', desc:'Futuro académico y profesional' },
+    { key:'Fonoaudiología', ic:'🗣️', desc:'Lenguaje, comunicación y habla' }
+  ];
+  function initials(name){ return name.replace('Lic. ','').split(' ').map(function(n){return n[0];}).join(''); }
+  function proColor(p){ return COLORS[PROS.indexOf(p) % COLORS.length]; }
+
+  function proCardHTML(p){
+    return '<div class="pro-card" data-pick-pro="' + p.id + '">' +
+      '<div class="pro-avatar" style="background:' + proColor(p) + ';">' + initials(p.name) + '</div>' +
+      '<h4>' + p.name + '</h4>' +
+      '<div class="spec">' + p.spec + '</div>' +
+      '<div class="sede">' + p.sede + '</div>' +
+    '</div>';
+  }
+  function miniPickHTML(p){
+    return '<div class="mini-pick" data-pick-pro="' + p.id + '">' +
+      '<div class="av" style="background:' + proColor(p) + ';">' + initials(p.name) + '</div>' +
+      '<div class="info"><h5>' + p.name + '</h5><span>' + p.spec + ' · ' + p.sede + '</span></div>' +
+    '</div>';
+  }
+
+  var proGrid = document.getElementById('proGrid');
+  function renderProGrid(filterSpec){
+    var list = filterSpec ? PROS.filter(function(p){ return p.spec === filterSpec; }) : PROS;
+    proGrid.innerHTML = list.map(proCardHTML).join('');
+  }
+  renderProGrid(null);
+
+  var pgridFilters = document.getElementById('pgridFilters');
+  pgridFilters.innerHTML = '<button class="gtab active" data-pfilter="">Todos</button>' +
+    SPECIALTIES.map(function(s){ return '<button class="gtab" data-pfilter="' + s.key + '">' + s.ic + ' ' + s.key + '</button>'; }).join('');
+  pgridFilters.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-pfilter]');
+    if (!btn) return;
+    pgridFilters.querySelectorAll('.gtab').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    renderProGrid(btn.dataset.pfilter || null);
+  });
+
+  var proPickList = document.getElementById('proPickList');
+  proPickList.innerHTML = PROS.map(miniPickHTML).join('');
+
+  // ============================================================
+  // Booking modal
+  // ============================================================
+  var overlay = document.getElementById('bookingOverlay');
+  var modal = document.getElementById('bookingModal');
+  var footer = document.getElementById('bookingFooter');
+  var nextBtn = document.getElementById('bookingNextBtn');
+  var steps = ['entry','especialidad','especialidad-pro','admision-sede','directo-pro','calendar','datos','confirm'];
+  var state = { flow: null, sede: null, specialty: null, proId: null, dayIdx: 0, slot: null, days: [] };
+
+  var lastFocused = null;
+  function openBooking(){
+    lastFocused = document.activeElement;
+    overlay.classList.add('open'); modal.classList.add('open'); document.body.style.overflow = 'hidden'; goToStep('entry');
+    setTimeout(function(){ document.getElementById('bookingClose').focus(); }, 50);
+  }
+  function closeBooking(){
+    overlay.classList.remove('open'); modal.classList.remove('open'); document.body.style.overflow = '';
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+  document.getElementById('openBookingBtn').addEventListener('click', openBooking);
+  document.getElementById('heroBookBtn').addEventListener('click', openBooking);
+  document.getElementById('ctaBookBtn').addEventListener('click', openBooking);
+  document.getElementById('bookingClose').addEventListener('click', closeBooking);
+  overlay.addEventListener('click', closeBooking);
+
+  function goToStep(name){
+    steps.forEach(function(s){
+      document.querySelector('.booking-step[data-step="' + s + '"]').classList.toggle('active', s === name);
+    });
+    updateFooter(name);
+    document.getElementById('bookingBody').scrollTop = 0;
+  }
+
+  function updateFooter(name){
+    if (name === 'entry') { footer.style.display = 'none'; return; }
+    footer.style.display = 'flex';
+    if (name === 'confirm') {
+      nextBtn.textContent = 'Cerrar';
+      nextBtn.disabled = false;
+      nextBtn.classList.remove('btn-fill');
+      nextBtn.classList.add('btn-ghost', 'on-light');
+      nextBtn.onclick = closeBooking;
+      return;
+    }
+    nextBtn.classList.remove('btn-ghost', 'on-light');
+    nextBtn.classList.add('btn-fill');
+    if (name === 'calendar') {
+      nextBtn.textContent = 'Continuar';
+      nextBtn.disabled = !state.slot;
+      nextBtn.onclick = function(){ if (state.slot) { renderRecapPreview(); goToStep('datos'); } };
+      return;
+    }
+    if (name === 'datos') {
+      nextBtn.textContent = 'Confirmar turno';
+      nextBtn.onclick = tryConfirm;
+      nextBtn.disabled = !isFormValid();
+      return;
+    }
+    if (name === 'admision-sede' || name === 'directo-pro' || name === 'especialidad' || name === 'especialidad-pro') {
+      nextBtn.disabled = true;
+      footer.style.display = 'none';
+    }
+  }
+
+  document.querySelectorAll('[data-start-flow]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      var flow = el.dataset.startFlow;
+      state.flow = flow;
+      if (!modal.classList.contains('open')) openBooking();
+      if (flow === 'admision') goToStep('admision-sede');
+      else if (flow === 'especialidad') goToStep('especialidad');
+      else goToStep('directo-pro');
+    });
+  });
+
+  document.querySelectorAll('.booking-step .back-link[data-back]').forEach(function(el){
+    el.addEventListener('click', function(){ goToStep(el.dataset.back); });
+  });
+  document.getElementById('calendarBack').addEventListener('click', function(){
+    if (state.flow === 'especialidad') goToStep('especialidad-pro');
+    else if (state.flow === 'admision') goToStep('admision-sede');
+    else goToStep('directo-pro');
+  });
+
+  document.querySelectorAll('[data-pick-sede]').forEach(function(el){
+    el.addEventListener('click', function(){
+      state.sede = el.dataset.pickSede;
+      state.proId = null;
+      openCalendar('Entrevista de admisión', state.sede);
+    });
+  });
+  proGrid.addEventListener('click', function(e){
+    var card = e.target.closest('[data-pick-pro]');
+    if (!card) return;
+    state.flow = 'directo';
+    state.proId = card.dataset.pickPro;
+    if (!modal.classList.contains('open')) openBooking();
+    var p = PROS.filter(function(x){ return x.id === state.proId; })[0];
+    openCalendar(p.name, p.spec + ' · ' + p.sede);
+  });
+  proPickList.addEventListener('click', function(e){
+    var pick = e.target.closest('[data-pick-pro]');
+    if (!pick) return;
+    state.proId = pick.dataset.pickPro;
+    var p = PROS.filter(function(x){ return x.id === state.proId; })[0];
+    openCalendar(p.name, p.spec + ' · ' + p.sede);
+  });
+
+  // ---------- flujo "sé qué necesito" (especialidad -> filtra especialistas) ----------
+  var specGrid = document.getElementById('specGrid');
+  specGrid.innerHTML = SPECIALTIES.map(function(s){
+    return '<button class="spec-card" data-pick-spec="' + s.key + '">' +
+      '<span class="ic">' + s.ic + '</span><h5>' + s.key + '</h5>' +
+    '</button>';
+  }).join('');
+
+  function openSpecialtyResults(specKey){
+    state.specialty = specKey;
+    var matches = PROS.filter(function(p){ return p.spec === specKey; });
+    document.getElementById('specProLabel').textContent = specKey;
+    document.getElementById('specProTitle').textContent = matches.length ? 'Elegí tu especialista' : 'Sin especialistas disponibles';
+    var list = document.getElementById('specProList');
+    if (matches.length) {
+      list.innerHTML = matches.map(miniPickHTML).join('');
+    } else {
+      list.innerHTML = '<div class="spec-empty">Por ahora no tenemos un profesional cargado en ' + specKey + '. Escribinos y te orientamos con la entrevista de admisión.</div>';
+    }
+    goToStep('especialidad-pro');
+  }
+  specGrid.addEventListener('click', function(e){
+    var card = e.target.closest('[data-pick-spec]');
+    if (!card) return;
+    openSpecialtyResults(card.dataset.pickSpec);
+  });
+  document.getElementById('specProList').addEventListener('click', function(e){
+    var pick = e.target.closest('[data-pick-pro]');
+    if (!pick) return;
+    state.flow = 'especialidad';
+    state.proId = pick.dataset.pickPro;
+    var p = PROS.filter(function(x){ return x.id === state.proId; })[0];
+    openCalendar(p.name, p.spec + ' · ' + p.sede);
+  });
+
+  // tarjetas de "Tratamientos" en la página pública abren directo el resultado filtrado
+  document.querySelectorAll('[data-spec-link]').forEach(function(el){
+    el.addEventListener('click', function(){
+      state.flow = 'especialidad';
+      if (!modal.classList.contains('open')) openBooking();
+      openSpecialtyResults(el.dataset.specLink);
+    });
+  });
+
+  var DAY_NAMES = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  var TIME_SLOTS = ['09:00','10:00','11:00','12:00','14:00','15:00','16:00','17:00'];
+  function buildDays(){
+    var today = new Date();
+    var base = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    state.days = [];
+    for (var i = 1; i <= 6; i++) { var d = new Date(base); d.setDate(base.getDate() + i); state.days.push(d); }
+  }
+  function seedRandom(seed){ var x = Math.sin(seed) * 10000; return x - Math.floor(x); }
+
+  function openCalendar(title, sub){
+    if (state.days.length === 0) buildDays();
+    state.dayIdx = 0; state.slot = null;
+    document.getElementById('calendarLabel').textContent = 'Elegí día y horario';
+    document.getElementById('calendarWho').innerHTML = '<b>' + title + '</b><br>' + sub;
+    renderDayTabs(); renderSlots();
+    goToStep('calendar');
+  }
+  function renderDayTabs(){
+    document.getElementById('dayTabs').innerHTML = state.days.map(function(d, i){
+      return '<button class="day-tab' + (i === state.dayIdx ? ' active' : '') + '" data-day="' + i + '">' +
+        '<div class="dname">' + DAY_NAMES[d.getDay()] + '</div><div class="dnum">' + d.getDate() + '</div></button>';
+    }).join('');
+    document.querySelectorAll('.day-tab').forEach(function(tab){
+      tab.addEventListener('click', function(){ state.dayIdx = parseInt(tab.dataset.day, 10); state.slot = null; renderDayTabs(); renderSlots(); updateFooter('calendar'); });
+    });
+  }
+  function renderSlots(){
+    var seedBase = state.dayIdx * 10 + (state.proId ? state.proId.charCodeAt(1) : 0) + (state.sede ? state.sede.length : 0);
+    document.getElementById('slotGrid').innerHTML = TIME_SLOTS.map(function(t, i){
+      var taken = seedRandom(seedBase + i) < 0.3;
+      return '<button class="slot' + (taken ? ' taken' : '') + '" ' + (taken ? 'disabled' : 'data-slot="' + t + '"') + '>' + t + '</button>';
+    }).join('');
+    document.querySelectorAll('.slot:not(.taken)').forEach(function(s){
+      s.addEventListener('click', function(){
+        document.querySelectorAll('.slot').forEach(function(x){ x.classList.remove('selected'); });
+        s.classList.add('selected');
+        state.slot = s.dataset.slot;
+        updateFooter('calendar');
+      });
+    });
+  }
+
+  function validName(v){ return v.trim().length >= 2; }
+  function validPhone(v){ return v.replace(/[^0-9]/g, '').length >= 8; }
+  function validEmail(v){ return v.trim() === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+  function isFormValid(){
+    return validName(document.getElementById('fName').value) &&
+      validPhone(document.getElementById('fPhone').value) &&
+      validEmail(document.getElementById('fEmail').value);
+  }
+  function fieldCheck(id, wrapId, validFn){
+    var el = document.getElementById(id), wrap = document.getElementById(wrapId);
+    el.addEventListener('input', function(){
+      wrap.classList.toggle('error', el.value.trim() !== '' && !validFn(el.value));
+      updateFooter('datos');
+    });
+    el.addEventListener('blur', function(){
+      wrap.classList.toggle('error', el.value.trim() !== '' && !validFn(el.value));
+    });
+  }
+  fieldCheck('fName', 'fNameWrap', validName);
+  fieldCheck('fPhone', 'fPhoneWrap', validPhone);
+  fieldCheck('fEmail', 'fEmailWrap', validEmail);
+
+  function currentWhoText(){
+    if (state.flow === 'admision') return 'Entrevista de admisión — ' + state.sede;
+    var p = PROS.filter(function(x){ return x.id === state.proId; })[0];
+    return p ? (p.name + ' — ' + p.spec) : '';
+  }
+  function pad2(n){ return n < 10 ? '0' + n : '' + n; }
+  function currentFecha(){
+    var d = state.days[state.dayIdx];
+    return DAY_NAMES[d.getDay()] + ' ' + pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1) + ' · ' + state.slot + ' hs';
+  }
+  function currentFechaISO(){
+    var d = state.days[state.dayIdx];
+    var slotHour = state.slot ? state.slot.split(':') : ['09','00'];
+    return { y: d.getFullYear(), m: d.getMonth() + 1, day: d.getDate(), h: parseInt(slotHour[0], 10), min: parseInt(slotHour[1], 10) };
+  }
+  function renderRecapPreview(){
+    document.getElementById('recapPreview').innerHTML =
+      '<div class="recap-row"><span class="k">Turno</span><span class="v">' + currentWhoText() + '</span></div>' +
+      '<div class="recap-row"><span class="k">Cuándo</span><span class="v">' + currentFecha() + '</span></div>';
+    document.getElementById('fMotivoWrap').style.display = state.flow === 'admision' ? 'block' : 'none';
+  }
+  var CALU_WHATSAPP = '5491167011976';
+  function tryConfirm(){
+    if (!isFormValid()) return;
+    var name = document.getElementById('fName').value.trim();
+    var phone = document.getElementById('fPhone').value.trim();
+    var email = document.getElementById('fEmail').value.trim();
+    var motivo = document.getElementById('fMotivo').value.trim();
+    document.getElementById('recapFinal').innerHTML =
+      '<div class="recap-row"><span class="k">Turno</span><span class="v">' + currentWhoText() + '</span></div>' +
+      '<div class="recap-row"><span class="k">Cuándo</span><span class="v">' + currentFecha() + '</span></div>' +
+      '<div class="recap-row"><span class="k">Nombre</span><span class="v">' + name + '</span></div>' +
+      '<div class="recap-row"><span class="k">Contacto</span><span class="v">' + phone + (email ? (' · ' + email) : '') + '</span></div>';
+
+    var waLines = [
+      'Hola CALU! Quiero confirmar mi turno reservado desde la web:',
+      '• Turno: ' + currentWhoText(),
+      '• Cuándo: ' + currentFecha(),
+      '• Nombre: ' + name,
+      '• Teléfono: ' + phone
+    ];
+    if (motivo) waLines.push('• Motivo: ' + motivo);
+    document.getElementById('waConfirmBtn').href = 'https://wa.me/' + CALU_WHATSAPP + '?text=' + encodeURIComponent(waLines.join('\n'));
+
+    goToStep('confirm');
+  }
+
+  document.getElementById('icsBtn').addEventListener('click', function(){
+    var f = currentFechaISO();
+    function two(n){ return n < 10 ? '0' + n : '' + n; }
+    var startEnd = function(hOffset, mOffset){
+      var d = new Date(f.y, f.m - 1, f.day, f.h + hOffset, f.min + mOffset);
+      return d.getFullYear() + two(d.getMonth() + 1) + two(d.getDate()) + 'T' + two(d.getHours()) + two(d.getMinutes()) + '00';
+    };
+    var ics = [
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//CALU Consultorios//Turnos//ES','BEGIN:VEVENT',
+      'DTSTART:' + startEnd(0, 0),
+      'DTEND:' + startEnd(1, 0),
+      'SUMMARY:Turno CALU Consultorios — ' + currentWhoText(),
+      'DESCRIPTION:Reserva realizada desde caluconsultorios.com.ar',
+      'END:VEVENT','END:VCALENDAR'
+    ].join('\r\n');
+    var blob = new Blob([ics], { type: 'text/calendar' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'turno-calu.ics';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+
+  // ---------- accesibilidad del modal ----------
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeBooking();
+    if (e.key === 'Tab' && modal.classList.contains('open')) {
+      var focusables = modal.querySelectorAll('button, a[href], input, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!focusables.length) return;
+      var list = Array.prototype.filter.call(focusables, function(el){ return el.offsetParent !== null; });
+      var first = list[0], last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+})();
+</script>
+</body>
+</html>
