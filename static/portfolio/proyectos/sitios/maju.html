@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maju Store — Catálogo mayorista de iPhones y accesorios</title>
+<meta name="description" content="Maju Store — iPhones nuevos y seminuevos, accesorios originales. Catálogo centralizado para revendedores, sin repetir la lista en varios grupos de WhatsApp.">
+<meta property="og:title" content="Maju Store — Catálogo mayorista">
+<meta property="og:description" content="iPhones nuevos y seminuevos, accesorios originales. Un solo catálogo, sin repetir la lista en varios grupos.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/maju/hero-iphones.jpg">
+<meta name="theme-color" content="#8a6d3b">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf7f2;
+  --bg-soft:#f0e9dd;
+  --ink:#1c1a17;
+  --ink-dim:#7a7266;
+  --line:rgba(28,26,23,0.1);
+  --gold:#8a6d3b;
+  --gold-dim:#6e5730;
+  --panel:#1c1a17;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+::selection{background:var(--gold);color:#fff;}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+html{overflow-x:hidden;scrollbar-color:var(--gold) var(--bg);scrollbar-width:thin;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px;}
+@media (max-width:720px){.wrap{padding:0 22px;}}
+h1,h2,h3{font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-0.01em;line-height:1.1;}
+.eyebrow{font-size:0.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:700;}
+.reveal-hidden{opacity:0;transform:translateY(20px);transition:opacity 700ms var(--ease),transform 700ms var(--ease);}
+.reveal-shown{opacity:1;transform:translateY(0);}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);max-width:100vw;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:10px;}
+.nav-logo{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:6px;min-width:0;}
+.nav-logo .fruit{font-size:1.1rem;}
+.nav-links{display:flex;gap:26px;list-style:none;}
+.nav-links a{font-size:0.9rem;font-weight:600;color:var(--ink-dim);transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{font-size:0.85rem;font-weight:700;background:var(--gold);color:#fff;padding:11px 20px;border-radius:99px;white-space:nowrap;flex-shrink:1;min-width:0;transition:background .2s,transform .2s;}
+.nav-cta:hover{background:var(--gold-dim);transform:translateY(-1px);}
+@media (max-width:900px){.nav-links{display:none;}}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:30px;height:30px;background:none;border:none;cursor:pointer;padding:0;position:relative;z-index:201;flex-shrink:0;}
+.nav-burger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:opacity .25s ease,margin .25s ease;}
+.nav-burger.open span:nth-child(1){margin-top:7px;}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){margin-top:-7px;}
+@media (max-width:900px){.nav-burger{display:flex;}}
+@media (max-width:420px){.nav-cta{padding:9px 13px;font-size:0.72rem;}.nav-right{gap:6px;}.wrap{padding:0 16px;}}
+
+.mobile-menu-overlay{position:fixed;inset:0;z-index:197;background:rgba(28,26,23,.5);opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.mobile-menu-overlay.open{opacity:1;pointer-events:auto;}
+.mobile-menu{position:fixed;top:0;bottom:0;right:-100%;width:min(84vw,380px);z-index:198;background:var(--bg);display:flex;flex-direction:column;padding:96px 30px 28px;transition:right .4s var(--ease);box-shadow:-30px 0 60px rgba(0,0,0,.2);overflow-y:auto;}
+.mobile-menu.open{right:0;}
+.mobile-menu-close{position:absolute;top:22px;right:22px;width:38px;height:38px;border-radius:50%;background:var(--bg-soft);border:none;font-size:1.05rem;cursor:pointer;}
+.mobile-menu ul{list-style:none;}
+.mobile-menu li{border-bottom:1px solid var(--line);}
+.mobile-menu li:first-child{border-top:1px solid var(--line);}
+.mobile-menu a{font-family:'Manrope',sans-serif;font-weight:700;font-size:1.4rem;display:block;padding:15px 2px;}
+.mobile-menu .mm-cta{margin-top:26px;}
+.mobile-menu .mm-contact{margin-top:auto;padding-top:22px;border-top:1px solid var(--line);font-size:0.78rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.04em;}
+.mobile-menu .mm-contact-links{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+.mobile-menu .mm-contact-links a{font-family:'Inter',sans-serif;font-weight:600;font-size:0.92rem;color:var(--ink);text-transform:none;display:flex;align-items:center;gap:8px;}
+@media (min-width:901px){.mobile-menu,.mobile-menu-overlay{display:none;}}
+
+.btn{font-family:'Manrope',sans-serif;font-weight:700;font-size:0.92rem;padding:15px 28px;border-radius:99px;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s;}
+.btn-fill{background:var(--gold);color:#fff;box-shadow:0 10px 24px rgba(138,109,59,.3);}
+.btn-fill:hover{background:var(--gold-dim);transform:translateY(-2px);}
+.btn-ghost{border:1.5px solid var(--line);color:var(--ink);background:none;}
+.btn-ghost:hover{border-color:var(--ink);background:var(--bg-soft);}
+
+/* hero */
+.hero{position:relative;padding:70px 0 90px;overflow:hidden;}
+.hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px;}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--bg-soft);color:var(--gold-dim);font-size:0.8rem;font-weight:700;padding:8px 16px;border-radius:99px;margin-bottom:22px;}
+.hero h1{font-size:clamp(2.3rem,4.6vw,3.4rem);max-width:14ch;}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero .sub{color:var(--ink-dim);font-size:1.05rem;max-width:46ch;margin-top:20px;}
+.hero-cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap;}
+.hero-stats .stat-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 20px;}
+.hero-stats .n{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.4rem;}
+.hero-stats .l{font-size:0.7rem;color:var(--ink-dim);margin-top:2px;text-transform:uppercase;letter-spacing:.04em;}
+.hero-photo{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(28,26,23,.18);}
+.hero-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;}
+.hero-photo-badge{position:absolute;bottom:18px;left:18px;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-radius:14px;padding:12px 16px;font-size:0.82rem;font-weight:700;display:flex;align-items:center;gap:8px;}
+.hero-photo-badge .dot{width:8px;height:8px;border-radius:50%;background:#3ba35c;}
+
+/* marquee */
+.marquee-strip{background:var(--panel);color:var(--bg);overflow:hidden;}
+.marquee-strip .track{display:inline-flex;animation:mq 26s linear infinite;padding:13px 0;white-space:nowrap;}
+.marquee-strip .track span{font-family:'Manrope',sans-serif;font-weight:700;font-size:1rem;margin:0 24px;color:var(--gold);}
+.marquee-strip .track span.plain{font-weight:500;color:var(--bg);}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+section{padding:90px 0;}
+.section-border{border-top:1px solid var(--line);}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;gap:24px;flex-wrap:wrap;}
+.section-head h2{font-size:clamp(1.9rem,3.6vw,2.6rem);}
+.section-head p{max-width:40ch;color:var(--ink-dim);font-size:0.96rem;}
+@media (max-width:720px){.section-head{flex-direction:column;align-items:flex-start;}}
+
+/* catalogo */
+.cat-tabs{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;}
+.cat-tab{font-size:0.85rem;font-weight:700;padding:10px 18px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink-dim);background:#fff;cursor:pointer;transition:.15s;}
+.cat-tab.active{background:var(--gold);border-color:var(--gold);color:#fff;}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media (max-width:900px){.pgrid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.pgrid{grid-template-columns:1fr;}}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;transition:.2s;}
+.pcard:hover{border-color:var(--gold);transform:translateY(-3px);}
+.pcard .pbadge{display:inline-block;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:5px 10px;border-radius:99px;margin-bottom:12px;}
+.pbadge.nuevo{background:#e7f3ea;color:#2b7a43;}
+.pbadge.semi{background:var(--bg-soft);color:var(--gold-dim);}
+.pbadge.accesorio{background:#eef1f6;color:#3d5a8a;}
+.pcard h4{font-size:1.08rem;margin-bottom:6px;}
+.pcard p{color:var(--ink-dim);font-size:0.86rem;margin-bottom:16px;}
+.pcard-foot{display:flex;justify-content:space-between;align-items:center;}
+.pcard .price{font-family:'Manrope',sans-serif;font-weight:800;font-size:0.92rem;color:var(--gold-dim);}
+.padd{font-size:0.8rem;font-weight:700;color:var(--gold-dim);background:var(--bg-soft);border:none;padding:9px 14px;border-radius:99px;cursor:pointer;transition:.15s;}
+.padd:hover{background:var(--gold);color:#fff;}
+.padd.added{background:#2b7a43;color:#fff;}
+
+/* por que */
+.why{background:var(--panel);color:var(--bg);}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+@media (max-width:820px){.wgrid{grid-template-columns:1fr;}}
+.witem h4{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.3rem;color:var(--gold);margin-bottom:10px;}
+.witem p{color:rgba(250,247,242,.72);font-size:0.94rem;}
+
+/* footer */
+footer{padding:56px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;margin-bottom:32px;}
+.footer-col h5{font-size:0.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-dim);margin-bottom:14px;font-weight:700;}
+.footer-col a,.footer-col div{display:block;font-size:0.9rem;margin-bottom:9px;}
+.footer-col a:hover{color:var(--gold);}
+.footer-note{font-size:0.78rem;color:var(--ink-dim);max-width:70ch;margin-top:8px;line-height:1.6;background:var(--bg-soft);padding:14px 18px;border-radius:12px;}
+.footer-bottom{border-top:1px solid var(--line);padding-top:20px;margin-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.78rem;color:var(--ink-dim);}
+@media (max-width:820px){.footer-grid{grid-template-columns:1fr 1fr;}}
+
+/* cart drawer */
+.cart-overlay{position:fixed;inset:0;background:rgba(28,26,23,.5);z-index:299;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.cart-overlay.open{opacity:1;pointer-events:auto;}
+.cart-drawer{position:fixed;top:0;right:-100%;bottom:0;width:440px;max-width:94vw;background:var(--bg);z-index:300;box-shadow:-24px 0 60px rgba(0,0,0,.25);transition:right .4s var(--ease);display:flex;flex-direction:column;}
+.cart-drawer.open{right:0;}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:22px 26px;border-bottom:1px solid var(--line);}
+.cart-head h3{font-size:1.2rem;}
+.cart-close{width:34px;height:34px;border-radius:50%;background:var(--bg-soft);border:none;font-size:1rem;cursor:pointer;}
+.cart-body{flex:1;overflow-y:auto;padding:20px 26px;}
+.cart-empty{color:var(--ink-dim);font-size:0.9rem;text-align:center;padding:40px 0;}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);gap:10px;}
+.cart-item .name{font-weight:700;font-size:0.92rem;}
+.cart-item .cat{font-size:0.76rem;color:var(--ink-dim);}
+.cart-item .rm{background:none;border:none;color:var(--ink-dim);cursor:pointer;font-size:1rem;}
+.cart-item .rm:hover{color:#c0392b;}
+.cart-footer{padding:20px 26px;border-top:1px solid var(--line);}
+.cart-footer p{font-size:0.85rem;color:var(--ink-dim);margin-bottom:14px;}
+.cart-fab{position:fixed;bottom:24px;right:24px;z-index:150;background:var(--panel);color:#fff;border:none;border-radius:99px;padding:15px 22px;display:flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;box-shadow:0 14px 30px rgba(0,0,0,.3);}
+.cart-fab .badge{background:var(--gold);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="nav-logo"><span class="fruit">🍎</span> Maju Store</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#catalogo">Catálogo</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#ubicacion">Envíos</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cta" id="openCartBtn">Ver mi consulta</button>
+      <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Menú">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Cerrar menú">✕</button>
+  <ul>
+    <li><a href="#catalogo">Catálogo</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#ubicacion">Envíos</a></li>
+  </ul>
+  <div class="mm-cta">
+    <button class="btn btn-fill" id="mobileMenuCartBtn" style="width:100%;">Ver mi consulta</button>
+  </div>
+  <div class="mm-contact">
+    Contacto directo
+    <div class="mm-contact-links">
+      <a href="https://wa.me/5491140423747" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a href="https://instagram.com/majustore.ok" target="_blank" rel="noopener">📷 @majustore.ok</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="reveal-hidden" data-reveal>
+      <span class="hero-tag">📦 Para revendedores</span>
+      <h1>Un solo catálogo, <em>sin repetir la lista</em> en dos grupos.</h1>
+      <p class="sub">iPhones nuevos sellados y seminuevos revisados, más accesorios originales. Elegís lo que te interesa, mandás una sola consulta por WhatsApp — sin buscar entre mensajes viejos de los grupos.</p>
+      <div class="hero-cta">
+        <button class="btn btn-fill" id="heroCartBtn">Armar mi consulta</button>
+        <a href="#catalogo" class="btn btn-ghost">Ver catálogo</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card"><div class="n">7.300+</div><div class="l">Comunidad IG</div></div>
+        <div class="stat-card"><div class="n">100%</div><div class="l">Envíos al país</div></div>
+        <div class="stat-card"><div class="n">Semanal</div><div class="l">Reposición stock</div></div>
+      </div>
+    </div>
+    <div class="hero-photo reveal-hidden" data-reveal>
+      <img src="img/maju/hero-iphones.jpg" alt="iPhones nuevos y seminuevos Maju Store">
+      <div class="hero-photo-badge"><span class="dot"></span> Stock actualizado esta semana</div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee-strip">
+  <div class="track">
+    <span>iPhone 17</span><span class="plain">·</span><span>17 Pro</span><span class="plain">·</span><span>17 Pro Max</span><span class="plain">·</span><span>Seminuevos revisados</span><span class="plain">·</span><span>Accesorios originales</span><span class="plain">·</span><span>Envíos a todo el país</span><span class="plain">·</span>
+    <span>iPhone 17</span><span class="plain">·</span><span>17 Pro</span><span class="plain">·</span><span>17 Pro Max</span><span class="plain">·</span><span>Seminuevos revisados</span><span class="plain">·</span><span>Accesorios originales</span><span class="plain">·</span><span>Envíos a todo el país</span><span class="plain">·</span>
+  </div>
+</div>
+
+<section class="section-border" id="catalogo">
+  <div class="wrap">
+    <div class="section-head reveal-hidden" data-reveal>
+      <div>
+        <span class="eyebrow">Catálogo</span>
+        <h2 style="margin-top:10px;">Elegí y armá tu consulta</h2>
+      </div>
+      <p>Tocá "Agregar" en lo que te interesa. Al final mandás una sola consulta por WhatsApp con todo junto.</p>
+    </div>
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab active" data-cat="todos">Todos</button>
+      <button class="cat-tab" data-cat="nuevo">Nuevos sellados</button>
+      <button class="cat-tab" data-cat="semi">Seminuevos</button>
+      <button class="cat-tab" data-cat="accesorio">Accesorios</button>
+    </div>
+    <div class="pgrid" id="proGrid"></div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="section-head reveal-hidden" data-reveal style="border:none;">
+      <div>
+        <span class="eyebrow" style="color:var(--gold);">Por qué Maju Store</span>
+        <h2 style="margin-top:10px;color:#fff;">Lo que ya construiste, mejor mostrado</h2>
+      </div>
+    </div>
+    <div class="wgrid">
+      <div class="witem reveal-hidden" data-reveal><h4>Equipos revisados</h4><p>Los seminuevos se prueban antes de salir. Los nuevos llegan sellados de fábrica.</p></div>
+      <div class="witem reveal-hidden" data-reveal><h4>Envíos a todo el país</h4><p>No importa dónde estés, el pedido llega.</p></div>
+      <div class="witem reveal-hidden" data-reveal><h4>Reposición semanal</h4><p>Stock actualizado cada semana, no listas viejas dando vueltas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-border" id="nosotros">
+  <div class="wrap">
+    <div class="section-head reveal-hidden" data-reveal>
+      <div>
+        <span class="eyebrow">Nosotros</span>
+        <h2 style="margin-top:10px;">Una comunidad, no un local más</h2>
+      </div>
+    </div>
+    <p style="max-width:60ch;color:var(--ink-dim);font-size:1rem;line-height:1.7;">Maju Store nació como una comunidad para revendedores que buscan equipos Apple confiables, con trato directo y sin vueltas. Hoy somos más de 7.300 en Instagram, con gente que vuelve a comprar porque sabe que el equipo llega como se prometió.</p>
+  </div>
+</section>
+
+<section id="ubicacion">
+  <div class="wrap">
+    <div class="cta-band reveal-hidden" data-reveal style="background:var(--bg-soft);border-radius:32px;padding:70px 40px;text-align:center;">
+      <h2>¿Buscás algo puntual que no está en la lista?</h2>
+      <p style="color:var(--ink-dim);max-width:44ch;margin:16px auto 30px;">Escribinos directo y te decimos si lo tenemos en stock.</p>
+      <a href="https://wa.me/5491140423747" target="_blank" rel="noopener" class="btn btn-fill">Escribir por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Maju Store</h5>
+        <div style="color:var(--ink-dim);max-width:32ch;">Accesorios y equipos Apple nuevos y seminuevos, para revendedores en todo el país.</div>
+      </div>
+      <div class="footer-col">
+        <h5>Secciones</h5>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#nosotros">Nosotros</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <a href="https://wa.me/5491140423747" target="_blank">WhatsApp</a>
+        <a href="https://instagram.com/majustore.ok" target="_blank">@majustore.ok ↗</a>
+      </div>
+    </div>
+    <p class="footer-note">Esta página es una <b>propuesta de diseño</b> armada por FR.Sistemas a partir de contenido y fotos reales de Maju Store, para mostrar cómo quedaría un catálogo centralizado. No es el sitio oficial — los precios se consultan por WhatsApp, igual que hoy.</p>
+    <div class="footer-bottom">
+      <span>Propuesta para Maju Store — armada por FR.Sistemas</span>
+      <a href="../../index.html">Volver al portfolio</a>
+    </div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Mi consulta">
+  <div class="cart-head">
+    <h3>Mi consulta</h3>
+    <button class="cart-close" id="cartClose" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-footer">
+    <p id="cartFooterText">Agregá productos del catálogo para armar tu consulta.</p>
+    <a class="btn btn-fill" id="cartSendBtn" style="width:100%;justify-content:center;" target="_blank" rel="noopener">Enviar consulta por WhatsApp</a>
+  </div>
+</aside>
+<button class="cart-fab" id="cartFab" style="display:none;">
+  🛒 Mi consulta <span class="badge" id="cartFabCount">0</span>
+</button>
+
+<script>
+(function(){
+  var MAJU_WHATSAPP = '5491140423747';
+
+  // ---------- reveals ----------
+  var els = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.remove('reveal-hidden'); e.target.classList.add('reveal-shown'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('reveal-shown'); });
+  }
+  setTimeout(function(){ document.querySelectorAll('.reveal-hidden').forEach(function(el){ el.classList.remove('reveal-hidden'); el.classList.add('reveal-shown'); }); }, 4000);
+
+  // ---------- menu mobile ----------
+  var burger = document.getElementById('navBurger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+  var mobileMenuClose = document.getElementById('mobileMenuClose');
+  function openMobileMenu(){
+    mobileMenu.classList.add('open'); mobileMenuOverlay.classList.add('open');
+    burger.classList.add('open'); burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu(){
+    mobileMenu.classList.remove('open'); mobileMenuOverlay.classList.remove('open');
+    burger.classList.remove('open'); burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', function(){ mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu(); });
+  mobileMenuClose.addEventListener('click', closeMobileMenu);
+  mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+  document.querySelectorAll('.mobile-menu a').forEach(function(a){ a.addEventListener('click', closeMobileMenu); });
+
+  // ---------- productos (sin precios inventados: se consultan por WhatsApp, como hacen hoy) ----------
+  var PRODUCTS = [
+    { id:'ip17pm', name:'iPhone 17 Pro Max', cat:'nuevo', label:'Nuevo sellado', desc:'Sellado de fábrica, todos los colores según stock.' },
+    { id:'ip17p', name:'iPhone 17 Pro', cat:'nuevo', label:'Nuevo sellado', desc:'Sellado de fábrica, consultar colores disponibles.' },
+    { id:'ip17', name:'iPhone 17', cat:'nuevo', label:'Nuevo sellado', desc:'Sellado de fábrica, consultar colores disponibles.' },
+    { id:'ip15semi', name:'iPhone 15', cat:'semi', label:'Seminuevo revisado', desc:'Probado y revisado antes de la entrega.' },
+    { id:'ip14semi', name:'iPhone 14', cat:'semi', label:'Seminuevo revisado', desc:'Probado y revisado antes de la entrega.' },
+    { id:'ip13semi', name:'iPhone 13', cat:'semi', label:'Seminuevo revisado', desc:'Probado y revisado antes de la entrega.' },
+    { id:'cargador20', name:'Cargador original 20W (USB-C)', cat:'accesorio', label:'Accesorio', desc:'Cargador original, entrega inmediata.' },
+    { id:'combocable', name:'Combo cargador 20W + cable USB-C', cat:'accesorio', label:'Accesorio', desc:'Cargador y cable original, combo con mejor precio.' },
+    { id:'fundas', name:'Fundas y protectores', cat:'accesorio', label:'Accesorio', desc:'Variedad según modelo, consultar stock.' }
+  ];
+
+  var proGrid = document.getElementById('proGrid');
+  var catTabs = document.getElementById('catTabs');
+  var activeCat = 'todos';
+
+  function badgeClass(cat){ return cat === 'nuevo' ? 'nuevo' : (cat === 'semi' ? 'semi' : 'accesorio'); }
+
+  function renderGrid(){
+    var list = activeCat === 'todos' ? PRODUCTS : PRODUCTS.filter(function(p){ return p.cat === activeCat; });
+    proGrid.innerHTML = list.map(function(p){
+      var inCart = cart.indexOf(p.id) !== -1;
+      return '<div class="pcard">' +
+        '<span class="pbadge ' + badgeClass(p.cat) + '">' + p.label + '</span>' +
+        '<h4>' + p.name + '</h4>' +
+        '<p>' + p.desc + '</p>' +
+        '<div class="pcard-foot">' +
+          '<span class="price">Consultar</span>' +
+          '<button class="padd' + (inCart ? ' added' : '') + '" data-id="' + p.id + '">' + (inCart ? '✓ Agregado' : '+ Agregar') + '</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  catTabs.addEventListener('click', function(e){
+    var btn = e.target.closest('.cat-tab');
+    if (!btn) return;
+    catTabs.querySelectorAll('.cat-tab').forEach(function(t){ t.classList.remove('active'); });
+    btn.classList.add('active');
+    activeCat = btn.dataset.cat;
+    renderGrid();
+  });
+
+  // ---------- carrito de consulta ----------
+  var cart = [];
+  var overlay = document.getElementById('cartOverlay');
+  var drawer = document.getElementById('cartDrawer');
+  var fab = document.getElementById('cartFab');
+  var fabCount = document.getElementById('cartFabCount');
+
+  function openCart(){ overlay.classList.add('open'); drawer.classList.add('open'); document.body.style.overflow = 'hidden'; renderCart(); }
+  function closeCart(){ overlay.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow = ''; }
+  document.getElementById('openCartBtn').addEventListener('click', openCart);
+  document.getElementById('heroCartBtn').addEventListener('click', openCart);
+  document.getElementById('mobileMenuCartBtn').addEventListener('click', function(){ closeMobileMenu(); openCart(); });
+  document.getElementById('cartClose').addEventListener('click', closeCart);
+  overlay.addEventListener('click', closeCart);
+  fab.addEventListener('click', openCart);
+
+  proGrid.addEventListener('click', function(e){
+    var btn = e.target.closest('.padd');
+    if (!btn) return;
+    var id = btn.dataset.id;
+    var idx = cart.indexOf(id);
+    if (idx === -1) cart.push(id); else cart.splice(idx, 1);
+    renderGrid();
+    updateFab();
+    if (drawer.classList.contains('open')) renderCart();
+  });
+
+  function updateFab(){
+    fab.style.display = cart.length ? 'flex' : 'none';
+    fabCount.textContent = cart.length;
+  }
+
+  function renderCart(){
+    var body = document.getElementById('cartBody');
+    if (!cart.length) {
+      body.innerHTML = '<div class="cart-empty">Todavía no agregaste nada.<br>Volvé al catálogo y tocá "Agregar" en lo que te interesa.</div>';
+    } else {
+      body.innerHTML = cart.map(function(id){
+        var p = PRODUCTS.filter(function(x){ return x.id === id; })[0];
+        return '<div class="cart-item"><div><div class="name">' + p.name + '</div><div class="cat">' + p.label + '</div></div><button class="rm" data-id="' + p.id + '">✕</button></div>';
+      }).join('');
+    }
+    document.getElementById('cartFooterText').textContent = cart.length
+      ? cart.length + ' producto' + (cart.length > 1 ? 's' : '') + ' en tu consulta'
+      : 'Agregá productos del catálogo para armar tu consulta.';
+
+    var lines = ['Hola! Vi el catálogo de Maju Store y quiero consultar por:'];
+    cart.forEach(function(id){
+      var p = PRODUCTS.filter(function(x){ return x.id === id; })[0];
+      lines.push('• ' + p.name + ' (' + p.label + ')');
+    });
+    if (!cart.length) lines.push('(todavía estoy mirando el catálogo)');
+    document.getElementById('cartSendBtn').href = 'https://wa.me/' + MAJU_WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n'));
+  }
+
+  document.getElementById('cartBody').addEventListener('click', function(e){
+    var btn = e.target.closest('.rm');
+    if (!btn) return;
+    var idx = cart.indexOf(btn.dataset.id);
+    if (idx !== -1) cart.splice(idx, 1);
+    renderGrid();
+    renderCart();
+    updateFab();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') {
+      if (drawer.classList.contains('open')) closeCart();
+      if (mobileMenu.classList.contains('open')) closeMobileMenu();
+    }
+  });
+
+  renderGrid();
+})();
+</script>
+</body>
+</html>
