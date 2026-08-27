@@ -68,21 +68,36 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;letter-spacing:-
 
 /* ---------- menu mobile ---------- */
 .nav-right{display:flex;align-items:center;gap:12px;}
-.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;}
-.nav-burger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .25s;}
-.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;position:relative;z-index:201;}
+.nav-burger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:opacity .25s ease,margin .25s ease;}
+.nav-burger.open span:nth-child(1){margin-top:7px;transform-origin:center;}
 .nav-burger.open span:nth-child(2){opacity:0;}
-.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-burger.open span:nth-child(3){margin-top:-7px;}
 @media (max-width:900px){.nav-burger{display:flex;}}
+
+.mobile-menu-overlay{position:fixed;inset:0;z-index:197;background:rgba(61,54,46,.45);opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.mobile-menu-overlay.open{opacity:1;pointer-events:auto;}
+
 .mobile-menu{
-  position:fixed;inset:0;z-index:199;background:var(--bg);
-  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:22px;
-  padding:0 40px;list-style:none;
-  transform:translateY(-100%);transition:transform .35s ease;
+  position:fixed;top:0;bottom:0;right:-100%;width:min(84vw,380px);z-index:198;
+  background:var(--bg);display:flex;flex-direction:column;
+  padding:96px 30px 28px;
+  transition:right .4s var(--ease);
+  box-shadow:-30px 0 60px rgba(61,54,46,.22);
+  overflow-y:auto;
 }
-.mobile-menu.open{transform:translateY(0);}
-.mobile-menu a{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2.1rem;}
-@media (min-width:901px){.mobile-menu{display:none;}}
+.mobile-menu.open{right:0;}
+.mobile-menu-close{position:absolute;top:22px;right:22px;width:38px;height:38px;border-radius:50%;background:var(--bg-soft);border:none;font-size:1.05rem;cursor:pointer;color:var(--ink);}
+.mobile-menu ul{list-style:none;}
+.mobile-menu li{border-bottom:1px solid var(--line);}
+.mobile-menu li:first-child{border-top:1px solid var(--line);}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.5rem;display:block;padding:15px 2px;transition:color .15s,padding-left .15s;}
+.mobile-menu a:hover,.mobile-menu a:active{color:var(--accent);padding-left:6px;}
+.mobile-menu .mm-cta{margin-top:26px;}
+.mobile-menu .mm-contact{margin-top:auto;padding-top:22px;border-top:1px solid var(--line);font-size:0.78rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.04em;}
+.mobile-menu .mm-contact-links{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+.mobile-menu .mm-contact-links a{font-family:'Outfit',sans-serif;font-weight:600;font-size:0.92rem;color:var(--ink);text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;padding:0;}
+@media (min-width:901px){.mobile-menu,.mobile-menu-overlay{display:none;}}
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden;padding-top:120px;}
@@ -219,8 +234,8 @@ footer{padding:56px 0 30px;}
 /* ---------- booking modal ---------- */
 .booking-overlay{position:fixed;inset:0;background:rgba(61,54,46,.55);z-index:299;opacity:0;pointer-events:none;transition:opacity .3s ease;}
 .booking-overlay.open{opacity:1;pointer-events:auto;}
-.booking-modal{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:94vw;background:var(--bg);z-index:300;box-shadow:-24px 0 60px rgba(61,54,46,.25);transform:translateX(100%);transition:transform .4s var(--ease);display:flex;flex-direction:column;}
-.booking-modal.open{transform:translateX(0);}
+.booking-modal{position:fixed;top:0;right:-100%;bottom:0;width:480px;max-width:94vw;background:var(--bg);z-index:300;box-shadow:-24px 0 60px rgba(61,54,46,.25);transition:right .4s var(--ease);display:flex;flex-direction:column;}
+.booking-modal.open{right:0;}
 .booking-head{display:flex;justify-content:space-between;align-items:center;padding:22px 26px;border-bottom:1px solid var(--line);}
 .booking-head h3{font-size:1.3rem;}
 .booking-close{width:34px;height:34px;border-radius:50%;background:var(--bg-soft);border:none;font-size:1rem;cursor:pointer;color:var(--ink);flex-shrink:0;}
@@ -304,13 +319,27 @@ footer{padding:56px 0 30px;}
   </div>
 </nav>
 
-<ul class="mobile-menu" id="mobileMenu">
-  <li><a href="#tratamientos">Tratamientos</a></li>
-  <li><a href="#talleres">Talleres</a></li>
-  <li><a href="#espacio">Nuestro espacio</a></li>
-  <li><a href="#equipo">Equipo</a></li>
-  <li><a href="#ubicacion">Ubicación</a></li>
-</ul>
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Menú">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Cerrar menú">✕</button>
+  <ul>
+    <li><a href="#tratamientos">Tratamientos</a></li>
+    <li><a href="#talleres">Talleres</a></li>
+    <li><a href="#espacio">Nuestro espacio</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#ubicacion">Ubicación</a></li>
+  </ul>
+  <div class="mm-cta">
+    <button class="btn btn-fill" id="mobileMenuBookBtn" style="width:100%;">Reservar turno</button>
+  </div>
+  <div class="mm-contact">
+    Contacto directo
+    <div class="mm-contact-links">
+      <a href="tel:+541167011976">📞 11 6701-1976</a>
+      <a href="https://wa.me/5491167011976" target="_blank" rel="noopener">💬 Escribir por WhatsApp</a>
+    </div>
+  </div>
+</nav>
 
 <header class="hero" id="top">
   <div class="hero-bg"><img src="img/calu/foto-11.jpg" alt="Espacio de terapia CALU Consultorios"></div>
@@ -670,19 +699,36 @@ footer{padding:56px 0 30px;}
   // ---------- menu mobile ----------
   var burger = document.getElementById('navBurger');
   var mobileMenu = document.getElementById('mobileMenu');
+  var mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+  var mobileMenuClose = document.getElementById('mobileMenuClose');
+  function openMobileMenu(){
+    mobileMenu.classList.add('open');
+    mobileMenuOverlay.classList.add('open');
+    burger.classList.add('open');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu(){
+    mobileMenu.classList.remove('open');
+    mobileMenuOverlay.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
   burger.addEventListener('click', function(){
-    var isOpen = mobileMenu.classList.toggle('open');
-    burger.classList.toggle('open', isOpen);
-    burger.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (mobileMenu.classList.contains('open')) closeMobileMenu(); else openMobileMenu();
   });
+  mobileMenuClose.addEventListener('click', closeMobileMenu);
+  mobileMenuOverlay.addEventListener('click', closeMobileMenu);
   document.querySelectorAll('.mobile-menu a').forEach(function(a){
-    a.addEventListener('click', function(){
-      mobileMenu.classList.remove('open');
-      burger.classList.remove('open');
-      burger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
+    a.addEventListener('click', closeMobileMenu);
+  });
+  document.getElementById('mobileMenuBookBtn').addEventListener('click', function(){
+    closeMobileMenu();
+    openBooking();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobileMenu();
   });
 
   // ---------- nav activo por scroll ----------
