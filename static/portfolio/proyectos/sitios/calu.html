@@ -287,7 +287,10 @@ footer{padding:56px 0 30px;}
 .form-field.error .field-error{display:block;}
 .wa-confirm{display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;margin-top:18px;font-size:0.94rem;color:#fff;font-weight:600;background:#25D366;border-radius:99px;padding:15px;box-shadow:0 10px 24px rgba(37,211,102,.3);transition:transform .2s,background .2s;}
 .wa-confirm:hover{background:#1ebc59;transform:translateY(-2px);}
-.ics-btn{display:block;text-align:center;margin-top:10px;font-size:0.86rem;color:var(--ink-dim);cursor:pointer;padding:10px;}
+.cal-row{display:flex;gap:10px;margin-top:10px;}
+.cal-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:0.86rem;font-weight:600;color:var(--ink);border:1.5px solid var(--line);border-radius:99px;padding:11px;cursor:pointer;transition:border-color .15s,background .15s;}
+.cal-btn:hover{border-color:var(--accent);background:var(--bg-soft);}
+.ics-btn{display:block;text-align:center;margin-top:10px;font-size:0.8rem;color:var(--ink-dim);cursor:pointer;padding:6px;}
 .ics-btn:hover{color:var(--accent-dim);}
 .booking-footer{padding:20px 26px;border-top:1px solid var(--line);display:flex;gap:12px;}
 .booking-footer .btn{flex:1;justify-content:center;}
@@ -691,7 +694,10 @@ footer{padding:56px 0 30px;}
       </div>
       <div class="recap-box" id="recapFinal"></div>
       <a class="wa-confirm" id="waConfirmBtn" href="#" target="_blank" rel="noopener">💬 Confirmar por WhatsApp a CALU</a>
-      <div class="ics-btn" id="icsBtn">📅 Agregar a mi calendario</div>
+      <div class="cal-row">
+        <a class="cal-btn" id="googleCalBtn" href="#" target="_blank" rel="noopener">📅 Google Calendar</a>
+      </div>
+      <div class="ics-btn" id="icsBtn">Descargar .ics (Outlook / Apple Calendar)</div>
     </div>
 
   </div>
@@ -1099,8 +1105,26 @@ footer{padding:56px 0 30px;}
     ];
     if (motivo) waLines.push('• Motivo: ' + motivo);
     document.getElementById('waConfirmBtn').href = 'https://wa.me/' + CALU_WHATSAPP + '?text=' + encodeURIComponent(waLines.join('\n'));
+    document.getElementById('googleCalBtn').href = googleCalendarUrl();
 
     goToStep('confirm');
+  }
+
+  function googleCalendarUrl(){
+    var f = currentFechaISO();
+    function two(n){ return n < 10 ? '0' + n : '' + n; }
+    function stamp(hOffset){
+      var d = new Date(f.y, f.m - 1, f.day, f.h + hOffset, f.min);
+      return d.getFullYear() + two(d.getMonth() + 1) + two(d.getDate()) + 'T' + two(d.getHours()) + two(d.getMinutes()) + '00';
+    }
+    var params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: 'Turno CALU Consultorios — ' + currentWhoText(),
+      dates: stamp(0) + '/' + stamp(1),
+      details: 'Reserva realizada desde caluconsultorios.com.ar',
+      ctz: 'America/Argentina/Buenos_Aires'
+    });
+    return 'https://calendar.google.com/calendar/render?' + params.toString();
   }
 
   document.getElementById('icsBtn').addEventListener('click', function(){
