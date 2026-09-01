@@ -20,6 +20,17 @@
 <link rel="stylesheet" href="assets/style.css?v=16">
 <link rel="stylesheet" href="assets/site-extra.css?v=16">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%230a0a0a%27/%3E%3Ctext x=%2750%27 y=%2769%27 font-size=%2758%27 font-family=%27Arial,sans-serif%27 font-weight=%27800%27 fill=%27%23d6ff3f%27 text-anchor=%27middle%27%3EF%3C/text%3E%3C/svg%3E">
+<style>
+.software-feature{display:flex;flex-wrap:wrap;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.02);transition:border-color .25s ease, transform .25s ease;}
+.software-feature:hover{border-color:var(--accent-2);transform:translateY(-3px);}
+.software-feature-media{flex:1 1 480px;background:#0a0a0a;display:flex;align-items:center;overflow:hidden;}
+.software-feature-media img{width:100%;display:block;}
+.software-feature-body{flex:1 1 380px;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;justify-content:center;}
+.software-feature-body .work-title{font-size:clamp(1.3rem,2.4vw,1.7rem);display:block;margin-bottom:16px;}
+.software-feature-body p{color:var(--ink-dim);margin:0 0 26px;max-width:48ch;line-height:1.6;}
+.software-feature-cta{display:inline-flex;align-items:center;gap:8px;font-weight:700;}
+.software-feature:hover .software-feature-cta{color:var(--accent-2);}
+</style>
 </head>
 <body class="brand-portfolio">
 
@@ -39,6 +50,7 @@
     <ul class="nav-links">
       <li><a href="#servicios" data-cursor="">Servicios</a></li>
       <li><a href="#work" data-cursor="">Trabajo</a></li>
+      <li><a href="#software" data-cursor="">Software</a></li>
       <li><a href="#sistemas" data-cursor="">Sistemas</a></li>
       <li><a href="#apps" data-cursor="">Apps</a></li>
       <li><a href="#about" data-cursor="">Sobre mí</a></li>
@@ -56,6 +68,7 @@
 <div class="mobile-menu">
   <a href="#servicios">Servicios</a>
   <a href="#work">Trabajo</a>
+  <a href="#software">Software</a>
   <a href="#sistemas">Sistemas</a>
   <a href="#apps">Apps</a>
   <a href="#about">Sobre mí</a>
@@ -187,6 +200,25 @@
       </a>
 
     </div>
+  </div>
+</section>
+
+<section id="software" style="padding:140px 0;border-top:1px solid var(--line);">
+  <div class="wrap">
+    <div class="block-head">
+      <h2 class="reveal-line"><span>Software real, no una demo.</span></h2>
+      <p class="fade-up" style="color:var(--ink-dim);margin-top:16px;max-width:56ch;">Además de sitios y sistemas de demostración, también desarrollo software completo que un negocio puede usar de verdad todos los días — con datos reales, sincronizado en la nube.</p>
+    </div>
+    <a href="proyectos/sistemas/cauce.html" class="software-feature fade-up">
+      <div class="software-feature-media">
+        <img src="assets/cauce/cauce-preview.jpg" alt="Vista de escritorio de Cauce, el CRM de FRSistemas" loading="lazy">
+      </div>
+      <div class="software-feature-body">
+        <span class="work-title">Cauce <span class="badge" style="background:var(--accent-2);">Software real</span></span>
+        <p>CRM con pipeline de ventas, tareas con fecha límite y seguimiento de ingresos. Nació para uso interno de FRsistemas y hoy es un producto a medida &mdash; funciona en escritorio y celular, con los mismos datos sincronizados en la nube.</p>
+        <span class="software-feature-cta">Ver el caso de estudio <span class="work-arrow" style="position:static;">↗</span></span>
+      </div>
+    </a>
   </div>
 </section>
 
