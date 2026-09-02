@@ -198,14 +198,19 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacin
 .hero-panel.book-form{
   display:grid;grid-template-columns:1fr 1fr;gap:16px;
 }
+.hero-panel.book-form .full{grid-column:1/-1;}
 .hero-panel.book-form input,
 .hero-panel.book-form select,
 .hero-panel.book-form textarea{
+  min-width:0;
   background:rgba(255,255,255,0.02);
   border:1px solid var(--line);
   border-radius:8px;
   padding:12px 14px;
   color:var(--ink);
+}
+@media (max-width:600px){
+  .hero-panel.book-form{grid-template-columns:1fr;}
 }
 .hero-panel.book-form input:focus,
 .hero-panel.book-form select:focus,
