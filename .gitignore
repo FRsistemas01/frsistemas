@@ -28,4 +28,4 @@ staticfiles/
 
 # Claude Code local-only config
 .claude/settings.local.json
-.claude/scheduled_tasks.lock
+.claude/scheduled_tasks.lock.claude/
